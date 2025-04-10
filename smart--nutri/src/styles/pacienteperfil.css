@@ -1,0 +1,59 @@
+.paciente-perfil-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .info-pessoal {
+    background: #f3f8fc;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .dias-abas {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .aba {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+  }
+  
+  .aba.ativa {
+    background: #00796b;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+  }
+  
+  .plano-refeicoes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .card-refeicao {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .voltar {
+    margin-top: 2rem;
+    background: #f44336;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  

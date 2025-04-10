@@ -1,0 +1,137 @@
+body {
+    background-color: #f3f6f9;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    min-height: 100vh;
+    background-color: #f9fafb;
+  }
+  
+  .login-card {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .login-logo {
+    height: 70px;
+    margin-bottom: 10px;
+  }
+  
+  .login-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .login-type {
+    display: inline-block;
+    background-color: #22c55e;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 12px;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-group label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+  }
+  
+  .input-field {
+    display: flex;
+    align-items: center;
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  
+  .input-field input {
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .input-icon {
+    color: #6b7280;
+    font-size: 16px;
+  }
+  
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 16px;
+  }
+  
+  .forgot-password a {
+    font-size: 13px;
+    color: #0d9488;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .btn.primary {
+    background-color: #22c55e;
+    color: white;
+  }
+  
+  .btn.primary:hover {
+    background-color: #16a34a;
+  }
+  
+  .btn.secondary {
+    background-color: #2563eb;
+    color: white;
+  }
+  
+  .btn.secondary:hover {
+    background-color: #1e40af;
+  }
+  
+  .register-text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+  }
+  

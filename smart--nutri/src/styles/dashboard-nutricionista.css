@@ -1,0 +1,121 @@
+/* Container geral */
+.nutri-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Botão de sair */
+.logout-button-top {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.logout-button-top:hover {
+  color: #ef4444;
+}
+
+.logout-button-top::after {
+  content: "Sair";
+  position: absolute;
+  top: -30px;
+  right: 0;
+  background-color: #475569;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.logout-button-top:hover::after {
+  opacity: 1;
+}
+
+/* Cabeçalho */
+.nutri-dashboard-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.nutri-dashboard-header h2 {
+  color: #16a34a; /* verde */
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.nutri-dashboard-header p {
+  font-size: 16px;
+  color: #334155;
+}
+
+/* Conteúdo principal */
+.nutri-dashboard-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Cartões */
+.nutri-dashboard-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  background: linear-gradient(135deg, #ffffff, #f9fafb);
+  border-left: 4px solid #16a34a;
+  border-radius: 12px;
+  padding: 16px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.nutri-dashboard-card:hover {
+  background-color: #f1f5f9;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Ícones */
+.nutri-icon {
+  background-color: #dcfce7;
+  color: #16a34a;
+  padding: 8px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .nutri-dashboard-header h2 {
+    font-size: 24px;
+  }
+
+  .nutri-dashboard-card {
+    padding: 12px 16px;
+  }
+
+  .nutri-icon {
+    font-size: 18px;
+  }
+}

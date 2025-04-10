@@ -1,0 +1,470 @@
+/* Fonte moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* Reset e base do body */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Container principal (vidro + animação) */
+.container {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(16px);
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 350px;
+  margin-top: 20px;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animação fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cabeçalho com imagem e label */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header img {
+  width: 150px;
+}
+
+.header span {
+  background: #2e7d32;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+/* Título de cadastro */
+.cadastro-title {
+  margin-top: 10px;
+  font-size: 24px;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+/* Inputs */
+.inputContainer {
+  text-align: left;
+  margin-top: 17px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer label {
+  font-weight: bold;
+  color: #0f0f0f;
+  margin-bottom: 6px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.inputIcon {
+  margin-right: 8px;
+  color: #888;
+}
+
+.inputWrapper input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+/* Link "Esqueci a senha" */
+a.forgot-password {
+  display: block;
+  color: rgb(32, 182, 174);
+  font-size: 14px;
+  text-decoration: underline;
+  margin: 8px 0;
+}
+
+/* Botão principal */
+.button {
+  width: 100%;
+  background: linear-gradient(to right, #43a047, #2e7d32);
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}
+
+/* Texto de registro */
+.register-text {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: black;
+}
+
+/* Alternância entre cadastros */
+.switch-container {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin: 20px 0 10px;
+}
+
+.switch-container button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.switch-container button:nth-child(1) {
+  background: #2e7d32;
+  color: white;
+}
+
+.switch-container button:nth-child(2) {
+  background: #1565c0;
+  color: white;
+}
+
+.switch-container button:hover {
+  opacity: 0.8;
+}
+
+/* Toggle Cliente/Nutricionista */
+.user-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.toggle-button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.toggle-button:not(.active) {
+  background-color: #ddd;
+  color: black;
+}
+
+.toggle-button:hover {
+  filter: brightness(0.9);
+}
+
+.nutricionista {
+  background-color: #2d8f85;
+}
+
+.cliente {
+  background-color: #4caf50;
+}
+
+.title-box {
+  background-color: #4caf50;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  display: inline-block;
+  margin-bottom: 16px;
+  color: white;
+}
+
+/* Responsivo */
+@media (max-width: 420px) {
+  .container {
+    width: 90%;
+    padding: 20px 15px;
+  }
+
+  .header img {
+    width: 130px;
+    margin-top: 20px;
+  }
+
+  .cadastro-title {
+    font-size: 20px;
+  }
+
+  .button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+/* DASHBOARD */
+.dashboard-container {
+  padding: 32px;
+  text-align: center;
+}
+
+.dashboard-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  color: #2e7d32;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.dashboard-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 100%;
+  max-width: 200px;
+}
+
+.dashboard-card span {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+  background-color: #f1f8e9;
+}
+
+.logout {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.logout:hover {
+  background-color: #ef9a9a;
+}
+
+/* PERFIL */
+.perfil-container {
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-dados p {
+  margin: 0.5rem 0;
+}
+
+.perfil-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* PLANO ALIMENTAR */
+.plano-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  text-align: left;
+}
+
+.plano-refeicoes {
+  margin-top: 20px;
+}
+
+.plano-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.plano-alimentar {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
+}
+
+.plano-alimentar h2 {
+  font-size: 2rem;
+  color: #2e7d32;
+  text-align: center;
+  margin-bottom: 30px;
+}
+/* Dias da semana */
+.dias-semana {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.dia-botao {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #000;
+  font-weight: 500;
+  padding: 10px 18px;
+  margin: 0 5px;
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dia-botao:hover {
+  background: rgba(46, 125, 50, 0.8);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.dia-botao.active {
+  background: #2e7d32;
+  color: white;
+  font-weight: bold;
+}
+
+
+/* Refeições */
+.refeicao-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.refeicao-card:hover {
+  transform: translateY(-3px);
+}
+
+.refeicao-card h3 {
+  font-size: 1.4rem;
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.refeicao-card p {
+  margin: 6px 0;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.refeicao-card h3 svg {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .dias-semana {
+    gap: 6px;
+  }
+
+  .dia-botao {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .refeicao-card {
+    padding: 16px;
+  }
+}
+
+.plano-alimentar button {
+  background-color: #4caf50; /* verde bonito */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.plano-alimentar button:hover {
+  background-color: #45a049; /* tom mais escuro no hover */
+}
+
+.plano-alimentar button.selected {
+  background-color: #2e7d32; 
+  font-weight: bold;
+}

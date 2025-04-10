@@ -1,0 +1,94 @@
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .form-logo {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .form-title {
+    font-size: 24px;
+    color: #16a34a;
+  }
+  
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #0f172a;
+    display: block;
+  }
+  
+  .form-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+  }
+  
+  .form-icon {
+    margin-right: 10px;
+    color: #475569;
+  }
+  
+  .form-input-wrapper input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+    color: #0f172a;
+  }
+  
+  .form-button {
+    background-color: #16a34a;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .form-button:hover {
+    background-color: #15803d;
+  }
+
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: #2563eb; /* azul parecido com o da imagem */
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+  }
+  
+  .back-button:hover {
+    transform: scale(1.1);
+    color: #1d4ed8;
+  }
+  
+  
+  
