@@ -72,19 +72,17 @@ class LoginViewSet(viewsets.ViewSet):
         refresh = RefreshToken.for_user(user)
         access_token = refresh.access_token
 
-        # Autentica o usuário
-        login(request, user)
-
-        # Verifica o tipo de usuário para redirecionamento
-        if user.tipo == 'nutricionista':
-            return redirect('/api/home/nutricionista/')
-        elif user.tipo == 'cliente':
-            return redirect('/api/home/cliente/')
-        else:
-            return Response(
-                {"detail": "Tipo de usuário inválido."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        # Retorna os tokens e informações do usuário para o frontend
+        return Response({
+            'refresh': str(refresh),
+            'access': str(access_token),
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'username': user.username,
+                'tipo': user.tipo,
+            }
+        }, status=status.HTTP_200_OK)
         
     
 class HomepageViewSet(viewsets.ViewSet):
@@ -93,15 +91,11 @@ class HomepageViewSet(viewsets.ViewSet):
     @action(detail=False, methods=['get'], url_path='redirect-home')
     def redirect_home(self, request):
         user = request.user
-        
-        if user.tipo == 'nutricionista':
+
+        # Retorna o tipo de usuário para o frontend
+        if user.tipo in ['nutricionista', 'cliente']:
             return Response(
-                {"redirect_url": "/home/nutricionista/"},
-                status=status.HTTP_200_OK
-            )
-        elif user.tipo == 'cliente':
-            return Response(
-                {"redirect_url": "/home/cliente/"},
+                {"tipo": user.tipo},
                 status=status.HTTP_200_OK
             )
         else:
