@@ -3,11 +3,14 @@ import "../styles/login.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from 'react';
+import axios from 'axios';
 
 export function Login() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);  // Estado de carregamento
-  const [error, setError] = useState("");         // Estado para erro de login
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  
+  const API_URL = "http://127.0.0.1:8000";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,40 +23,75 @@ export function Login() {
       return;
     }
 
-    setError(""); // Limpar qualquer erro anterior
-    setLoading(true); // Ativar loader
+    setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch("http://seu-backend.com/api/login", {
-        method: "POST",
+      // Use o nome de campo que o backend está esperando (username em vez de email)
+      const response = await axios.post(`${API_URL}/api/token/`, {
+        username: email, // Mudança chave: usando username em vez de email
+        password: password
+      }, {
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password })
+        timeout: 10000 // 10 segundos de timeout
       });
 
-      setLoading(false); // Desativar loader após a requisição
-
-      if (!response.ok) {
-        throw new Error("Credenciais inválidas!");
-      }
-
-      const data = await response.json();
-
-      localStorage.setItem("userType", data.userType);
-      localStorage.setItem("userName", data.userName);
-
-      // Redirecionamento baseado no tipo de usuário
-      if (data.userType === "Cliente") {
+      setLoading(false);
+      
+      // Se chegarmos aqui, a resposta foi bem-sucedida
+      const data = response.data;
+      
+      // Salvar tokens e informações do usuário
+      localStorage.setItem("accessToken", data.access);
+      localStorage.setItem("refreshToken", data.refresh);
+      
+      // Fazer uma segunda requisição para obter os dados do usuário usando o token
+      try {
+        const userResponse = await axios.get(`${API_URL}/api/user/me/`, {
+          headers: {
+            'Authorization': `Bearer ${data.access}`
+          }
+        });
+        
+        const userData = userResponse.data;
+        localStorage.setItem("userType", userData.tipo || "cliente");
+        localStorage.setItem("userName", userData.username || userData.email);
+        
+        // Redirecionamento baseado no tipo de usuário
+        if (userData.tipo === "cliente") {
+          navigate("/dashboard-cliente");
+        } else if (userData.tipo === "nutricionista") {
+          navigate("/dashboard-nutricionista");
+        } else {
+          // Default para cliente se não tiver tipo específico
+          navigate("/dashboard-cliente");
+        }
+      } catch (userError) {
+        console.error("Erro ao obter dados do usuário:", userError);
+        
+        // Mesmo se não conseguirmos obter os dados detalhados do usuário,
+        // sabemos que o login foi bem-sucedido, então redirecionamos para uma página padrão
         navigate("/dashboard-cliente");
-      } else if (data.userType === "Nutricionista") {
-        navigate("/dashboard-nutricionista");
-      } else {
-        setError("Tipo de usuário desconhecido!");
       }
     } catch (error) {
-      setLoading(false); // Desativar loader
-      setError(error.message); // Definir erro de login
+      setLoading(false);
+      
+      if (error.response) {
+        // O servidor respondeu com um status diferente de 2xx
+        if (error.response.status === 401) {
+          setError("Email ou senha incorretos");
+        } else {
+          setError(`Erro no servidor: ${error.response.data.detail || error.response.status}`);
+        }
+      } else if (error.request) {
+        // A requisição foi feita mas não houve resposta
+        setError("Sem resposta do servidor. Verifique sua conexão ou se o backend está em execução.");
+      } else {
+        // Algo aconteceu na configuração da requisição que gerou um erro
+        setError(`Erro: ${error.message}`);
+      }
     }
   };
 
@@ -94,14 +132,14 @@ export function Login() {
             </div>
           </div>
 
-          {error && <p className="error-message">{error}</p>} {/* Mensagem de erro */}
+          {error && <p className="error-message">{error}</p>}
 
           <div className="forgot-password">
             <Link to="/esqueci-senha">Esqueci minha senha</Link>
           </div>
 
           <button className="btn primary" type="submit" disabled={loading}>
-            {loading ? "Carregando..." : "Entrar"}  {/* Exibe 'Carregando...' durante o login */}
+            {loading ? "Carregando..." : "Entrar"}
           </button>
 
           <p className="register-text">Ainda não tem conta?</p>
