@@ -13,16 +13,16 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
+    email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        username = data['username']
+        email = data['email']
         password = data['password']
 
-        # Autentica o usuário
-        user = authenticate(username=username, password=password)
-        if not user:
+        # Autentica o usuário com base no e-mail
+        user = CustomUser.objects.filter(email=email).first()
+        if not user or not user.check_password(password):
             raise serializers.ValidationError("Credenciais inválidas.")
         if not user.is_active:
             raise serializers.ValidationError("Usuário inativo.")
