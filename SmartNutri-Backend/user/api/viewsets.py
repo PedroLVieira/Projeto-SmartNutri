@@ -10,6 +10,7 @@ from user.models import CustomUser
 from django.urls import reverse
 from rest_framework.permissions import IsAuthenticated 
 from .serializers import UserSerializer, LoginSerializer, HomepageSerializer
+from django.http import HttpResponseRedirect
 
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -41,10 +42,16 @@ class UserViewSet(viewsets.ViewSet):
         # Autentica o usuário
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            # Gera os tokens JWT
-            refresh = RefreshToken.for_user(user)
-            # Retorna os tokens ou redireciona para a homepage
-            return redirect("/home/")  # Substitua "/" pela URL da sua homepage
+            # Verifica o tipo de usuário para redirecionamento
+            if user.tipo == 'nutricionista':
+                return redirect("/home/nutricionista/")
+            elif user.tipo == 'cliente':
+                return redirect("/home/cliente/")
+            else:
+                return Response(
+                    {"detail": "Tipo de usuário inválido."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
         else:
             return Response(
                 {"detail": "Credenciais inválidas."},
@@ -65,22 +72,50 @@ class LoginViewSet(viewsets.ViewSet):
         refresh = RefreshToken.for_user(user)
         access_token = refresh.access_token
 
-        # Retorna os tokens e informações do usuário
-        return Response({
-            'refresh': str(refresh),
-            'access': str(access_token),
-            'user_id': user.id,
-        }, status=status.HTTP_200_OK)
+        # Autentica o usuário
+        login(request, user)
+
+        # Verifica o tipo de usuário para redirecionamento
+        if user.tipo == 'nutricionista':
+            return redirect('/api/home/nutricionista/')
+        elif user.tipo == 'cliente':
+            return redirect('/api/home/cliente/')
+        else:
+            return Response(
+                {"detail": "Tipo de usuário inválido."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
         
     
 class HomepageViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [IsAuthenticated]
 
-    def list(self, request):
-        data = {
-            "message": "Bem-vindo à sua homepage!",
-            "status": "sucesso",
-            "items": ["Item 1", "Item 2", "Item 3"], 
-        }
+    @action(detail=False, methods=['get'], url_path='redirect-home')
+    def redirect_home(self, request):
+        user = request.user
+        
+        if user.tipo == 'nutricionista':
+            return Response(
+                {"redirect_url": "/home/nutricionista/"},
+                status=status.HTTP_200_OK
+            )
+        elif user.tipo == 'cliente':
+            return Response(
+                {"redirect_url": "/home/cliente/"},
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"detail": "Tipo de usuário inválido."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-        return Response(data)
+    @action(detail=False, methods=['get'], url_path='nutricionista')
+    def home_nutricionista(self, request):
+        # Retorna uma resposta para a página inicial do nutricionista
+        return Response({"message": "Bem-vindo à página inicial do nutricionista!"})
+
+    @action(detail=False, methods=['get'], url_path='cliente')
+    def home_cliente(self, request):
+        # Retorna uma resposta para a página inicial do cliente
+        return Response({"message": "Bem-vindo à página inicial do cliente!"})
