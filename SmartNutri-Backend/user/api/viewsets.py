@@ -11,13 +11,21 @@ from django.urls import reverse
 from rest_framework.permissions import IsAuthenticated 
 from .serializers import UserSerializer, LoginSerializer, HomepageSerializer
 from django.http import HttpResponseRedirect
-
+# user/api/viewsets.py - Classe RegisterViewSet corrigida
 class RegisterViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+    http_method_names = ['post']  # Limitar apenas para criar usuários
 
     def create(self, request, *args, **kwargs):
+        # Validar dados de entrada
+        if 'tipo' not in request.data:
+            return Response(
+                {"detail": "O tipo de usuário é obrigatório (cliente ou nutricionista)."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -28,9 +36,13 @@ class RegisterViewSet(viewsets.ModelViewSet):
         return Response({
             'refresh': str(refresh),
             'access': str(access_token),
-            'user_id': user.id,
+            'user': {
+                'id': user.id,
+                'email': user.email,
+                'username': user.username,
+                'tipo': user.tipo,
+            }
         }, status=status.HTTP_201_CREATED)
-
 
 
 class UserViewSet(viewsets.ViewSet):
@@ -58,7 +70,7 @@ class UserViewSet(viewsets.ViewSet):
                 status=status.HTTP_401_UNAUTHORIZED
             )
       
-
+# user/api/viewsets.py - Classe LoginViewSet corrigida
 class LoginViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]
 
@@ -83,7 +95,6 @@ class LoginViewSet(viewsets.ViewSet):
                 'tipo': user.tipo,
             }
         }, status=status.HTTP_200_OK)
-        
     
 class HomepageViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]

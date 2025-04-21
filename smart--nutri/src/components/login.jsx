@@ -3,14 +3,12 @@ import "../styles/login.css";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from 'react';
-import axios from 'axios';
+import axios from "axios";
 
 export function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
-  const API_URL = "http://127.0.0.1:8000";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,71 +25,32 @@ export function Login() {
     setLoading(true);
 
     try {
-      // Use o nome de campo que o backend está esperando (username em vez de email)
-      const response = await axios.post(`${API_URL}/api/token/`, {
-        username: email, // Mudança chave: usando username em vez de email
-        password: password
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        timeout: 10000 // 10 segundos de timeout
+      const response = await axios.post("http://localhost:8000/api/login/", {
+        email,
+        password
       });
 
-      setLoading(false);
-      
-      // Se chegarmos aqui, a resposta foi bem-sucedida
       const data = response.data;
       
-      // Salvar tokens e informações do usuário
+      // Salvar tokens
       localStorage.setItem("accessToken", data.access);
       localStorage.setItem("refreshToken", data.refresh);
-      
-      // Fazer uma segunda requisição para obter os dados do usuário usando o token
-      try {
-        const userResponse = await axios.get(`${API_URL}/api/user/me/`, {
-          headers: {
-            'Authorization': `Bearer ${data.access}`
-          }
-        });
-        
-        const userData = userResponse.data;
-        localStorage.setItem("userType", userData.tipo || "cliente");
-        localStorage.setItem("userName", userData.username || userData.email);
-        
-        // Redirecionamento baseado no tipo de usuário
-        if (userData.tipo === "cliente") {
-          navigate("/dashboard-cliente");
-        } else if (userData.tipo === "nutricionista") {
-          navigate("/dashboard-nutricionista");
-        } else {
-          // Default para cliente se não tiver tipo específico
-          navigate("/dashboard-cliente");
-        }
-      } catch (userError) {
-        console.error("Erro ao obter dados do usuário:", userError);
-        
-        // Mesmo se não conseguirmos obter os dados detalhados do usuário,
-        // sabemos que o login foi bem-sucedido, então redirecionamos para uma página padrão
+      localStorage.setItem("userType", data.user.tipo);
+      localStorage.setItem("userName", data.user.username);
+
+      // Redirecionamento baseado no tipo de usuário
+      if (data.user.tipo === "cliente") {
         navigate("/dashboard-cliente");
+      } else if (data.user.tipo === "nutricionista") {
+        navigate("/dashboard-nutricionista");
+      } else {
+        setError("Tipo de usuário desconhecido!");
       }
     } catch (error) {
+      console.error("Erro de login:", error);
+      setError(error.response?.data?.detail || "Credenciais inválidas!");
+    } finally {
       setLoading(false);
-      
-      if (error.response) {
-        // O servidor respondeu com um status diferente de 2xx
-        if (error.response.status === 401) {
-          setError("Email ou senha incorretos");
-        } else {
-          setError(`Erro no servidor: ${error.response.data.detail || error.response.status}`);
-        }
-      } else if (error.request) {
-        // A requisição foi feita mas não houve resposta
-        setError("Sem resposta do servidor. Verifique sua conexão ou se o backend está em execução.");
-      } else {
-        // Algo aconteceu na configuração da requisição que gerou um erro
-        setError(`Erro: ${error.message}`);
-      }
     }
   };
 

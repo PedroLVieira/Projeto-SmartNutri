@@ -1,11 +1,57 @@
+// Atualização do componente CadastroNutricionista.jsx
+import { useState } from "react";
 import { FaEnvelope, FaLock, FaUser, FaPhone, FaFileAlt } from "react-icons/fa";
 import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import "../styles/cadastro-nutri.css";
+import axios from "axios";
 
 export function CadastroNutricionista() {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    username: "",
+    cpf: "",
+    tipo: "nutricionista", // Valor fixo para nutricionista
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/register/", 
+        formData
+      );
+      
+      // Salvar token no localStorage
+      localStorage.setItem("accessToken", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
+      localStorage.setItem("userType", "nutricionista");
+      localStorage.setItem("userName", formData.username);
+      
+      // Redirecionar para o dashboard
+      navigate("/dashboard-nutricionista");
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      setError(error.response?.data?.detail || "Erro ao realizar cadastro");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="form-container">
@@ -18,7 +64,9 @@ export function CadastroNutricionista() {
           <h1 className="form-title">Cadastro de Nutricionista</h1>
         </div>
 
-        <form className="form-content">
+        {error && <div className="error-message">{error}</div>}
+
+        <form className="form-content" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <div className="form-input-wrapper">
@@ -27,6 +75,8 @@ export function CadastroNutricionista() {
                 type="email"
                 id="email"
                 name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Digite seu email"
                 required
               />
@@ -41,6 +91,8 @@ export function CadastroNutricionista() {
                 type="password"
                 id="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Digite sua senha"
                 required
               />
@@ -48,63 +100,39 @@ export function CadastroNutricionista() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Nome</label>
+            <label htmlFor="username">Nome de usuário</label>
             <div className="form-input-wrapper">
               <FaUser className="form-icon" />
               <input
                 type="text"
-                id="name"
-                name="name"
-                placeholder="Digite seu nome completo"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Digite seu nome de usuário"
                 required
               />
             </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="telefone">Telefone</label>
-            <div className="form-input-wrapper">
-              <FaPhone className="form-icon" />
-              <input
-                type="text"
-                id="telefone"
-                name="telefone"
-                placeholder="(83) 9 9999-9999"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="idade">Idade</label>
-            <div className="form-input-wrapper">
-              <input
-                type="number"
-                id="idade"
-                name="idade"
-                placeholder="Digite sua idade"
-                min="18"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="curriculo">Currículo (PDF)</label>
+            <label htmlFor="cpf">CPF</label>
             <div className="form-input-wrapper">
               <FaFileAlt className="form-icon" />
               <input
-                type="file"
-                id="curriculo"
-                name="curriculo"
-                accept=".pdf"
+                type="text"
+                id="cpf"
+                name="cpf"
+                value={formData.cpf}
+                onChange={handleChange}
+                placeholder="Digite seu CPF"
                 required
               />
             </div>
           </div>
 
-          <button type="submit" className="form-button">
-            Cadastrar
+          <button type="submit" className="form-button" disabled={loading}>
+            {loading ? "Cadastrando..." : "Cadastrar"}
           </button>
         </form>
       </div>

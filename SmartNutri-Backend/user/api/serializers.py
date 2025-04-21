@@ -2,13 +2,23 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from user.models import CustomUser
 
+# user/api/serializers.py - Classe UserSerializer atualizada
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'cpf', 'password','tipo']
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['id', 'username', 'email', 'cpf', 'password', 'tipo']
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'email': {'required': True},
+            'tipo': {'required': True},
+        }
 
     def create(self, validated_data):
+        # Se username não for fornecido, usa a parte do email antes do @
+        if 'username' not in validated_data or not validated_data['username']:
+            email = validated_data['email']
+            validated_data['username'] = email.split('@')[0]
+            
         user = CustomUser.objects.create_user(**validated_data)
         return user
 
