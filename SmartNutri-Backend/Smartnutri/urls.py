@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from user.api.router import router as user_router
+from planoalimentar.api.router import router as planoalimentar_router
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from rest_framework import permissions
@@ -39,6 +40,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(user_router.urls)),
+    path('api/planoalimentar/', include(planoalimentar_router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('swagger.<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),

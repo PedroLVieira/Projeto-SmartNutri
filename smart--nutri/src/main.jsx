@@ -10,6 +10,7 @@ import { Perfil } from "./components/Perfil";
 import { PlanoAlimentar } from "./components/PlanoAlimentar";
 import { PacientePerfil } from "./components/PacientePerfil";
 import { EsqueciSenha } from "./components/EsqueciSenha";
+import { GerenciarPlanoAlimentar } from "./components/GerenciarPlanoAlimentar";
 
 
 import "./global.css";
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/dashboard-nutricionista" element={<DashboardNutricionista />} />
       <Route path="/perfil" element={<Perfil userType="Cliente" userName="Michelly" />} />
       <Route path="/plano-alimentar" element={<PlanoAlimentar />} />
+      <Route path="/gerenciar-plano-alimentar" element={<GerenciarPlanoAlimentar />} />
       <Route path="/paciente-perfil" element={<PacientePerfil />} />
       <Route path="/esqueci-senha" element={<EsqueciSenha />} />
 

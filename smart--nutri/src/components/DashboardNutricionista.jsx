@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/dashboard-nutricionista.css";
 import { useNavigate } from "react-router-dom";
-import { FaClipboardList, FaUserMd, FaSignOutAlt } from "react-icons/fa";
+import { FaClipboardList, FaUserMd, FaSignOutAlt, FaUtensils } from "react-icons/fa";
 
 export function DashboardNutricionista() {
   const navigate = useNavigate();
@@ -26,6 +26,10 @@ export function DashboardNutricionista() {
         <div className="nutri-dashboard-card" onClick={() => navigate("/paciente-perfil")}>
           <FaUserMd className="nutri-icon" />
           <span>Pacientes</span>
+        </div>
+        <div className="nutri-dashboard-card" onClick={() => navigate("/gerenciar-plano-alimentar")}>
+          <FaUtensils className="nutri-icon" />
+          <span>Planos Alimentares</span>
         </div>
         <div className="nutri-dashboard-card" onClick={() => alert("Relatórios gerais")}>
           <FaClipboardList className="nutri-icon" />
