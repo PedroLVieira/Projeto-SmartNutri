@@ -31,12 +31,16 @@ export function Login() {
       });
 
       const data = response.data;
+      console.log("Dados do usuário recebidos:", data);
       
-      // Salvar tokens
+      // Salvar tokens e dados do usuário
       localStorage.setItem("accessToken", data.access);
       localStorage.setItem("refreshToken", data.refresh);
       localStorage.setItem("userType", data.user.tipo);
       localStorage.setItem("userName", data.user.username);
+      localStorage.setItem("userId", data.user.id.toString());  // Adicionando o ID do usuário
+      
+      console.log("ID do usuário armazenado:", data.user.id);
 
       // Redirecionamento baseado no tipo de usuário
       if (data.user.tipo === "cliente") {

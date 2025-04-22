@@ -1,147 +1,237 @@
+/* Estilos gerais */
 .plano-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 2rem;
-    background-color: #f6f9fc;
-    border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    font-family: "Segoe UI", sans-serif;
-  }
-  
-  .abas {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .aba {
-    padding: 8px 16px;
-    border: none;
-    background-color: #e0e0e0;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-  
-  .aba:hover {
-    background-color: #c0c0c0;
-  }
-  
-  .aba.ativa {
-    background-color: #4caf50;
-    color: white;
-  }
-  
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.plano-container h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-size: 24px;
+  border-bottom: 2px solid #e8f5e9;
+  padding-bottom: 10px;
+}
+
+.erro-message {
+  color: #d32f2f;
+  background-color: #ffebee;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.sucesso-message {
+  color: #388e3c;
+  background-color: #e8f5e9;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Seletor de planos */
+.selector-container {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plano-selector {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  flex-grow: 1;
+  max-width: 300px;
+}
+
+.plano-nome {
+  font-size: 20px;
+  color: #1b5e20;
+  margin-bottom: 15px;
+}
+
+/* Navegação dos dias da semana */
+.dias-semana-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
+}
+
+.dia-btn {
+  padding: 10px 15px;
+  background-color: #e8f5e9;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2e7d32;
+  transition: all 0.3s ease;
+}
+
+.dia-btn:hover:not(:disabled) {
+  background-color: #a5d6a7;
+}
+
+.dia-btn.ativo {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.dia-btn.vazio {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Conteúdo do dia */
+.dia-conteudo {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.dia-conteudo h3 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.sem-refeicoes {
+  font-style: italic;
+  color: #757575;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Refeições */
+.refeicoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.refeicao-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #2e7d32;
+}
+
+.refeicao-card h3 {
+  color: #2e7d32;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.refeicao-card p {
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+/* Formulários e seções de gerenciamento */
+.gerenciar-section {
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.gerenciar-section h3 {
+  color: #2e7d32;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-select,
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.form-textarea {
+  min-height: 100px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Botões */
+.btn-submit,
+.btn-outline,
+.btn-cancel {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-submit {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #1b5e20;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #2e7d32;
+  color: #2e7d32;
+}
+
+.btn-outline:hover {
+  background-color: #e8f5e9;
+}
+
+.btn-cancel {
+  background-color: #f5f5f5;
+  color: #616161;
+}
+
+.btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.botoes-navegacao {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
   .refeicoes {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    grid-template-columns: 1fr;
   }
   
-  .refeicao-card {
-    background-color: #ffffff;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .refeicao-card h3 {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Estilos para gerenciamento de planos alimentares */
-  .gerenciar-section {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .gerenciar-section h3 {
-    margin-bottom: 1rem;
-    color: #2e7d32;
-    font-size: 1.3rem;
-  }
-
-  .form-select, .form-input, .form-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-  }
-
-  .form-textarea {
-    min-height: 100px;
-    resize: vertical;
-  }
-
-  .form-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .btn-submit, .btn-outline, .btn-cancel {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-submit {
-    background-color: #4caf50;
-    color: white;
-  }
-
-  .btn-submit:hover {
-    background-color: #3d8b40;
-  }
-
-  .btn-outline {
-    background-color: transparent;
-    border: 1px solid #4caf50;
-    color: #4caf50;
-    margin-top: 10px;
-  }
-
-  .btn-outline:hover {
-    background-color: #e8f5e9;
-  }
-
-  .btn-cancel {
-    background-color: #f5f5f5;
-    color: #666;
-  }
-
-  .btn-cancel:hover {
-    background-color: #e0e0e0;
-  }
-
-  .erro-message {
-    color: #d32f2f;
-    background-color: #ffebee;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-  }
-
-  .botoes-navegacao {
-    margin-top: 2rem;
-    display: flex;
+  .dias-semana-nav {
     justify-content: center;
   }
-
-  .adicionar-refeicao {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    border: 1px dashed #ccc;
+  
+  .dia-btn {
+    padding: 8px 12px;
+    font-size: 14px;
   }
+}

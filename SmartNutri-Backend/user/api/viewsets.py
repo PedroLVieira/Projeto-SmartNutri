@@ -46,6 +46,23 @@ class RegisterViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['get'], url_path='listar-clientes')
+    def listar_clientes(self, request):
+        """Endpoint para nutricionistas listarem seus clientes"""
+        user = request.user
+        if user.tipo != 'nutricionista':
+            return Response(
+                {"detail": "Apenas nutricionistas podem acessar este recurso."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Buscar todos os clientes
+        clientes = CustomUser.objects.filter(tipo='cliente')
+        serializer = UserSerializer(clientes, many=True)
+        return Response(serializer.data)
+    
     @action(detail=False, methods=['post'], url_path='login')
     def login(self, request):
         username = request.data.get("username")

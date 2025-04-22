@@ -15,6 +15,7 @@ export function GerenciarPlanoAlimentar() {
   const [modoEdicao, setModoEdicao] = useState(false);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
+  const [sucessoMsg, setSucessoMsg] = useState("");
   const [novaRefeicao, setNovaRefeicao] = useState({
     nome: "cafe_da_manha",
     recomendado: "",
@@ -41,10 +42,17 @@ export function GerenciarPlanoAlimentar() {
       headers: { Authorization: `Bearer ${token}` }
     };
   };
+  
+  // Reset de mensagens
+  const resetMensagens = () => {
+    setErro("");
+    setSucessoMsg("");
+  };
 
-  // Buscar clientes do nutricionista
+  // Buscar dias da semana e clientes do nutricionista
   useEffect(() => {
     setCarregando(true);
+    resetMensagens();
     
     // Buscar dias da semana
     axios.get("http://localhost:8000/api/planoalimentar/dias-semana/", getHeaders())
@@ -59,14 +67,16 @@ export function GerenciarPlanoAlimentar() {
         setErro("Falha ao carregar dias da semana.");
       });
     
-    // Buscar clientes do nutricionista
-    axios.get("http://localhost:8000/api/clientes/", getHeaders())
+    // Buscar clientes do nutricionista (usando a nova rota)
+    axios.get("http://localhost:8000/api/users/listar-clientes/", getHeaders())
       .then(response => {
-        setClientes(response.data.filter(user => user.tipo === 'cliente'));
+        console.log("Clientes recebidos:", response.data);
+        setClientes(response.data);
         setCarregando(false);
       })
       .catch(error => {
         console.error("Erro ao buscar clientes:", error);
+        console.error("Detalhes do erro:", error.response?.data || "Sem detalhes");
         setErro("Falha ao carregar lista de clientes.");
         setCarregando(false);
       });
@@ -76,6 +86,8 @@ export function GerenciarPlanoAlimentar() {
   useEffect(() => {
     if (clienteSelecionado) {
       setCarregando(true);
+      resetMensagens();
+      
       axios.get(`http://localhost:8000/api/planoalimentar/planos/planos_por_cliente/?cliente_id=${clienteSelecionado}`, getHeaders())
         .then(response => {
           setPlanos(response.data);
@@ -98,6 +110,8 @@ export function GerenciarPlanoAlimentar() {
   useEffect(() => {
     if (planoSelecionado && diaSelecionado) {
       setCarregando(true);
+      resetMensagens();
+      
       axios.get(`http://localhost:8000/api/planoalimentar/planos/${planoSelecionado}/por_dia_semana/`, getHeaders())
         .then(response => {
           const diaAtual = diasDaSemana.find(d => d.id === diaSelecionado)?.nome;
@@ -122,10 +136,12 @@ export function GerenciarPlanoAlimentar() {
 
   const handlePlanoChange = (e) => {
     setPlanoSelecionado(e.target.value);
+    resetMensagens();
   };
 
   const handleDiaChange = (e) => {
     setDiaSelecionado(Number(e.target.value));
+    resetMensagens();
   };
 
   const handleNovaRefeicaoChange = (e) => {
@@ -145,24 +161,41 @@ export function GerenciarPlanoAlimentar() {
     }
 
     setCarregando(true);
+    resetMensagens();
+    
+    // Obter o ID do nutricionista e garantir que é um número
+    const nutricionistaId = parseInt(localStorage.getItem("userId"), 10);
+    
+    if (isNaN(nutricionistaId)) {
+      console.error("ID do nutricionista inválido:", localStorage.getItem("userId"));
+      setErro("ID do nutricionista inválido. Tente fazer login novamente.");
+      setCarregando(false);
+      return;
+    }
+    
     const planoData = {
       nome: novoPlano.nome,
-      cliente: clienteSelecionado,
-      nutricionista: localStorage.getItem("userId"),
+      cliente: parseInt(clienteSelecionado, 10),
+      nutricionista: nutricionistaId,
       ativo: true
     };
+    
+    console.log("Enviando dados para criação do plano:", planoData);
 
     axios.post("http://localhost:8000/api/planoalimentar/planos/", planoData, getHeaders())
       .then(response => {
+        console.log("Resposta da criação do plano:", response.data);
         setPlanos([...planos, response.data]);
         setPlanoSelecionado(response.data.id);
         setNovoPlano({ nome: "", cliente: "" });
         setModoEdicao(false);
+        setSucessoMsg("Plano alimentar criado com sucesso!");
         setCarregando(false);
       })
       .catch(error => {
         console.error("Erro ao criar plano:", error);
-        setErro("Falha ao criar o plano alimentar.");
+        console.error("Dados da resposta de erro:", error.response?.data);
+        setErro(error.response?.data?.detail || "Falha ao criar o plano alimentar.");
         setCarregando(false);
       });
   };
@@ -174,6 +207,8 @@ export function GerenciarPlanoAlimentar() {
     }
 
     setCarregando(true);
+    resetMensagens();
+    
     const refeicaoData = {
       plano_alimentar: planoSelecionado,
       dia_semana: diaSelecionado,
@@ -184,8 +219,7 @@ export function GerenciarPlanoAlimentar() {
 
     axios.post("http://localhost:8000/api/planoalimentar/refeicoes/criar_com_item/", refeicaoData, getHeaders())
       .then(response => {
-        // Buscar refeições novamente para atualizar a lista
-        const nomeDiaSemana = diasDaSemana.find(d => d.id === diaSelecionado)?.nome;
+        // Formatar a nova refeição para corresponder ao formato exibido
         const novaRefeicaoFormatada = {
           id: response.data.id,
           refeicao: tiposRefeicao.find(t => t.valor === novaRefeicao.nome)?.label,
@@ -193,21 +227,22 @@ export function GerenciarPlanoAlimentar() {
           substituicoes: novaRefeicao.substituicoes || "Sem substituições"
         };
 
-        // Adicionar a nova refeição à lista existente
-        if (nomeDiaSemana) {
-          setRefeicoes([...refeicoes, novaRefeicaoFormatada]);
-        }
-
+        // Adicionar à lista atual
+        setRefeicoes([...refeicoes, novaRefeicaoFormatada]);
+        
+        // Limpar o formulário
         setNovaRefeicao({
           nome: "cafe_da_manha",
           recomendado: "",
           substituicoes: ""
         });
+        
+        setSucessoMsg("Refeição adicionada com sucesso!");
         setCarregando(false);
       })
       .catch(error => {
         console.error("Erro ao adicionar refeição:", error);
-        setErro("Falha ao adicionar a refeição.");
+        setErro(error.response?.data?.detail || "Falha ao adicionar a refeição.");
         setCarregando(false);
       });
   };
@@ -216,20 +251,12 @@ export function GerenciarPlanoAlimentar() {
     navigate("/dashboard-nutricionista");
   };
 
-  if (carregando && !refeicoes.length && !clientes.length) {
-    return (
-      <div className="plano-container">
-        <h2>Gerenciar Planos Alimentares</h2>
-        <p>Carregando...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="plano-container">
       <h2>Gerenciar Planos Alimentares</h2>
       
       {erro && <p className="erro-message">{erro}</p>}
+      {sucessoMsg && <p className="sucesso-message">{sucessoMsg}</p>}
       
       <div className="gerenciar-section">
         <h3>Selecionar Cliente</h3>
@@ -237,6 +264,7 @@ export function GerenciarPlanoAlimentar() {
           value={clienteSelecionado} 
           onChange={handleClienteChange}
           className="form-select"
+          disabled={carregando}
         >
           <option value="">Selecione um cliente</option>
           {clientes.map(cliente => (
@@ -255,6 +283,7 @@ export function GerenciarPlanoAlimentar() {
                 value={planoSelecionado} 
                 onChange={handlePlanoChange}
                 className="form-select"
+                disabled={carregando}
               >
                 <option value="">Selecione um plano</option>
                 {planos.map(plano => (
@@ -264,6 +293,7 @@ export function GerenciarPlanoAlimentar() {
               <button 
                 className="btn-outline"
                 onClick={() => setModoEdicao(true)}
+                disabled={carregando}
               >
                 Criar Novo Plano
               </button>
@@ -277,6 +307,7 @@ export function GerenciarPlanoAlimentar() {
                 value={novoPlano.nome}
                 onChange={handleNovoPlanoChange}
                 className="form-input"
+                disabled={carregando}
               />
               <div className="form-buttons">
                 <button 
@@ -289,6 +320,7 @@ export function GerenciarPlanoAlimentar() {
                 <button 
                   className="btn-cancel"
                   onClick={() => setModoEdicao(false)}
+                  disabled={carregando}
                 >
                   Cancelar
                 </button>
@@ -305,6 +337,7 @@ export function GerenciarPlanoAlimentar() {
             value={diaSelecionado} 
             onChange={handleDiaChange}
             className="form-select"
+            disabled={carregando}
           >
             <option value="">Selecione um dia</option>
             {diasDaSemana.map(dia => (
@@ -318,7 +351,9 @@ export function GerenciarPlanoAlimentar() {
         <div className="gerenciar-section">
           <h3>Refeições do Dia</h3>
           
-          {refeicoes.length > 0 ? (
+          {carregando ? (
+            <p>Carregando refeições...</p>
+          ) : refeicoes.length > 0 ? (
             <div className="refeicoes">
               {refeicoes.map((item, index) => (
                 <div key={index} className="refeicao-card">
@@ -341,6 +376,7 @@ export function GerenciarPlanoAlimentar() {
                 value={novaRefeicao.nome}
                 onChange={handleNovaRefeicaoChange}
                 className="form-select"
+                disabled={carregando}
               >
                 {tiposRefeicao.map(tipo => (
                   <option key={tipo.valor} value={tipo.valor}>
@@ -357,6 +393,7 @@ export function GerenciarPlanoAlimentar() {
                 onChange={handleNovaRefeicaoChange}
                 placeholder="Descrição da alimentação recomendada"
                 className="form-textarea"
+                disabled={carregando}
               />
             </div>
             <div className="form-group">
@@ -367,6 +404,7 @@ export function GerenciarPlanoAlimentar() {
                 onChange={handleNovaRefeicaoChange}
                 placeholder="Opções de substituição"
                 className="form-textarea"
+                disabled={carregando}
               />
             </div>
             <button 
@@ -381,7 +419,7 @@ export function GerenciarPlanoAlimentar() {
       )}
 
       <div className="botoes-navegacao">
-        <button className="btn-outline" onClick={handleVoltar}>
+        <button className="btn-outline" onClick={handleVoltar} disabled={carregando}>
           Voltar para Dashboard
         </button>
       </div>

@@ -82,8 +82,32 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
             )
         
         try:
+            # Busca o plano mais recente do cliente
             plano = PlanoAlimentar.objects.filter(cliente=user, ativo=True).latest('data_criacao')
-            return Response(self.por_dia_semana(request, pk=plano.id).data)
+            
+            # Busca refeições organizadas por dia da semana
+            dias = DiaSemana.objects.all()
+            resultado = {}
+            
+            for dia in dias:
+                refeicoes = Refeicao.objects.filter(plano_alimentar=plano, dia_semana=dia)
+                if refeicoes.exists():
+                    refeicoes_data = []
+                    for refeicao in refeicoes:
+                        refeicao_data = RefeicaoSerializer(refeicao).data
+                        
+                        # Busca itens para cada refeição
+                        itens = ItemRefeicao.objects.filter(refeicao=refeicao)
+                        if itens.exists():
+                            item = itens.first()
+                            refeicao_data['refeicao'] = refeicao.get_nome_display()
+                            refeicao_data['recomendado'] = item.recomendado
+                            refeicao_data['substituicoes'] = item.substituicoes
+                            refeicoes_data.append(refeicao_data)
+                    
+                    resultado[dia.nome] = refeicoes_data
+            
+            return Response(resultado)
         except PlanoAlimentar.DoesNotExist:
             return Response(
                 {"detail": "Nenhum plano alimentar ativo encontrado"},
