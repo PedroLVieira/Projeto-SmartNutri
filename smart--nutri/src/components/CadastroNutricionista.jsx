@@ -47,7 +47,17 @@ export function CadastroNutricionista() {
       navigate("/dashboard-nutricionista");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
-      setError(error.response?.data?.detail || "Erro ao realizar cadastro");
+      
+      if (error.response) {
+        // O servidor respondeu com um código de erro
+        setError(error.response.data.detail || "Erro ao realizar cadastro");
+      } else if (error.request) {
+        // A requisição foi feita mas não houve resposta
+        setError("Servidor não respondeu. Verifique sua conexão.");
+      } else {
+        // Erro na configuração da requisição
+        setError("Erro ao enviar dados: " + error.message);
+      }
     } finally {
       setLoading(false);
     }
