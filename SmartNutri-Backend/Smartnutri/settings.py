@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'corsheaders',
-    'behave_django',  
 ]
 
 MIDDLEWARE = [
