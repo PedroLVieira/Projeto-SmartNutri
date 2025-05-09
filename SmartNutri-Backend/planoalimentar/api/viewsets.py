@@ -24,13 +24,18 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        # Filtra planos diferentes dependendo do tipo de usuário
+        """
+        Filtra planos diferentes dependendo do tipo de usuário:
+        - Nutricionistas veem seus planos criados
+        - Clientes veem planos atribuídos a eles
+        """
         user = self.request.user
         
         if user.tipo == 'nutricionista':
             return PlanoAlimentar.objects.filter(nutricionista=user)
         elif user.tipo == 'cliente':
-            return PlanoAlimentar.objects.filter(cliente=user, ativo=True)
+            # Cliente pode ver todos seus planos, ativos ou não, ordenados por data de criação
+            return PlanoAlimentar.objects.filter(cliente=user).order_by('-data_criacao')
         return PlanoAlimentar.objects.none()
     
     def get_serializer_class(self):
@@ -82,8 +87,17 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
             )
         
         try:
-            # Busca o plano mais recente do cliente
-            plano = PlanoAlimentar.objects.filter(cliente=user, ativo=True).latest('data_criacao')
+            # Tenta buscar qualquer plano ativo do cliente, ordenado por data de criação
+            planos = PlanoAlimentar.objects.filter(cliente=user, ativo=True).order_by('-data_criacao')
+            
+            if not planos.exists():
+                return Response(
+                    {"detail": "Nenhum plano alimentar ativo encontrado"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+                
+            # Pega o plano mais recente
+            plano = planos.first()
             
             # Busca refeições organizadas por dia da semana
             dias = DiaSemana.objects.all()
@@ -107,11 +121,18 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
                     
                     resultado[dia.nome] = refeicoes_data
             
+            # Se não encontrou nenhuma refeição em nenhum dia, pelo menos retorna a estrutura vazia
+            if not resultado:
+                return Response(
+                    {"detail": "Este plano alimentar ainda não possui refeições cadastradas"},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+                
             return Response(resultado)
-        except PlanoAlimentar.DoesNotExist:
+        except Exception as e:
             return Response(
-                {"detail": "Nenhum plano alimentar ativo encontrado"},
-                status=status.HTTP_404_NOT_FOUND
+                {"detail": f"Erro ao buscar plano alimentar: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
     
     @action(detail=False, methods=['get'])

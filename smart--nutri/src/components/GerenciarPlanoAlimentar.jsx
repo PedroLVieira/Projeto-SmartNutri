@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/planoalimentar.css";
+import "../styles/gerenciar-plano-alimentar.css";
+import NavBar from "./NavBar"; // Importando o componente NavBar
 
 export function GerenciarPlanoAlimentar() {
   const navigate = useNavigate();
@@ -16,6 +17,9 @@ export function GerenciarPlanoAlimentar() {
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
   const [sucessoMsg, setSucessoMsg] = useState("");
+  const [filtroRefeicao, setFiltroRefeicao] = useState("");
+  const [refeicaoEmEdicao, setRefeicaoEmEdicao] = useState(null);
+  const [confirmacaoExclusao, setConfirmacaoExclusao] = useState(null);
   const [novaRefeicao, setNovaRefeicao] = useState({
     nome: "cafe_da_manha",
     recomendado: "",
@@ -47,6 +51,14 @@ export function GerenciarPlanoAlimentar() {
   const resetMensagens = () => {
     setErro("");
     setSucessoMsg("");
+  };
+
+  // Função para exibir temporariamente mensagens de sucesso e remover automaticamente
+  const mostrarMensagemSucesso = (mensagem) => {
+    setSucessoMsg(mensagem);
+    setTimeout(() => {
+      setSucessoMsg("");
+    }, 5000); // Remove a mensagem após 5 segundos
   };
 
   // Buscar dias da semana e clientes do nutricionista
@@ -106,8 +118,8 @@ export function GerenciarPlanoAlimentar() {
     }
   }, [clienteSelecionado]);
 
-  // Buscar refeições quando um plano e dia são selecionados
-  useEffect(() => {
+  // Função para carregar refeições
+  const carregarRefeicoes = useCallback(() => {
     if (planoSelecionado && diaSelecionado) {
       setCarregando(true);
       resetMensagens();
@@ -129,6 +141,11 @@ export function GerenciarPlanoAlimentar() {
         });
     }
   }, [planoSelecionado, diaSelecionado, diasDaSemana]);
+
+  // Buscar refeições quando um plano e dia são selecionados
+  useEffect(() => {
+    carregarRefeicoes();
+  }, [planoSelecionado, diaSelecionado, carregarRefeicoes]);
 
   const handleClienteChange = (e) => {
     setClienteSelecionado(e.target.value);
@@ -189,7 +206,7 @@ export function GerenciarPlanoAlimentar() {
         setPlanoSelecionado(response.data.id);
         setNovoPlano({ nome: "", cliente: "" });
         setModoEdicao(false);
-        setSucessoMsg("Plano alimentar criado com sucesso!");
+        mostrarMensagemSucesso("Plano alimentar criado com sucesso!");
         setCarregando(false);
       })
       .catch(error => {
@@ -201,8 +218,76 @@ export function GerenciarPlanoAlimentar() {
   };
 
   const adicionarRefeicao = () => {
-    if (!novaRefeicao.recomendado || !planoSelecionado || !diaSelecionado) {
-      setErro("Preencha todos os campos para adicionar uma refeição.");
+    if (!planoSelecionado || !diaSelecionado || !novaRefeicao.nome || !novaRefeicao.recomendado) {
+      setErro("Preencha todos os campos obrigatórios para adicionar uma refeição.");
+      return;
+    }
+
+    setCarregando(true);
+    resetMensagens();
+    
+    const diaAtual = diasDaSemana.find(d => d.id === diaSelecionado)?.nome;
+    
+    if (!diaAtual) {
+      setErro("Dia da semana inválido.");
+      setCarregando(false);
+      return;
+    }
+    
+    const refeicaoData = {
+      plano: parseInt(planoSelecionado, 10),
+      dia_semana: diaSelecionado,
+      tipo_refeicao: novaRefeicao.nome,
+      recomendado: novaRefeicao.recomendado,
+      substituicoes: novaRefeicao.substituicoes || ""
+    };
+    
+    console.log("Enviando dados para criação de refeição:", refeicaoData);
+
+    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/", refeicaoData, getHeaders())
+      .then(response => {
+        console.log("Resposta da criação de refeição:", response.data);
+        
+        // Atualizar a lista de refeições
+        setRefeicoes([...refeicoes, response.data]);
+        
+        // Resetar o formulário
+        setNovaRefeicao({
+          nome: "cafe_da_manha",
+          recomendado: "",
+          substituicoes: ""
+        });
+        
+        mostrarMensagemSucesso("Refeição adicionada com sucesso!");
+        setCarregando(false);
+      })
+      .catch(error => {
+        console.error("Erro ao adicionar refeição:", error);
+        console.error("Dados da resposta de erro:", error.response?.data);
+        setErro(error.response?.data?.detail || "Falha ao adicionar a refeição.");
+        setCarregando(false);
+      });
+  };
+
+  // Iniciar edição de uma refeição
+  const iniciarEdicaoRefeicao = (refeicao) => {
+    setRefeicaoEmEdicao({
+      id: refeicao.id,
+      nome: refeicao.tipo_refeicao,
+      recomendado: refeicao.recomendado,
+      substituicoes: refeicao.substituicoes || ""
+    });
+  };
+
+  // Cancelar edição de refeição
+  const cancelarEdicaoRefeicao = () => {
+    setRefeicaoEmEdicao(null);
+  };
+
+  // Salvar edição de uma refeição
+  const salvarEdicaoRefeicao = () => {
+    if (!refeicaoEmEdicao || !refeicaoEmEdicao.recomendado) {
+      setErro("Preencha todos os campos obrigatórios.");
       return;
     }
 
@@ -210,218 +295,545 @@ export function GerenciarPlanoAlimentar() {
     resetMensagens();
     
     const refeicaoData = {
-      plano_alimentar: planoSelecionado,
+      plano: parseInt(planoSelecionado, 10),
       dia_semana: diaSelecionado,
-      nome: novaRefeicao.nome,
-      recomendado: novaRefeicao.recomendado,
-      substituicoes: novaRefeicao.substituicoes || "Sem substituições"
+      tipo_refeicao: refeicaoEmEdicao.nome,
+      recomendado: refeicaoEmEdicao.recomendado,
+      substituicoes: refeicaoEmEdicao.substituicoes || ""
     };
-
-    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/criar_com_item/", refeicaoData, getHeaders())
+    
+    axios.put(`http://localhost:8000/api/planoalimentar/refeicoes/${refeicaoEmEdicao.id}/`, refeicaoData, getHeaders())
       .then(response => {
-        // Formatar a nova refeição para corresponder ao formato exibido
-        const novaRefeicaoFormatada = {
-          id: response.data.id,
-          refeicao: tiposRefeicao.find(t => t.valor === novaRefeicao.nome)?.label,
-          recomendado: novaRefeicao.recomendado,
-          substituicoes: novaRefeicao.substituicoes || "Sem substituições"
-        };
-
-        // Adicionar à lista atual
-        setRefeicoes([...refeicoes, novaRefeicaoFormatada]);
+        // Atualizar a refeição na lista
+        const novasRefeicoes = refeicoes.map(r => 
+          r.id === refeicaoEmEdicao.id ? response.data : r
+        );
+        setRefeicoes(novasRefeicoes);
         
-        // Limpar o formulário
-        setNovaRefeicao({
-          nome: "cafe_da_manha",
-          recomendado: "",
-          substituicoes: ""
-        });
-        
-        setSucessoMsg("Refeição adicionada com sucesso!");
+        // Resetar o modo de edição
+        setRefeicaoEmEdicao(null);
+        mostrarMensagemSucesso("Refeição atualizada com sucesso!");
         setCarregando(false);
       })
       .catch(error => {
-        console.error("Erro ao adicionar refeição:", error);
-        setErro(error.response?.data?.detail || "Falha ao adicionar a refeição.");
+        console.error("Erro ao editar refeição:", error);
+        setErro(error.response?.data?.detail || "Falha ao atualizar a refeição.");
         setCarregando(false);
       });
   };
 
-  const handleVoltar = () => {
-    navigate("/dashboard-nutricionista");
+  // Confirmar exclusão de uma refeição
+  const confirmarExclusao = (refeicaoId) => {
+    setConfirmacaoExclusao(refeicaoId);
+  };
+
+  // Cancelar exclusão
+  const cancelarExclusao = () => {
+    setConfirmacaoExclusao(null);
+  };
+
+  // Excluir uma refeição
+  const excluirRefeicao = (refeicaoId) => {
+    setCarregando(true);
+    resetMensagens();
+    
+    axios.delete(`http://localhost:8000/api/planoalimentar/refeicoes/${refeicaoId}/`, getHeaders())
+      .then(() => {
+        // Atualizar a lista de refeições
+        setRefeicoes(refeicoes.filter(r => r.id !== refeicaoId));
+        setConfirmacaoExclusao(null);
+        mostrarMensagemSucesso("Refeição removida com sucesso!");
+        setCarregando(false);
+      })
+      .catch(error => {
+        console.error("Erro ao excluir refeição:", error);
+        setErro(error.response?.data?.detail || "Falha ao excluir a refeição.");
+        setCarregando(false);
+      });
+  };
+
+  // Manipulador de mudança para campos de edição
+  const handleEdicaoChange = (e) => {
+    const { name, value } = e.target;
+    setRefeicaoEmEdicao({
+      ...refeicaoEmEdicao,
+      [name]: value
+    });
+  };
+
+  // Função para filtrar as refeições
+  const refeicoesFiltradas = refeicoes.filter(refeicao => {
+    if (!filtroRefeicao) return true;
+    return refeicao.tipo_refeicao === filtroRefeicao;
+  });
+
+  // Função para formatar o nome da refeição
+  const formatarNomeRefeicao = (nome) => {
+    const refeicao = tiposRefeicao.find(r => r.valor === nome);
+    return refeicao ? refeicao.label : nome;
+  };
+
+  // Copiar plano para outro dia
+  const copiarParaOutroDia = () => {
+    // Implementação futura
+    mostrarMensagemSucesso("Funcionalidade de cópia será implementada em breve!");
+  };
+
+  // Função para compartilhar plano via WhatsApp
+  const compartilharViaWhatsApp = () => {
+    if (!planoSelecionado || !clienteSelecionado || refeicoes.length === 0) {
+      setErro("Selecione um cliente, um plano e certifique-se de que há refeições para compartilhar");
+      return;
+    }
+
+    const clienteNome = clientes.find(c => c.id === parseInt(clienteSelecionado))?.nome || "Cliente";
+    const planoNome = planos.find(p => p.id === parseInt(planoSelecionado))?.nome || "Plano Alimentar";
+    const diaNome = diasDaSemana.find(d => d.id === diaSelecionado)?.nome || "Dia";
+    
+    let mensagem = `*Plano Alimentar: ${planoNome}*\n*Cliente: ${clienteNome}*\n*Dia: ${diaNome}*\n\n`;
+    
+    // Organizar refeições por tipo para uma apresentação mais clara
+    const tiposOrdenados = tiposRefeicao.map(t => t.valor);
+    const refeicoesOrdenadas = [...refeicoes].sort((a, b) => 
+      tiposOrdenados.indexOf(a.nome) - tiposOrdenados.indexOf(b.nome)
+    );
+    
+    refeicoesOrdenadas.forEach(refeicao => {
+      const tipoRefeicaoLabel = tiposRefeicao.find(t => t.valor === refeicao.nome)?.label || refeicao.nome;
+      mensagem += `*${tipoRefeicaoLabel}*\n`;
+      mensagem += `Recomendado: ${refeicao.recomendado}\n`;
+      if (refeicao.substituicoes) {
+        mensagem += `Substituições: ${refeicao.substituicoes}\n`;
+      }
+      mensagem += '\n';
+    });
+    
+    // Adicionar rodapé com nome do nutricionista
+    const nutricionistaNome = localStorage.getItem("userName") || "Seu Nutricionista";
+    mensagem += `\n_Plano elaborado por ${nutricionistaNome} via SmartNutri_`;
+    
+    // Codificar a mensagem para URL
+    const mensagemCodificada = encodeURIComponent(mensagem);
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${mensagemCodificada}`;
+    
+    // Abrir em nova janela
+    window.open(whatsappUrl, '_blank');
+    
+    mostrarMensagemSucesso("Plano preparado para compartilhar via WhatsApp!");
+  };
+  
+  // Função para enviar plano por email
+  const enviarPorEmail = async () => {
+    if (!planoSelecionado || !clienteSelecionado || refeicoes.length === 0) {
+      setErro("Selecione um cliente, um plano e certifique-se de que há refeições para enviar");
+      return;
+    }
+    
+    setCarregando(true);
+    resetMensagens();
+    
+    try {
+      const clienteInfo = clientes.find(c => c.id === parseInt(clienteSelecionado));
+      const planoInfo = planos.find(p => p.id === parseInt(planoSelecionado));
+      const diaInfo = diasDaSemana.find(d => d.id === diaSelecionado);
+      
+      if (!clienteInfo || !clienteInfo.email) {
+        setErro("Cliente não encontrado ou sem e-mail cadastrado");
+        setCarregando(false);
+        return;
+      }
+      
+      // Chamar o backend para enviar o e-mail
+      const response = await axios.post(
+        "http://localhost:8000/api/planoalimentar/enviar-plano-email/", 
+        {
+          cliente_id: clienteSelecionado,
+          plano_id: planoSelecionado,
+          dia_id: diaSelecionado,
+          dia_nome: diaInfo.nome,
+          plano_nome: planoInfo.nome,
+          cliente_nome: clienteInfo.nome,
+          cliente_email: clienteInfo.email
+        },
+        getHeaders()
+      );
+      
+      mostrarMensagemSucesso("Plano alimentar enviado por e-mail com sucesso!");
+    } catch (error) {
+      console.error("Erro ao enviar e-mail:", error);
+      setErro("Falha ao enviar o plano por e-mail. Tente novamente mais tarde.");
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  // Função para exportar plano como PDF
+  const exportarComoPDF = () => {
+    if (!planoSelecionado || !clienteSelecionado || refeicoes.length === 0) {
+      setErro("Selecione um cliente, um plano e certifique-se de que há refeições para exportar");
+      return;
+    }
+
+    setCarregando(true);
+    resetMensagens();
+    
+    // Implementação básica simulando uma exportação para PDF
+    setTimeout(() => {
+      mostrarMensagemSucesso("Exportação para PDF em desenvolvimento. Em breve esta funcionalidade estará disponível!");
+      setCarregando(false);
+    }, 1000);
+    
+    // Aqui seria implementada a lógica real de exportação para PDF
+    // usando bibliotecas como jsPDF ou chamando uma API no backend
+  };
+
+  // Função para visualização prévia do plano completo
+  const visualizarPlanoCompleto = () => {
+    if (!planoSelecionado || !clienteSelecionado) {
+      setErro("Selecione um cliente e um plano para visualizar");
+      return;
+    }
+    
+    navigate(`/plano-alimentar-preview/${planoSelecionado}`);
+  };
+
+  // Melhorar apresentação de tipos de refeição
+  const getRefeicaoLabel = (refeicaoNome) => {
+    return tiposRefeicao.find(t => t.valor === refeicaoNome)?.label || refeicaoNome;
   };
 
   return (
-    <div className="plano-container">
-      <h2>Gerenciar Planos Alimentares</h2>
-      
-      {erro && <p className="erro-message">{erro}</p>}
-      {sucessoMsg && <p className="sucesso-message">{sucessoMsg}</p>}
-      
-      <div className="gerenciar-section">
-        <h3>Selecionar Cliente</h3>
-        <select 
-          value={clienteSelecionado} 
-          onChange={handleClienteChange}
-          className="form-select"
-          disabled={carregando}
-        >
-          <option value="">Selecione um cliente</option>
-          {clientes.map(cliente => (
-            <option key={cliente.id} value={cliente.id}>{cliente.username}</option>
-          ))}
-        </select>
-      </div>
-
-      {clienteSelecionado && (
-        <div className="gerenciar-section">
-          <h3>Plano Alimentar</h3>
-          
-          {!modoEdicao ? (
-            <div>
-              <select 
-                value={planoSelecionado} 
-                onChange={handlePlanoChange}
-                className="form-select"
-                disabled={carregando}
-              >
-                <option value="">Selecione um plano</option>
-                {planos.map(plano => (
-                  <option key={plano.id} value={plano.id}>{plano.nome}</option>
-                ))}
-              </select>
-              <button 
-                className="btn-outline"
-                onClick={() => setModoEdicao(true)}
-                disabled={carregando}
-              >
-                Criar Novo Plano
-              </button>
-            </div>
-          ) : (
-            <div className="form-group">
-              <input 
-                type="text"
-                name="nome"
-                placeholder="Nome do plano alimentar"
-                value={novoPlano.nome}
-                onChange={handleNovoPlanoChange}
-                className="form-input"
-                disabled={carregando}
-              />
-              <div className="form-buttons">
-                <button 
-                  className="btn-submit" 
-                  onClick={criarNovoPlano}
-                  disabled={carregando}
-                >
-                  {carregando ? "Criando..." : "Criar Plano"}
-                </button>
-                <button 
-                  className="btn-cancel"
-                  onClick={() => setModoEdicao(false)}
-                  disabled={carregando}
-                >
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          )}
+    <div className="page-wrapper">
+      <NavBar />
+      <div className="gerenciar-plano-container">
+        <div className="gerenciar-plano-header">
+          <h1>Gerenciar Plano Alimentar</h1>
+          <p>Crie e gerencie planos alimentares personalizados para seus clientes</p>
         </div>
-      )}
-
-      {planoSelecionado && (
-        <div className="gerenciar-section">
-          <h3>Selecionar Dia da Semana</h3>
-          <select 
-            value={diaSelecionado} 
-            onChange={handleDiaChange}
-            className="form-select"
-            disabled={carregando}
-          >
-            <option value="">Selecione um dia</option>
-            {diasDaSemana.map(dia => (
-              <option key={dia.id} value={dia.id}>{dia.nome}</option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {planoSelecionado && diaSelecionado && (
-        <div className="gerenciar-section">
-          <h3>Refeições do Dia</h3>
-          
-          {carregando ? (
-            <p>Carregando refeições...</p>
-          ) : refeicoes.length > 0 ? (
-            <div className="refeicoes">
-              {refeicoes.map((item, index) => (
-                <div key={index} className="refeicao-card">
-                  <h3>{item.refeicao}</h3>
-                  <p><strong>Recomendado:</strong> {item.recomendado}</p>
-                  <p><strong>Substituições:</strong> {item.substituicoes}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>Nenhuma refeição cadastrada para este dia.</p>
-          )}
-
-          <div className="adicionar-refeicao">
-            <h3>Adicionar Nova Refeição</h3>
-            <div className="form-group">
-              <label>Tipo de Refeição</label>
-              <select
-                name="nome"
-                value={novaRefeicao.nome}
-                onChange={handleNovaRefeicaoChange}
-                className="form-select"
-                disabled={carregando}
-              >
-                {tiposRefeicao.map(tipo => (
-                  <option key={tipo.valor} value={tipo.valor}>
-                    {tipo.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Recomendação</label>
-              <textarea
-                name="recomendado"
-                value={novaRefeicao.recomendado}
-                onChange={handleNovaRefeicaoChange}
-                placeholder="Descrição da alimentação recomendada"
-                className="form-textarea"
-                disabled={carregando}
-              />
-            </div>
-            <div className="form-group">
-              <label>Substituições (opcional)</label>
-              <textarea
-                name="substituicoes"
-                value={novaRefeicao.substituicoes}
-                onChange={handleNovaRefeicaoChange}
-                placeholder="Opções de substituição"
-                className="form-textarea"
-                disabled={carregando}
-              />
-            </div>
-            <button 
-              className="btn-submit"
-              onClick={adicionarRefeicao}
-              disabled={carregando}
-            >
-              {carregando ? "Adicionando..." : "Adicionar Refeição"}
-            </button>
+        
+        {erro && (
+          <div className="alert alert-error" role="alert">
+            {erro}
           </div>
-        </div>
-      )}
+        )}
+        
+        {sucessoMsg && (
+          <div className="alert alert-success" role="alert">
+            {sucessoMsg}
+          </div>
+        )}
 
-      <div className="botoes-navegacao">
-        <button className="btn-outline" onClick={handleVoltar} disabled={carregando}>
-          Voltar para Dashboard
-        </button>
+        {carregando ? (
+          <div className="loading-container">
+            <div className="spinner"></div>
+            <p>Carregando informações...</p>
+          </div>
+        ) : (
+          <>
+            <div className="gerenciar-card">
+              <h3>Selecionar Cliente e Plano</h3>
+              <div className="form-group">
+                <label htmlFor="cliente">Cliente:</label>
+                <select
+                  id="cliente"
+                  className="form-control"
+                  value={clienteSelecionado}
+                  onChange={handleClienteChange}
+                >
+                  <option value="">Selecione um cliente</option>
+                  {clientes.map((cliente) => (
+                    <option key={cliente.id} value={cliente.id}>
+                      {cliente.nome} ({cliente.email})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              {clienteSelecionado && (
+                <>
+                  <div className="form-group">
+                    <label htmlFor="plano">Plano Alimentar:</label>
+                    <select
+                      id="plano"
+                      className="form-control"
+                      value={planoSelecionado}
+                      onChange={handlePlanoChange}
+                    >
+                      <option value="">Selecione um plano</option>
+                      {planos.map((plano) => (
+                        <option key={plano.id} value={plano.id}>
+                          {plano.nome}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      onClick={() => setModoEdicao(!modoEdicao)}
+                    >
+                      {modoEdicao ? "Cancelar" : "Novo Plano"}
+                    </button>
+                    {planoSelecionado && (
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={compartilharViaWhatsApp}
+                      >
+                        Compartilhar via WhatsApp
+                      </button>
+                    )}
+                  </div>
+                </>
+              )}
+              
+              {modoEdicao && (
+                <div className="adicionar-refeicao">
+                  <h4>Criar Novo Plano</h4>
+                  <div className="form-group">
+                    <label htmlFor="nomePlano">Nome do Plano:</label>
+                    <input
+                      type="text"
+                      id="nomePlano"
+                      name="nome"
+                      className="form-control"
+                      value={novoPlano.nome}
+                      onChange={handleNovoPlanoChange}
+                      placeholder="Ex: Plano de Emagrecimento"
+                    />
+                  </div>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={criarNovoPlano}
+                    >
+                      Criar Plano
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline"
+                      onClick={() => setModoEdicao(false)}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {planoSelecionado && (
+              <div className="gerenciar-card">
+                <h3>Gerenciar Refeições</h3>
+                <div className="form-group">
+                  <label htmlFor="diaSemana">Dia da Semana:</label>
+                  <select
+                    id="diaSemana"
+                    className="form-control"
+                    value={diaSelecionado}
+                    onChange={handleDiaChange}
+                  >
+                    {diasDaSemana.map((dia) => (
+                      <option key={dia.id} value={dia.id}>
+                        {dia.nome}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="acoes-plano">
+                  <div className="filtro-refeicao">
+                    <label htmlFor="filtroRefeicao">Filtrar por tipo:</label>
+                    <select
+                      id="filtroRefeicao"
+                      className="form-control form-control-sm"
+                      value={filtroRefeicao}
+                      onChange={(e) => setFiltroRefeicao(e.target.value)}
+                    >
+                      <option value="">Todas as refeições</option>
+                      {tiposRefeicao.map((tipo) => (
+                        <option key={tipo.valor} value={tipo.valor}>
+                          {tipo.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="acoes-botoes">
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-sm"
+                      onClick={copiarParaOutroDia}
+                    >
+                      Copiar para outro dia
+                    </button>
+                  </div>
+                </div>
+                
+                <h4>Refeições para {diasDaSemana.find((d) => d.id === diaSelecionado)?.nome}</h4>
+                
+                {refeicoesFiltradas.length === 0 ? (
+                  <div className="empty-state">
+                    <p>Nenhuma refeição encontrada para este dia.</p>
+                    <p>Use o formulário abaixo para adicionar uma nova refeição.</p>
+                  </div>
+                ) : (
+                  <div className="refeicoes-grid">
+                    {refeicoesFiltradas.map((refeicao) => (
+                      <div key={refeicao.id} className="refeicao-card">
+                        {confirmacaoExclusao === refeicao.id ? (
+                          <div className="confirmacao-exclusao">
+                            <p>Confirmar exclusão?</p>
+                            <div className="btn-group compact">
+                              <button
+                                type="button"
+                                className="btn btn-danger btn-sm"
+                                onClick={() => excluirRefeicao(refeicao.id)}
+                              >
+                                Sim, excluir
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-outline btn-sm"
+                                onClick={cancelarExclusao}
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          </div>
+                        ) : refeicaoEmEdicao && refeicaoEmEdicao.id === refeicao.id ? (
+                          <div className="edicao-refeicao">
+                            <h4>Editar {formatarNomeRefeicao(refeicao.tipo_refeicao)}</h4>
+                            <div className="form-group compact">
+                              <label htmlFor={`editarRecomendado-${refeicao.id}`}>Recomendado:</label>
+                              <textarea
+                                id={`editarRecomendado-${refeicao.id}`}
+                                name="recomendado"
+                                className="form-control textarea"
+                                value={refeicaoEmEdicao.recomendado}
+                                onChange={handleEdicaoChange}
+                                placeholder="Ex: 2 ovos cozidos, 1 fatia de pão integral..."
+                              />
+                            </div>
+                            <div className="form-group compact">
+                              <label htmlFor={`editarSubstituicoes-${refeicao.id}`}>Substituições (opcional):</label>
+                              <textarea
+                                id={`editarSubstituicoes-${refeicao.id}`}
+                                name="substituicoes"
+                                className="form-control textarea"
+                                value={refeicaoEmEdicao.substituicoes}
+                                onChange={handleEdicaoChange}
+                                placeholder="Ex: Substituir ovos por 100g de frango..."
+                              />
+                            </div>
+                            <div className="btn-group compact">
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={salvarEdicaoRefeicao}
+                              >
+                                Salvar
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-outline btn-sm"
+                                onClick={cancelarEdicaoRefeicao}
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <h4>{formatarNomeRefeicao(refeicao.tipo_refeicao)}</h4>
+                            <p>
+                              <strong>Recomendado:</strong><br />
+                              {refeicao.recomendado}
+                            </p>
+                            {refeicao.substituicoes && (
+                              <p>
+                                <strong>Substituições:</strong><br />
+                                {refeicao.substituicoes}
+                              </p>
+                            )}
+                            <div className="btn-group compact">
+                              <button
+                                type="button"
+                                className="btn btn-outline btn-sm"
+                                onClick={() => iniciarEdicaoRefeicao(refeicao)}
+                              >
+                                Editar
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-danger btn-sm"
+                                onClick={() => confirmarExclusao(refeicao.id)}
+                              >
+                                Excluir
+                              </button>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                
+                <div className="adicionar-refeicao">
+                  <h4>Adicionar Nova Refeição</h4>
+                  <div className="form-group">
+                    <label htmlFor="tipoRefeicao">Tipo de Refeição:</label>
+                    <select
+                      id="tipoRefeicao"
+                      name="nome"
+                      className="form-control"
+                      value={novaRefeicao.nome}
+                      onChange={handleNovaRefeicaoChange}
+                    >
+                      {tiposRefeicao.map((tipo) => (
+                        <option key={tipo.valor} value={tipo.valor}>
+                          {tipo.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="recomendado">Recomendado:</label>
+                    <textarea
+                      id="recomendado"
+                      name="recomendado"
+                      className="form-control textarea"
+                      value={novaRefeicao.recomendado}
+                      onChange={handleNovaRefeicaoChange}
+                      placeholder="Ex: 2 ovos cozidos, 1 fatia de pão integral..."
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="substituicoes">Substituições (opcional):</label>
+                    <textarea
+                      id="substituicoes"
+                      name="substituicoes"
+                      className="form-control textarea"
+                      value={novaRefeicao.substituicoes}
+                      onChange={handleNovaRefeicaoChange}
+                      placeholder="Ex: Substituir ovos por 100g de frango..."
+                    />
+                  </div>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={adicionarRefeicao}
+                    >
+                      Adicionar Refeição
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

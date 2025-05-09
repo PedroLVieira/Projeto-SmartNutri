@@ -39,4 +39,17 @@
     margin-top: 1rem;
     background-color: #ccc;
   }
-  
+
+/* Responsividade e visual moderno */
+@media (max-width: 600px) {
+  .esqueci-senha-container, .form {
+    padding: 0.5rem !important;
+    font-size: 0.95rem !important;
+  }
+  h1, h2 {
+    font-size: 1.2rem !important;
+  }
+  input, button {
+    font-size: 1rem !important;
+  }
+}

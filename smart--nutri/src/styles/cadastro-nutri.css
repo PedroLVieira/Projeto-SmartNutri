@@ -98,3 +98,17 @@
 .form-button:hover {
   background-color: #15803d;
 }
+
+/* Responsividade e visual moderno */
+@media (max-width: 600px) {
+  .cadastro-container, .form {
+    padding: 0.5rem !important;
+    font-size: 0.95rem !important;
+  }
+  h1, h2 {
+    font-size: 1.2rem !important;
+  }
+  input, button {
+    font-size: 1rem !important;
+  }
+}

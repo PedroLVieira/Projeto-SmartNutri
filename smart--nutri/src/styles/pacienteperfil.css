@@ -1,59 +1,396 @@
+@import './shared.css';
+
 .paciente-perfil-container {
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
-    font-family: 'Segoe UI', sans-serif;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: var(--space-xl);
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-family);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.paciente-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.paciente-avatar {
+  width: 90px;
+  height: 90px;
+  background-color: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.paciente-nome {
+  font-size: var(--font-size-2xl);
+  color: var(--neutral-900);
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.paciente-subtitulo {
+  color: var(--neutral-600);
+  font-size: var(--font-size-md);
+}
+
+.info-pessoal {
+  background-color: var(--neutral-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md) var(--space-lg);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.info-label {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  font-size: var(--font-size-md);
+  color: var(--neutral-900);
+  font-weight: 600;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.info-item.highlight {
+  padding: var(--space-sm);
+  background-color: rgba(76, 175, 80, 0.05);
+  border-left: 3px solid var(--primary-color);
+  border-radius: var(--radius-sm);
+}
+
+/* Plano alimentar tabs */
+.plano-section {
+  margin-top: var(--space-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-xl);
+  color: var(--neutral-800);
+  margin-bottom: var(--space-md);
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: var(--primary-color);
+  bottom: -8px;
+  left: 0;
+  border-radius: var(--radius-full);
+}
+
+.dias-abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  background-color: var(--neutral-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm);
+}
+
+.aba {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: var(--neutral-700);
+  flex: 1;
+  text-align: center;
+  min-width: 100px;
+}
+
+.aba:hover {
+  background-color: var(--neutral-100);
+  border-color: var(--neutral-300);
+  transform: translateY(-2px);
+}
+
+.aba.ativa {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.plano-refeicoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.card-refeicao {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+.card-refeicao:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.refeicao-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.refeicao-icon {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  background-color: rgba(76, 175, 80, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refeicao-titulo {
+  font-size: var(--font-size-lg);
+  color: var(--neutral-800);
+  font-weight: 600;
+  margin: 0;
+}
+
+.refeicao-horario {
+  margin-left: auto;
+  color: var(--neutral-500);
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.refeicao-content {
+  margin-top: var(--space-md);
+}
+
+.refeicao-grupo {
+  margin-bottom: var(--space-md);
+}
+
+.refeicao-label {
+  font-size: var(--font-size-sm);
+  color: var(--neutral-500);
+  font-weight: 500;
+  margin-bottom: var(--space-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.refeicao-texto {
+  color: var(--neutral-800);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+}
+
+.nutrientes-info {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--neutral-300);
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.nutriente {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--neutral-50);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  min-width: 80px;
+}
+
+.nutriente-valor {
+  font-weight: 600;
+  color: var(--neutral-900);
+}
+
+.nutriente-nome {
+  font-size: var(--font-size-xs);
+  color: var(--neutral-500);
+}
+
+/* Botões de ação */
+.acoes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2xl);
+}
+
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--neutral-100);
+  color: var(--neutral-700);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.voltar:hover {
+  background-color: var(--neutral-200);
+  transform: translateY(-2px);
+}
+
+.acoes-secundarias {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.btn-imprimir, 
+.btn-editar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-imprimir {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.btn-imprimir:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-editar {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.btn-editar:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .paciente-perfil-container {
+    padding: var(--space-md);
+    margin: var(--space-md);
+  }
+  
+  .paciente-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+    text-align: center;
+  }
+  
+  .paciente-avatar {
+    margin: 0 auto;
   }
   
   .info-pessoal {
-    background: #f3f8fc;
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    grid-template-columns: 1fr;
   }
   
   .dias-abas {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    overflow-x: auto;
+    padding-bottom: var(--space-xs);
+    gap: 2px;
   }
   
   .aba {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #fff;
-    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm);
+    min-width: 80px;
+    font-size: var(--font-size-sm);
   }
   
-  .aba.ativa {
-    background: #00796b;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-  }
-  
-  .plano-refeicoes {
-    display: flex;
+  .acoes {
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-md);
   }
   
-  .card-refeicao {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  .acoes-secundarias {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .paciente-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
   }
   
-  .voltar {
-    margin-top: 2rem;
-    background: #f44336;
-    color: #fff;
-    padding: 0.5rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  .paciente-nome {
+    font-size: var(--font-size-xl);
   }
   
+  .refeicao-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  
+  .refeicao-horario {
+    margin-left: 0;
+  }
+}

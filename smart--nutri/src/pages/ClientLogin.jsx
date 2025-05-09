@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import "../global.css";
-import axios from 'axios';
+import axios from "../axios";
 
 export function ClientLogin() {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ export function ClientLogin() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
-  const API_URL = "http://127.0.0.1:8000";
+  const API_URL = "http://localhost:8000";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,14 +26,9 @@ export function ClientLogin() {
 
     try {
       // Usando axios para melhor tratamento de erros
-      const response = await axios.post(`${API_URL}/api/token/`, {
+      const response = await axios.post("/api/token/", {
         username: email, // Usando username em vez de email para compatibilidade com JWT 
         password: password
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        timeout: 10000 // 10 segundos timeout
       });
 
       setLoading(false);
@@ -47,15 +42,12 @@ export function ClientLogin() {
       
       // Tentamos obter dados adicionais do usuário
       try {
-        const userResponse = await axios.get(`${API_URL}/api/user/me/`, {
-          headers: {
-            'Authorization': `Bearer ${data.access}`
-          }
-        });
+        const userResponse = await axios.get("/api/user/me/");
         
         const userData = userResponse.data;
         localStorage.setItem("userType", userData.tipo || "cliente");
         localStorage.setItem("userName", userData.username || userData.email);
+        localStorage.setItem("userId", userData.id);
         
         // Redirecionamento específico para cliente
         navigate("/dashboard-cliente");

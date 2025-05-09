@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaUser, FaPhone, FaFileAlt } from "react-icons/fa";
 import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
 import logo from "../assets/logo.svg";
-import axios from "axios";
+import axios from "../axios";
 import { useState } from "react";
 
-export function Register({ userType = "cliente" }) {
+export function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -17,7 +17,7 @@ export function Register({ userType = "cliente" }) {
     telefone: "",
     idade: "",
     cpf: "",
-    tipo: userType // Usar o userType recebido como prop
+    tipo: "cliente" // Tipo fixado como cliente
   });
 
   const handleChange = (e) => {
@@ -41,22 +41,19 @@ export function Register({ userType = "cliente" }) {
 
       // Envia os dados para a API de cadastro
       const response = await axios.post(
-        "http://localhost:8000/api/register/", 
+        "/api/register/", 
         dataToSend
       );
       
       // Salva os tokens e informações do usuário no localStorage
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
-      localStorage.setItem("userType", response.data.user.tipo);
+      localStorage.setItem("userType", "cliente");
       localStorage.setItem("userName", response.data.user.username);
+      localStorage.setItem("userId", response.data.user.id);
       
-      // Redirecionar para o dashboard apropriado
-      if (response.data.user.tipo === "cliente") {
-        navigate("/dashboard-cliente");
-      } else {
-        navigate("/dashboard-nutricionista");
-      }
+      // Redirecionar para o dashboard do cliente
+      navigate("/dashboard-cliente");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
       
@@ -83,7 +80,7 @@ export function Register({ userType = "cliente" }) {
 
       <header className="header">
         <img src={logo} alt="Smart-Nutri" className="logo" />
-        <h1 className="title-box">Cadastro</h1>
+        <h1 className="title-box">Cadastro de Cliente</h1>
       </header>
 
       {error && <p className="error-message">{error}</p>}
@@ -178,22 +175,6 @@ export function Register({ userType = "cliente" }) {
               value={formData.idade}
               onChange={handleChange}
             />
-          </div>
-        </div>
-
-        <div className="inputContainer">
-          <label htmlFor="tipo">Tipo de Usuário</label>
-          <div className="inputWrapper">
-            <select 
-              id="tipo" 
-              name="tipo" 
-              value={formData.tipo}
-              onChange={handleChange}
-              required
-            >
-              <option value="cliente">Cliente</option>
-              <option value="nutricionista">Nutricionista</option>
-            </select>
           </div>
         </div>
 

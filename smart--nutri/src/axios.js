@@ -1,4 +1,5 @@
-// TEC WITH TIM
+// src/axios.js
+// Cópia do axios.tsx na pasta src para resolver problemas de importação
 
 import axios from "axios";
 

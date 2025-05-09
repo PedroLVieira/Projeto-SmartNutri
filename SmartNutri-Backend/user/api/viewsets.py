@@ -48,6 +48,25 @@ class RegisterViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
     
+    @action(detail=False, methods=['get'], url_path='perfil')
+    def perfil(self, request):
+        """Endpoint para o usuário ver seu próprio perfil"""
+        user = request.user
+        data = {
+            "id": user.id,
+            "nome": user.first_name,
+            "email": user.email,
+            "tipo": user.tipo,
+            "telefone": getattr(user, "telefone", ""),
+            "sexo": getattr(user, "sexo", ""),
+            "idade": getattr(user, "idade", ""),
+            "cpf": getattr(user, "cpf", ""),
+            "peso": getattr(user, "peso", ""),
+            "altura": getattr(user, "altura", ""),
+            "endereco": getattr(user, "endereco", ""),
+        }
+        return Response(data)
+    
     @action(detail=False, methods=['get'], url_path='listar-clientes')
     def listar_clientes(self, request):
         """Endpoint para nutricionistas listarem seus clientes"""

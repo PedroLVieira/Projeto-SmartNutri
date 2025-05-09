@@ -1,119 +1,148 @@
-import logo from '../assets/logo.svg';
-import "../styles/login.css";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from 'react';
-import axios from "axios";
+import { FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
+import axios from "../axios";
+import "../styles/login.css";
+import logo from "../assets/logo.svg";
 
 export function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.senha.value;
-
-    if (!email || !password) {
-      setError("Por favor, preencha todos os campos!");
-      return;
-    }
-
-    setError("");
     setLoading(true);
+    setError("");
 
     try {
-      const response = await axios.post("http://localhost:8000/api/login/", {
-        email,
-        password
+      const response = await axios.post("/api/token/", {
+        username: email, // pode ser email ou username
+        password: password
       });
 
-      const data = response.data;
-      console.log("Dados do usuário recebidos:", data);
-      
-      // Salvar tokens e dados do usuário
-      localStorage.setItem("accessToken", data.access);
-      localStorage.setItem("refreshToken", data.refresh);
-      localStorage.setItem("userType", data.user.tipo);
-      localStorage.setItem("userName", data.user.username);
-      localStorage.setItem("userId", data.user.id.toString());  // Adicionando o ID do usuário
-      
-      console.log("ID do usuário armazenado:", data.user.id);
-
-      // Redirecionamento baseado no tipo de usuário
-      if (data.user.tipo === "cliente") {
-        navigate("/dashboard-cliente");
-      } else if (data.user.tipo === "nutricionista") {
-        navigate("/dashboard-nutricionista");
+      if (response.data && response.data.access) {
+        // Obter o tipo de usuário da resposta do servidor
+        const userTipoFromServer = response.data.tipo;
+        
+        // Salvar dados no localStorage
+        localStorage.setItem("accessToken", response.data.access);
+        localStorage.setItem("refreshToken", response.data.refresh);
+        localStorage.setItem("userType", userTipoFromServer);
+        localStorage.setItem("userName", response.data.name || "Usuário");
+        localStorage.setItem("userId", response.data.user_id);
+        localStorage.setItem("userEmail", response.data.email);
+        
+        console.log("Tipo de usuário detectado:", userTipoFromServer);
+        
+        // Redireciona automaticamente com base no tipo de usuário
+        if (userTipoFromServer === "nutricionista") {
+          navigate("/dashboard-nutricionista");
+        } else {
+          navigate("/dashboard-cliente");
+        }
       } else {
-        setError("Tipo de usuário desconhecido!");
+        setError("Erro ao fazer login. Tente novamente.");
       }
-    } catch (error) {
-      console.error("Erro de login:", error);
-      setError(error.response?.data?.detail || "Credenciais inválidas!");
+    } catch (err) {
+      console.error("Erro no login:", err);
+      if (err.response && err.response.status === 401) {
+        setError("Credenciais inválidas. Verifique seu email e senha.");
+      } else {
+        setError("Erro ao fazer login. Tente novamente mais tarde.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <header className="login-header">
-          <img src={logo} alt="Smart-Nutri" className="login-logo" />
-          <h2 className="login-title">Login</h2>
-        </header>
-
-        <form className="login-form" onSubmit={handleLogin}>
-          <div className="input-group">
-            <label htmlFor="email">E-mail:</label>
-            <div className="input-field">
-              <FaEnvelope className="input-icon" />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Digite aqui seu Email!"
-                required
-              />
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-form-wrapper">
+          <div className="login-header">
+            <img src={logo} alt="SmartNutri Logo" className="login-logo" />
+            <h1 className="login-title">Bem-vindo ao SmartNutri</h1>
+            <p className="login-subtitle">Entre com suas credenciais para acessar a plataforma</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="login-form">
+            {error && <div className="error-message">{error}</div>}
+            
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <div className="input-field">
+                <FaEnvelope className="input-icon" />
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Seu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="input-group">
+              <label htmlFor="senha">Senha</label>
+              <div className="input-field">
+                <FaLock className="input-icon" />
+                <input
+                  id="senha"
+                  type="password"
+                  placeholder="Sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="forgot-password">
+              <Link to="/esqueci-senha">Esqueceu a senha?</Link>
+            </div>
+            
+            <button type="submit" className="btn primary" disabled={loading}>
+              {loading ? <><FaSpinner className="spin" /> Carregando...</> : "Entrar"}
+            </button>
+            
+            <div className="register-options">
+              <p>Não tem uma conta?</p>
+              <div className="register-buttons">
+                <Link to="/register" className="register-btn client">
+                  Cadastrar como Cliente
+                </Link>
+                <Link to="/cadastro-nutricionista" className="register-btn nutritionist">
+                  Cadastrar como Nutricionista
+                </Link>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+        <div className="login-banner">
+          <div className="banner-content">
+            <h2>Sua jornada para uma vida mais saudável começa aqui</h2>
+            <p>Conecte-se com nutricionistas e receba planos alimentares personalizados para atingir seus objetivos.</p>
+            <div className="banner-features">
+              <div className="feature">
+                <div className="feature-icon">✓</div>
+                <span>Planos alimentares personalizados</span>
+              </div>
+              <div className="feature">
+                <div className="feature-icon">✓</div>
+                <span>Acompanhamento profissional</span>
+              </div>
+              <div className="feature">
+                <div className="feature-icon">✓</div>
+                <span>Monitoramento de progresso</span>
+              </div>
             </div>
           </div>
-
-          <div className="input-group">
-            <label htmlFor="senha">Senha:</label>
-            <div className="input-field">
-              <FaLock className="input-icon" />
-              <input
-                type="password"
-                id="senha"
-                name="senha"
-                placeholder="Digite aqui sua Senha!"
-                required
-              />
-            </div>
-          </div>
-
-          {error && <p className="error-message">{error}</p>}
-
-          <div className="forgot-password">
-            <Link to="/esqueci-senha">Esqueci minha senha</Link>
-          </div>
-
-          <button className="btn primary" type="submit" disabled={loading}>
-            {loading ? "Carregando..." : "Entrar"}
-          </button>
-
-          <p className="register-text">Ainda não tem conta?</p>
-          <button
-            type="button"
-            className="btn secondary"
-            onClick={() => navigate("/cadastro")}
-          >
-            Cadastre-se
-          </button>
-        </form>
+        </div>
       </div>
     </div>
   );

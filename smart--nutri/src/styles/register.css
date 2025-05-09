@@ -89,6 +89,18 @@
     transform: scale(1.1);
     color: #1d4ed8;
   }
-  
-  
-  
+
+  @media (max-width: 600px) {
+    .register-container, .form {
+      padding: 0.5rem !important;
+      font-size: 0.95rem !important;
+    }
+    h1, h2 {
+      font-size: 1.2rem !important;
+    }
+    input, button {
+      font-size: 1rem !important;
+    }
+  }
+
+

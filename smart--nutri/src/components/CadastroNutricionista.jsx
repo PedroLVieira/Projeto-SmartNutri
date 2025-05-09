@@ -1,11 +1,10 @@
-// Atualização do componente CadastroNutricionista.jsx
-import { useState } from "react";
-import { FaEnvelope, FaLock, FaUser, FaPhone, FaFileAlt } from "react-icons/fa";
-import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.svg";
 import "../styles/cadastro-nutri.css";
-import axios from "axios";
+import { FaUser, FaEnvelope, FaLock, FaFileAlt } from "react-icons/fa";
+import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
+import logo from "../assets/logo.svg";
+import axios from "../axios";
 
 export function CadastroNutricionista() {
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ export function CadastroNutricionista() {
     password: "",
     username: "",
     cpf: "",
-    tipo: "nutricionista", // Valor fixo para nutricionista
+    tipo: "nutricionista" // Tipo fixado como nutricionista
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,18 +31,26 @@ export function CadastroNutricionista() {
     setError("");
 
     try {
+      // Certifica-se de que o campo username tem um valor
+      const dataToSend = {
+        ...formData,
+        username: formData.username || formData.email.split('@')[0]
+      };
+
+      // Envia os dados para a API de cadastro
       const response = await axios.post(
-        "http://localhost:8000/api/register/", 
-        formData
+        "/api/register/", 
+        dataToSend
       );
       
-      // Salvar token no localStorage
+      // Salva os tokens e informações do usuário no localStorage
       localStorage.setItem("accessToken", response.data.access);
       localStorage.setItem("refreshToken", response.data.refresh);
       localStorage.setItem("userType", "nutricionista");
-      localStorage.setItem("userName", formData.username);
+      localStorage.setItem("userName", response.data.user.username);
+      localStorage.setItem("userId", response.data.user.id);
       
-      // Redirecionar para o dashboard
+      // Redirecionar para o dashboard do nutricionista
       navigate("/dashboard-nutricionista");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);

@@ -119,3 +119,331 @@
     font-size: 18px;
   }
 }
+
+/* Layout principal do dashboard */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.dashboard-content {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Cabeçalho do dashboard */
+.dashboard-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  color: #16a34a;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-header p {
+  font-size: 1.1rem;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.dashboard-header .subtitle {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Estatísticas */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: linear-gradient(to right, #ffffff, #f8fafc);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  color: #16a34a;
+  background-color: rgba(22, 163, 74, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-info h3 {
+  font-size: 1rem;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #16a34a;
+}
+
+/* Seções */
+.dashboard-section {
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-section h2 {
+  font-size: 1.5rem;
+  color: #334155;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* Container de cards */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Cards principais */
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  color: #16a34a;
+  background-color: rgba(22, 163, 74, 0.1);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.card-info h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.card-info p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Cards de performance */
+.dashboard-card.performance {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-card.performance .card-info {
+  flex: 1;
+}
+
+/* Gráfico de progresso */
+.progress-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 100px;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.chart-bar {
+  flex: 1;
+  background: linear-gradient(to top, #16a34a, #4ade80);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.3s ease;
+}
+
+/* Container de metas */
+.goals-container {
+  margin-top: 1rem;
+}
+
+.goal-item {
+  position: relative;
+  height: 28px;
+  background-color: #f1f5f9;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.goal-progress {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(to right, #16a34a, #4ade80);
+  border-radius: 14px;
+}
+
+.goal-item span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  text-align: center;
+  padding: 4px;
+  font-size: 0.9rem;
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .dashboard-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .dashboard-card.performance {
+    flex-direction: column;
+  }
+  
+  .dashboard-card.performance .card-icon {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 1rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .dashboard-header p {
+    font-size: 1rem;
+  }
+  
+  .stat-card {
+    padding: 1.2rem;
+  }
+  
+  .stat-icon {
+    font-size: 1.5rem;
+    padding: 0.8rem;
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .dashboard-header {
+    text-align: center;
+  }
+  
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Melhorias de responsividade e visual para o dashboard nutricionista */
+
+/* Ajuste para o container principal em telas pequenas */
+@media (max-width: 600px) {
+  .dashboard-content {
+    padding: 0.5rem;
+  }
+  .dashboard-header h1 {
+    font-size: 1.3rem;
+  }
+  .dashboard-header p,
+  .dashboard-header .subtitle {
+    font-size: 0.95rem;
+  }
+  .stat-card, .dashboard-card {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+  .stat-icon, .card-icon {
+    font-size: 1.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0.5rem;
+  }
+  .cards-container {
+    gap: 0.7rem;
+  }
+}
+
+/* Ajuste para grid de estatísticas e cards em telas médias */
+@media (max-width: 900px) {
+  .stats-container, .cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Melhore o contraste dos cards e botões */
+.dashboard-card, .stat-card {
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.dashboard-card:hover, .stat-card:hover {
+  background-color: #e7f9ef;
+  border-color: #16a34a;
+}
+
+/* Ajuste para evitar overflow lateral */
+.dashboard-content, .dashboard-header, .stats-container, .cards-container {
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Responsividade e visual moderno */
+@media (max-width: 600px) {
+  .dashboard-container, .card, .section {
+    padding: 0.5rem !important;
+    font-size: 0.95rem !important;
+  }
+  h1, h2 {
+    font-size: 1.2rem !important;
+  }
+}
