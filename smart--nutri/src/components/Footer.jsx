@@ -13,7 +13,6 @@ const Footer = () => {
         <div className="footer-section">
           <div className="footer-logo">
             <img src={logo} alt="SmartNutri Logo" />
-            <h3>SmartNutri</h3>
           </div>
           <p className="footer-description">
             Plataforma completa para gerenciamento de planos alimentares e acompanhamento nutricional. Conectando nutricionistas e pacientes para uma vida mais saudável.

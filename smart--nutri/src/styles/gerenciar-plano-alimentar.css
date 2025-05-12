@@ -1,34 +1,10 @@
 /* Estilos para o GerenciarPlanoAlimentar */
-:root {
-  --primary-color: #4caf50;
-  --primary-dark: #3d8b40;
-  --primary-light: #80e27e;
-  --accent-color: #ff9800;
-  --text-dark: #2c3e50;
-  --text-light: #64748b;
-  --white: #ffffff;
-  --gray-light: #f9f9f9;
-  --gray-medium: #e2e8f0;
-  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
-  --border-radius: 8px;
-  --transition: all 0.3s ease;
-  --border-color: #e0e0e0;
-  --bg-accent: #f5f9f5;
-  --success-color: #2e7d32;
-  --success-bg: #e8f5e9;
-  --danger-color: #c62828;
-  --danger-bg: #ffebee;
-  --danger-color-light: #ffcdd2;
-  --primary-color-light: #a5d6a7;
-}
 
 .gerenciar-plano-container {
   width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -138,15 +114,27 @@
 
 /* Cartões de refeição com bordas personalizadas e animações */
 .refeicao-card {
-  background: var(--gray-light);
-  border: 1px solid var(--border-color);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--border-radius);
-  padding: 1rem;
+  padding: 1.5rem;
   position: relative;
-  transition: all 0.3s ease;
+  transition: var(--transition);
   opacity: 0;
   transform: translateY(10px);
   animation: fadeSlideUp 0.5s ease forwards;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.refeicao-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--primary);
 }
 
 .refeicao-card::after {
@@ -919,4 +907,16 @@
   .refeicao-card p {
     font-size: 0.8rem;
   }
+}
+
+/* Correção para o fundo da página */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--surface);
+  background-image: none; /* Removendo o background pattern herdado */
+  position: relative;
+  z-index: 1;
 }

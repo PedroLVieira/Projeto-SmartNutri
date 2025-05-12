@@ -1,8 +1,20 @@
 .footer {
-  background-color: #0f172a;
+  background-color: var(--primary-dark);
   color: #f8fafc;
   padding-top: 3rem;
   margin-top: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
 }
 
 .footer-container {
@@ -18,17 +30,22 @@
 .footer-logo {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .footer-logo img {
-  height: 40px;
+  height: 48px;
   margin-right: 0.75rem;
   filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover img {
+  transform: rotate(-5deg);
 }
 
 .footer-logo h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
   color: #f8fafc;

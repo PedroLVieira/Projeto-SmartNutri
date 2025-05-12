@@ -179,9 +179,9 @@ export function PlanoAlimentar() {
     const diaAtual = planoSelecionado.dias_semana[dia];
     return diaAtual && diaAtual.refeicoes && diaAtual.refeicoes.length > 0;
   };
-
   return (
     <div className="layout-wrapper">
+      <div className="plano-background"></div>
       <NavBar userType="cliente" />
       
       <div className="plano-container">

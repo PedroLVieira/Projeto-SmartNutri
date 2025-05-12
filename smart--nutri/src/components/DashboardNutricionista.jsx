@@ -54,45 +54,15 @@ export function DashboardNutricionista() {
       
       <div className="dashboard-content">
         <div className="dashboard-header">
-          <h1>Painel do Nutricionista</h1>
+          <h1>Dashboard do Nutricionista</h1>
           <p>Bem-vindo(a), <strong>{userInfo.name || "Nutricionista"}</strong>!</p>
           <p className="subtitle">Gerencie seus pacientes e planos alimentares.</p>
-        </div>
-        
-        <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-icon">
-              <FaUsers />
-            </div>
-            <div className="stat-info">
-              <h3>Pacientes</h3>
-              <p className="stat-number">{userInfo.count.patients}</p>
-            </div>
-          </div>
-          
-          <div className="stat-card">
-            <div className="stat-icon">
-              <FaUtensils />
-            </div>
-            <div className="stat-info">
-              <h3>Planos Alimentares</h3>
-              <p className="stat-number">{userInfo.count.mealPlans}</p>
-            </div>
-          </div>
         </div>
         
         <div className="dashboard-section">
           <h2>Gerenciar</h2>
           <div className="cards-container">
-            <div className="dashboard-card" onClick={() => navigate("/paciente-perfil")}>
-              <div className="card-icon">
-                <FaUserMd />
-              </div>
-              <div className="card-info">
-                <h3>Pacientes</h3>
-                <p>Visualize e gerencie seus pacientes</p>
-              </div>
-            </div>
+
             
             <div className="dashboard-card" onClick={() => navigate("/gerenciar-plano-alimentar")}>
               <div className="card-icon">
@@ -111,52 +81,6 @@ export function DashboardNutricionista() {
               <div className="card-info">
                 <h3>Relatórios</h3>
                 <p>Visualize relatórios e estatísticas</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="dashboard-section">
-          <h2>Desempenho</h2>
-          <div className="cards-container">
-            <div className="dashboard-card performance">
-              <div className="card-icon">
-                <FaChartLine />
-              </div>
-              <div className="card-info">
-                <h3>Acompanhamento</h3>
-                <p>Progresso dos pacientes nas últimas semanas</p>
-                <div className="progress-chart">
-                  <div className="chart-bar" style={{height: "60%"}}></div>
-                  <div className="chart-bar" style={{height: "75%"}}></div>
-                  <div className="chart-bar" style={{height: "45%"}}></div>
-                  <div className="chart-bar" style={{height: "80%"}}></div>
-                  <div className="chart-bar" style={{height: "65%"}}></div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="dashboard-card performance">
-              <div className="card-icon">
-                <FaBullseye />
-              </div>
-              <div className="card-info">
-                <h3>Metas</h3>
-                <p>Acompanhamento de metas alcançadas</p>
-                <div className="goals-container">
-                  <div className="goal-item">
-                    <div className="goal-progress" style={{width: "75%"}}></div>
-                    <span>Planos criados</span>
-                  </div>
-                  <div className="goal-item">
-                    <div className="goal-progress" style={{width: "60%"}}></div>
-                    <span>Consultas realizadas</span>
-                  </div>
-                  <div className="goal-item">
-                    <div className="goal-progress" style={{width: "45%"}}></div>
-                    <span>Objetivos atingidos</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

@@ -501,7 +501,6 @@ export function GerenciarPlanoAlimentar() {
   const getRefeicaoLabel = (refeicaoNome) => {
     return tiposRefeicao.find(t => t.valor === refeicaoNome)?.label || refeicaoNome;
   };
-
   return (
     <div className="page-wrapper">
       <NavBar />
