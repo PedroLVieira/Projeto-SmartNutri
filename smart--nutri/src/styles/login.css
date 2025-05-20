@@ -1,5 +1,43 @@
 @import './shared.css';
 
+/* Exemplo de definição de variáveis, caso precise */
+/* Você pode colocar isso no seu shared.css */
+:root {
+  --primary-color: #4caf50;      /* Verde padrão */
+  --primary-dark: #388e3c;       /* Verde escuro */
+  --secondary-color: #2563eb;    /* Azul secundário */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --error-color: #ef4444;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+
 /* Container principal */
 .login-page {
   min-height: 100vh;
@@ -61,6 +99,7 @@
   font-size: var(--font-size-3xl);
   margin-bottom: var(--space-md);
   font-weight: 600;
+  color: white !important;
 }
 
 .banner-content p {
@@ -68,6 +107,7 @@
   margin-bottom: var(--space-xl);
   line-height: 1.6;
   opacity: 0.9;
+  color: white !important;
 }
 
 .feature-list {
@@ -102,6 +142,53 @@
 }
 
 /* Formulário de login */
+.btn.primary {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #43a047; /* Verde SmartNutri */
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn.primary:hover {
+  background-color: #388e3c; /* Tom mais escuro no hover */
+}
+
+.btn.primary:active {
+  opacity: 0.85; /* Feedback sutil ao clicar */
+}
+
+.btn.primary:disabled {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Spinner girando */
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 .login-form-wrapper {
   flex: 1;
   background-color: white;
@@ -175,61 +262,72 @@
 .form-input:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
 }
 
 .form-input::placeholder {
   color: var(--neutral-400);
 }
 
+/* Link de Esqueci a senha com estilo mais de link */
 .forgot-password {
-  align-self: flex-end;
-  color: var(--primary-color);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
+  text-align: right;
+  margin-top: 12px;
+}
+
+.forgot-password a {
+  font-size: 14px;
+  color: #388e3c; /* verde moderno */
   font-weight: 500;
-  margin-top: var(--space-xs);
-  transition: color 0.2s ease;
-}
-
-.forgot-password:hover {
-  color: var(--primary-dark);
-  text-decoration: underline;
-}
-
-.login-btn {
-  padding: var(--space-md);
-  background: linear-gradient(to right, var(--primary-color), var(--primary-dark));
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: var(--space-md);
+  text-decoration: none;
   position: relative;
-  overflow: hidden;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
 }
 
-.login-btn:hover {
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-  transform: translateY(-2px);
-}
-
-.login-btn:active {
-  transform: translateY(0);
-}
-
-.login-btn::after {
+.forgot-password a::after {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #388e3c;
+  transition: width 0.3s ease;
+}
+
+.forgot-password a:hover::after {
+  width: 100%;
+}
+
+.forgot-password a:hover {
+  color: #1b5e20;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Botão de login */
+.login-button {
+  width: 100%;
+  padding: 12px 20px;
+  background-color: #43a047; /* verde forte e moderno */
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #388e3c; /* tom mais escuro no hover */
+  transform: scale(1.02);    /* leve "zoom" */
+}
+
+.login-button:active {
+  transform: scale(0.98);
 }
 
 .login-btn:hover::after {
@@ -262,16 +360,18 @@
 
 .register-buttons {
   display: flex;
-  gap: var(--space-md);
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .register-btn {
   flex: 1;
   padding: var(--space-md);
-  background-color: white;
-  border: 1px solid var(--neutral-300);
+  background-color:#388e3c !important;;
+  border: 1px solid var(--primary-dark);
   border-radius: var(--radius-md);
-  color: var(--neutral-800);
+  color: white;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -282,26 +382,41 @@
 }
 
 .register-btn:hover {
-  background-color: var(--neutral-100);
-  border-color: var(--neutral-400);
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: white;
 }
 
 .register-btn.cliente {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-}
-
-.register-btn.nutricionista {
-  border-color: var(--secondary-color);
-  color: var(--secondary-color);
+  background:  #388e3c; ;
+  border: none;
+  color: #2e7d32;;
+  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.10);
+  transition: background 0.3s, box-shadow 0.2s, color 0.2s, transform 0.2s;
 }
 
 .register-btn.cliente:hover {
-  background-color: rgba(76, 175, 80, 0.05);
+  background: #2e7d32;;
+  box-shadow: 0 4px 16px rgba(67, 160, 71, 0.18);
+  transform: translateY(-2px) scale(1.03);
+  color:#2e7d32;;
+  border: none;
+}
+
+.register-btn.nutricionista {
+  background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  transition: background 0.3s, box-shadow 0.2s, color 0.2s, transform 0.2s;
 }
 
 .register-btn.nutricionista:hover {
-  background-color: rgba(37, 99, 235, 0.05);
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+  transform: translateY(-2px) scale(1.03);
+  color: #fff;
+  border: none;
 }
 
 .login-footer {
@@ -322,141 +437,35 @@
 }
 
 .login-container .header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
-.login-container .header img {
-  width: 120px;
+.login-container .header h1 {
+  color: var(--neutral-800);
+  font-weight: 700;
+  font-size: var(--font-size-2xl);
 }
 
-.login-container .header span {
-  display: inline-block;
-  background: var(--primary-color);
-  color: white;
-  font-size: var(--font-size-md);
-  font-weight: 600;
-  padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-md);
-  margin-top: var(--space-md);
-}
-
-.login-container .inputContainer {
-  margin-bottom: var(--space-md);
-}
-
-.login-container .inputContainer label {
-  display: block;
-  font-weight: 500;
-  color: var(--neutral-700);
-  margin-bottom: var(--space-xs);
-}
-
-.login-container input {
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-md);
-  transition: border-color 0.2s ease;
-}
-
-.login-container input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-}
-
-.login-container .button {
-  margin-top: var(--space-md);
-  background: var(--primary-color);
-  color: white;
-  padding: var(--space-sm) 0;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.login-container .button:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-}
-
-.login-container .register-text {
-  margin: var(--space-md) 0;
-  color: var(--neutral-600);
-}
-
-.login-container .error-message {
-  color: var(--error-color);
-  background-color: rgba(239, 68, 68, 0.1);
-  padding: var(--space-sm);
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-md);
-  text-align: center;
+/* Animação simples para fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsividade */
-@media (max-width: 992px) {
+@media (max-width: 900px) {
   .login-container {
     flex-direction: column;
-    max-width: 600px;
+    min-height: auto;
+    max-width: 400px;
   }
-  
   .login-banner {
-    padding: var(--space-xl) var(--space-lg);
-  }
-}
-
-@media (max-width: 768px) {
-  .login-form-wrapper {
-    padding: var(--space-xl) var(--space-lg);
-  }
-  
-  .login-logo {
-    height: 60px;
-  }
-  
-  .login-title {
-    font-size: var(--font-size-xl);
-  }
-  
-  .banner-content h2 {
-    font-size: var(--font-size-2xl);
-  }
-  
-  .banner-content p {
-    font-size: var(--font-size-md);
-  }
-  
-  .register-buttons {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 576px) {
-  .login-page {
-    padding: var(--space-md);
-  }
-  
-  .login-container {
-    border-radius: var(--radius-lg);
-  }
-  
-  .login-form-wrapper {
-    padding: var(--space-lg) var(--space-md);
-  }
-}
-
-@media (max-width: 600px) {
-  .login-container, .inputContainer {
-    padding: 0.5rem !important;
-    font-size: 0.95rem !important;
-  }
-  .header img {
-    width: 80px !important;
-  }
-  input, button {
-    font-size: 1rem !important;
+    display: none;
   }
 }

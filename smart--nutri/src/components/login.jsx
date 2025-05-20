@@ -102,7 +102,7 @@ export function Login() {
             </div>
             
             <div className="forgot-password">
-              <Link to="/esqueci-senha">Esqueceu a senha?</Link>
+              <Link to="/esqueci-senha">Esqueceu a senha?🔐</Link>
             </div>
             
             <button type="submit" className="btn primary" disabled={loading}>
