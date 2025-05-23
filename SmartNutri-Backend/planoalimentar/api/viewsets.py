@@ -181,6 +181,54 @@ class RefeicaoViewSet(viewsets.ModelViewSet):
         plano = get_object_or_404(PlanoAlimentar, id=plano_id, nutricionista=self.request.user)
         serializer.save(plano_alimentar=plano)
     
+    def update(self, request, *args, **kwargs):
+        """
+        Atualiza uma refeição e seu item associado. Para facilitar o 
+        trabalho com o frontend, este método aceita campos simplificados.
+        """
+        try:
+            instance = self.get_object()
+            
+            # Verificar permissão
+            if instance.plano_alimentar.nutricionista != request.user and not request.user.is_superuser:
+                return Response(
+                    {"detail": "Você não tem permissão para editar esta refeição"},
+                    status=status.HTTP_403_FORBIDDEN
+                )
+                
+            # Salvar campos básicos da refeição
+            dia_semana_id = request.data.get('dia_semana_id')
+            if dia_semana_id:
+                instance.dia_semana = get_object_or_404(DiaSemana, id=dia_semana_id)
+            
+            instance.save()
+                
+            # Buscar e atualizar o item associado à refeição
+            itens_data = request.data.get('itens', [])
+            if itens_data and len(itens_data) > 0:
+                item_data = itens_data[0]  # Pega o primeiro item do array
+                
+                # Buscar o item existente ou criar um novo
+                item, created = ItemRefeicao.objects.get_or_create(refeicao=instance)
+                
+                # Atualizar os campos
+                if 'recomendado' in item_data:
+                    item.recomendado = item_data['recomendado']
+                if 'substituicoes' in item_data:
+                    item.substituicoes = item_data['substituicoes']
+                
+                item.save()
+            
+            # Retornar a refeição atualizada com seus itens
+            serializer = self.get_serializer(instance)
+            return Response(serializer.data)
+        
+        except Exception as e:
+            return Response(
+                {"detail": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+    
     @action(detail=False, methods=['post'])
     def criar_com_item(self, request):
         """

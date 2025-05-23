@@ -45,10 +45,46 @@ class RefeicaoCompletoSerializer(serializers.ModelSerializer):
             ItemRefeicao.objects.create(refeicao=refeicao, **item_data)
         
         return refeicao
+    
+    def update(self, instance, validated_data):
+        """
+        Método para atualizar uma refeição e seus itens
+        """
+        # Atualizar a refeição
+        if 'dia_semana' in validated_data:
+            instance.dia_semana = validated_data.get('dia_semana', instance.dia_semana)
+        
+        instance.save()
+        
+        # Atualizar os itens
+        itens_data = validated_data.pop('itens', [])
+        if itens_data:
+            # Se já existem itens
+            existing_items = ItemRefeicao.objects.filter(refeicao=instance)
+            
+            if existing_items.exists():
+                # Atualizar o primeiro item existente
+                existing_item = existing_items.first()
+                for key, value in itens_data[0].items():
+                    setattr(existing_item, key, value)
+                existing_item.save()
+            else:
+                # Criar um novo item
+                ItemRefeicao.objects.create(refeicao=instance, **itens_data[0])
+        
+        return instance
         
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['nome_display'] = instance.get_nome_display()
+        
+        # Incluir recomendado e substituições no nível raiz para facilitar o frontend
+        itens = instance.itens.all()
+        if itens.exists():
+            item = itens.first()
+            representation['recomendado'] = item.recomendado
+            representation['substituicoes'] = item.substituicoes
+            
         return representation
 
 class PlanoAlimentarListSerializer(serializers.ModelSerializer):

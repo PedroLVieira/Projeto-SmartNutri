@@ -1,33 +1,28 @@
 /* Variáveis CSS compartilhadas para todo o projeto SmartNutri */
+/* NOTA: Cores principais agora estão definidas em colors.css */
 
 :root {
-  /* Cores primárias - verde */
-  --primary-color: #16a34a;
-  --primary-light: #4ade80;
-  --primary-dark: #15803d;
+  /* Cores de compatibilidade - use as variáveis do colors.css quando possível */
+  /* Estas já são mapeadas em colors.css, então podem ser removidas daqui ou mantidas para clareza local */
+  /* --primary-color: var(--smartnutri-primary-600); */
+  /* --primary-light: var(--smartnutri-primary-400); */
+  /* --primary-dark: var(--smartnutri-primary-700); */
 
-  /* Cores secundárias - azul */
-  --secondary-color: #2563EB;
-  --secondary-light: #60A5FA;
-  --secondary-dark: #1D4ED8;
+  /* --secondary-color: var(--smartnutri-secondary-600); */
+  /* --secondary-light: var(--smartnutri-secondary-400); */
+  /* --secondary-dark: var(--smartnutri-secondary-700); */
 
-  /* Cores neutras */
-  --neutral-50: #f9fafb;
-  --neutral-100: #f3f4f6;
-  --neutral-200: #e5e7eb;
-  --neutral-300: #d1d5db;
-  --neutral-400: #9ca3af;
-  --neutral-500: #6b7280;
-  --neutral-600: #4b5563;
-  --neutral-700: #374151;
-  --neutral-800: #1f2937;
-  --neutral-900: #111827;
+  /* Cores neutras - agora usando o sistema padronizado */
+  /* Estas já são mapeadas em colors.css */
+  /* --neutral-50: var(--smartnutri-neutral-50); */
+  /* ... etc ... */
 
-  /* Cores de estado */
-  --success-color: #16a34a;
-  --warning-color: #f59e0b;
-  --error-color: #dc2626;
-  --info-color: #0ea5e9;
+  /* Cores de estado - usando o sistema padronizado */
+  /* Estas já são mapeadas em colors.css */
+  /* --success-color: var(--smartnutri-success-600); */
+  /* --warning-color: var(--smartnutri-warning-600); */
+  /* --error-color: var(--smartnutri-error-600); */
+  /* --info-color: var(--smartnutri-info-600); */
 
   /* Tipografia */
   --font-family: 'Poppins', sans-serif;
@@ -125,13 +120,13 @@
 .rounded { border-radius: var(--radius-md); }
 .shadow { box-shadow: var(--shadow-md); }
 
-.text-primary { color: var(--primary-color); }
-.text-secondary { color: var(--secondary-color); }
-.text-error { color: var(--error-color); }
-.text-success { color: var(--success-color); }
+.text-primary { color: var(--primary); } /* OK - Alias */
+.text-secondary { color: var(--secondary); } /* OK - Alias */
+.text-error { color: var(--danger); } /* OK - Alias (danger maps to error) */
+.text-success { color: var(--success); } /* OK - Alias */
 
-.bg-white { background-color: white; }
-.bg-light { background-color: var(--neutral-50); }
+.bg-white { background-color: var(--smartnutri-neutral-white); } /* Modificado */
+.bg-light { background-color: var(--smartnutri-neutral-50); } /* Modificado */
 
 /* Estilos de elementos comuns */
 .btn {
@@ -149,48 +144,48 @@
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-dark); /* OK - Alias */
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-secondary {
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: var(--secondary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
   border: none;
 }
 
 .btn-secondary:hover {
-  background-color: var(--secondary-dark);
+  background-color: var(--secondary-dark); /* OK - Alias */
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-outline {
-  background-color: transparent;
-  border: 1px solid var(--neutral-300);
-  color: var(--neutral-700);
+  background-color: transparent; /* OK */
+  border: 1px solid var(--smartnutri-neutral-300); /* Modificado */
+  color: var(--smartnutri-neutral-700); /* Modificado */
 }
 
 .btn-outline:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+  border-color: var(--primary); /* OK - Alias */
+  color: var(--primary); /* OK - Alias */
   transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-danger {
-  background-color: var(--error-color);
-  color: white;
+  background-color: var(--danger); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
 }
 
 .btn-danger:hover {
-  background-color: #b91c1c;
+  background-color: var(--smartnutri-error-700); /* Modificado */
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -207,7 +202,7 @@
 
 /* Cards */
 .card {
-  background-color: white;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
@@ -220,7 +215,7 @@
 
 .card-header {
   padding: var(--space-lg);
-  border-bottom: 1px solid var(--neutral-200);
+  border-bottom: 1px solid var(--smartnutri-neutral-200); /* Modificado */
 }
 
 .card-content {
@@ -236,23 +231,24 @@
   display: block;
   margin-bottom: var(--space-xs);
   font-weight: 500;
-  color: var(--neutral-700);
+  color: var(--smartnutri-neutral-700); /* Modificado */
 }
 
 .form-input {
   width: 100%;
   padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--neutral-300);
+  border: 1px solid var(--smartnutri-neutral-300); /* Modificado */
   border-radius: var(--radius-md);
   font-size: var(--font-size-md);
-  color: var(--neutral-800);
+  color: var(--smartnutri-neutral-800); /* Modificado */
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+  border-color: var(--primary); /* OK - Alias */
+  box-shadow: 0 0 0 3px var(--smartnutri-primary-100); /* Modificado */
+  /* Alternativa se precisar de transparência: box-shadow: 0 0 0 3px rgba(var(--smartnutri-primary-600-rgb), 0.1); */
 }
 
 /* Alertas/Mensagens */
@@ -267,35 +263,35 @@
 }
 
 .alert-success {
-  background-color: rgba(22, 163, 74, 0.1);
-  border-left: 4px solid var(--success-color);
-  color: #166534;
+  background-color: var(--smartnutri-success-50); /* Modificado */
+  border-left: 4px solid var(--success); /* OK - Alias */
+  color: var(--smartnutri-success-800); /* Modificado - para melhor contraste */
 }
 
 .alert-error {
-  background-color: rgba(220, 38, 38, 0.1);
-  border-left: 4px solid var(--error-color);
-  color: #991b1b;
+  background-color: var(--smartnutri-error-50); /* Modificado */
+  border-left: 4px solid var(--danger); /* OK - Alias (danger maps to error) */
+  color: var(--smartnutri-error-800); /* Modificado */
 }
 
 .alert-warning {
-  background-color: rgba(245, 158, 11, 0.1);
-  border-left: 4px solid var(--warning-color);
-  color: #92400e;
+  background-color: var(--smartnutri-warning-50); /* Modificado */
+  border-left: 4px solid var(--warning); /* OK - Alias */
+  color: var(--smartnutri-warning-800); /* Modificado */
 }
 
 .alert-info {
-  background-color: rgba(14, 165, 233, 0.1);
-  border-left: 4px solid var(--info-color);
-  color: #0369a1;
+  background-color: var(--smartnutri-info-50); /* Modificado */
+  border-left: 4px solid var(--info); /* OK - Alias */
+  color: var(--smartnutri-info-800); /* Modificado */
 }
 
 /* Loaders */
 .loading-spinner {
   width: 2rem;
   height: 2rem;
-  border: 3px solid rgba(22, 163, 74, 0.1);
-  border-top-color: var(--primary-color);
+  border: 3px solid var(--smartnutri-primary-100); /* Modificado */
+  border-top-color: var(--primary); /* OK - Alias */
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -310,7 +306,7 @@
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 50%;
-  background-color: var(--primary-color);
+  background-color: var(--primary); /* OK - Alias */
   animation: pulse 1.4s infinite ease-in-out;
 }
 
@@ -373,13 +369,11 @@ p {
 .text-3xl { font-size: var(--font-size-3xl); }
 .text-4xl { font-size: var(--font-size-4xl); }
 
-.text-primary { color: var(--primary-color); }
-.text-error { color: var(--error-color); }
-.text-success { color: var(--success-color); }
+/* .text-primary, .text-error, .text-success já definidos acima */
 
 /* Melhorias para acessibilidade */
 :focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--primary); /* OK - Alias */
   outline-offset: 2px;
 }
 

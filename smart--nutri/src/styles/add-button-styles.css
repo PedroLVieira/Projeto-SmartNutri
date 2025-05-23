@@ -1,0 +1,41 @@
+/* Estilos para o GerenciarPlanoAlimentar */
+
+/* ... conteúdo atual aqui ... */
+
+/* Adicionando estilos para o botão desabilitado na edição */
+.edicao-refeicao .btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: var(--interactive-disabled); /* OK - Padrão */
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Melhorias visuais para feedback na edição */
+.edicao-refeicao {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Status visual para o botão de salvar */
+.btn-primary.salvando {
+  position: relative;
+  padding-left: 2.2rem;
+}
+
+.btn-primary.salvando::before {
+  content: '';
+  position: absolute;
+  left: 0.8rem;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--smartnutri-neutral-white-t50); /* Modificado - Idealmente var(--smartnutri-neutral-white) com opacidade ou tom claro */
+  border-radius: 50%;
+  border-top-color: var(--smartnutri-neutral-white); /* Modificado */
+  animation: spin 1s infinite linear;
+}

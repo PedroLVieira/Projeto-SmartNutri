@@ -4,7 +4,7 @@
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 0 12px rgba(0,0,0,0.1);
-    background-color: white;
+    background-color: var(--surface); /* Modificado */
     text-align: center;
   }
   
@@ -18,31 +18,31 @@
     margin-top: 10px;
     margin-bottom: 1rem;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--smartnutri-neutral-300); /* OK - Padrão */
   }
   
   .esqueci-senha-container button {
     padding: 0.6rem 1.2rem;
     border: none;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--smartnutri-primary-600); /* OK - Padrão */
+    color: var(--text-inverse); /* Modificado */
     border-radius: 5px;
     cursor: pointer;
   }
   
   .esqueci-senha-container .mensagem {
     margin-top: 10px;
-    color: green;
+    color: var(--smartnutri-success-600); /* Modificado */
   }
   
   .voltar {
     margin-top: 1rem;
-    background-color: #ccc;
+    background-color: var(--interactive-disabled); /* OK - Padrão */
   }
 
 /* Responsividade e visual moderno */
 @media (max-width: 600px) {
-  .esqueci-senha-container, .form {
+  .esqueci-senha-container, .form { /* .form não existe neste arquivo, mas mantido por consistência com o original */
     padding: 0.5rem !important;
     font-size: 0.95rem !important;
   }

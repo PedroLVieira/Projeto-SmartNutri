@@ -1,101 +1,101 @@
-@import './shared.css';
+@import './shared.css'; /* OK */
 
 .paciente-perfil-container {
   max-width: 800px;
   margin: 40px auto;
-  padding: var(--space-xl);
-  background-color: white;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  font-family: var(--font-family);
+  padding: var(--space-xl); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  font-family: var(--font-family); /* OK - Padrão */
   animation: fadeIn 0.6s ease-out;
 }
 
-.paciente-header {
+.paciente-header { /* Não usado no JSX */
   display: flex;
   align-items: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-xl);
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--neutral-200);
+  gap: var(--space-lg); /* OK - Padrão */
+  margin-bottom: var(--space-xl); /* OK - Padrão */
+  padding-bottom: var(--space-md); /* OK - Padrão */
+  border-bottom: 1px solid var(--smartnutri-neutral-200); /* OK - Padrão */
 }
 
-.paciente-avatar {
+.paciente-avatar { /* Não usado no JSX */
   width: 90px;
   height: 90px;
-  background-color: var(--primary-light);
+  background-color: var(--primary-light); /* OK - Alias */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   flex-shrink: 0;
 }
 
-.paciente-nome {
-  font-size: var(--font-size-2xl);
-  color: var(--neutral-900);
-  margin-bottom: var(--space-xs);
+.paciente-nome { /* Não usado no JSX, h2 é usado para o nome */
+  font-size: var(--font-size-2xl); /* OK - Padrão */
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
+  margin-bottom: var(--space-xs); /* OK - Padrão */
   font-weight: 600;
 }
 
-.paciente-subtitulo {
-  color: var(--neutral-600);
-  font-size: var(--font-size-md);
+.paciente-subtitulo { /* Não usado no JSX */
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
+  font-size: var(--font-size-md); /* OK - Padrão */
 }
 
 .info-pessoal {
-  background-color: var(--neutral-50);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  margin-bottom: var(--space-xl);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg); /* OK - Padrão */
+  margin-bottom: var(--space-xl); /* OK - Padrão */
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-md) var(--space-lg);
+  gap: var(--space-md) var(--space-lg); /* OK - Padrão */
 }
 
-.info-item {
+.info-item { /* Não usado no JSX */
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* OK - Padrão */
 }
 
-.info-label {
-  font-size: var(--font-size-sm);
-  color: var(--neutral-500);
+.info-label { /* Não usado no JSX */
+  font-size: var(--font-size-sm); /* OK - Padrão */
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.info-value {
-  font-size: var(--font-size-md);
-  color: var(--neutral-900);
+.info-value { /* Não usado no JSX */
+  font-size: var(--font-size-md); /* OK - Padrão */
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
   font-weight: 600;
 }
 
-.info-item.full-width {
+.info-item.full-width { /* Não usado no JSX */
   grid-column: 1 / -1;
 }
 
-.info-item.highlight {
-  padding: var(--space-sm);
-  background-color: rgba(76, 175, 80, 0.05);
-  border-left: 3px solid var(--primary-color);
-  border-radius: var(--radius-sm);
+.info-item.highlight { /* Não usado no JSX */
+  padding: var(--space-sm); /* OK - Padrão */
+  background-color: var(--smartnutri-primary-50); /* Modificado */
+  border-left: 3px solid var(--primary); /* OK - Alias */
+  border-radius: var(--radius-sm); /* OK - Padrão */
 }
 
 /* Plano alimentar tabs */
-.plano-section {
-  margin-top: var(--space-xl);
+.plano-section { /* Não usado no JSX */
+  margin-top: var(--space-xl); /* OK - Padrão */
 }
 
-.section-title {
-  font-size: var(--font-size-xl);
-  color: var(--neutral-800);
-  margin-bottom: var(--space-md);
+.section-title { /* Não usado no JSX */
+  font-size: var(--font-size-xl); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
   font-weight: 600;
   position: relative;
   display: inline-block;
@@ -106,86 +106,86 @@
   position: absolute;
   width: 50px;
   height: 3px;
-  background: var(--primary-color);
+  background: var(--primary); /* OK - Alias */
   bottom: -8px;
   left: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full); /* OK - Padrão */
 }
 
 .dias-abas {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
-  background-color: var(--neutral-50);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm);
+  gap: var(--space-sm); /* OK - Padrão */
+  margin-bottom: var(--space-lg); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-sm); /* OK - Padrão */
 }
 
 .aba {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--neutral-200);
-  border-radius: var(--radius-md);
-  background: white;
+  padding: var(--space-sm) var(--space-md); /* OK - Padrão */
+  border: 1px solid var(--smartnutri-neutral-200); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
+  background: var(--smartnutri-neutral-white); /* Modificado */
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
-  color: var(--neutral-700);
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   flex: 1;
   text-align: center;
   min-width: 100px;
 }
 
 .aba:hover {
-  background-color: var(--neutral-100);
-  border-color: var(--neutral-300);
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
+  border-color: var(--smartnutri-neutral-300); /* OK - Padrão */
   transform: translateY(-2px);
 }
 
 .aba.ativa {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
   font-weight: 600;
   border: none;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
   transform: translateY(-2px);
 }
 
 .plano-refeicoes {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
+  gap: var(--space-md); /* OK - Padrão */
+  margin-top: var(--space-lg); /* OK - Padrão */
   animation: fadeIn 0.5s ease-out;
 }
 
 .card-refeicao {
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-md);
+  background: var(--smartnutri-neutral-white); /* Modificado */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg); /* OK - Padrão */
+  box-shadow: var(--shadow-md); /* OK - Padrão */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-left: 4px solid var(--primary-color);
+  border-left: 4px solid var(--primary); /* OK - Alias */
 }
 
 .card-refeicao:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* OK - Padrão */
 }
 
-.refeicao-header {
+.refeicao-header { /* Não usado no JSX */
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--neutral-200);
+  gap: var(--space-md); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
+  padding-bottom: var(--space-sm); /* OK - Padrão */
+  border-bottom: 1px solid var(--smartnutri-neutral-200); /* OK - Padrão */
 }
 
-.refeicao-icon {
-  color: var(--primary-color);
+.refeicao-icon { /* Não usado no JSX */
+  color: var(--primary); /* OK - Alias */
   font-size: 1.5rem;
-  background-color: rgba(76, 175, 80, 0.1);
+  background-color: var(--smartnutri-primary-100); /* Modificado */
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -194,156 +194,157 @@
   justify-content: center;
 }
 
-.refeicao-titulo {
-  font-size: var(--font-size-lg);
-  color: var(--neutral-800);
+.refeicao-titulo { /* Não usado no JSX */
+  font-size: var(--font-size-lg); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
   font-weight: 600;
   margin: 0;
 }
 
-.refeicao-horario {
+.refeicao-horario { /* Não usado no JSX */
   margin-left: auto;
-  color: var(--neutral-500);
-  font-size: var(--font-size-sm);
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
+  font-size: var(--font-size-sm); /* OK - Padrão */
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* OK - Padrão */
 }
 
-.refeicao-content {
-  margin-top: var(--space-md);
+.refeicao-content { /* Não usado no JSX */
+  margin-top: var(--space-md); /* OK - Padrão */
 }
 
-.refeicao-grupo {
-  margin-bottom: var(--space-md);
+.refeicao-grupo { /* Não usado no JSX */
+  margin-bottom: var(--space-md); /* OK - Padrão */
 }
 
-.refeicao-label {
-  font-size: var(--font-size-sm);
-  color: var(--neutral-500);
+.refeicao-label { /* Não usado no JSX */
+  font-size: var(--font-size-sm); /* OK - Padrão */
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
   font-weight: 500;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs); /* OK - Padrão */
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* OK - Padrão */
 }
 
-.refeicao-texto {
-  color: var(--neutral-800);
-  font-size: var(--font-size-md);
+.refeicao-texto { /* Não usado no JSX */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  font-size: var(--font-size-md); /* OK - Padrão */
   line-height: 1.6;
 }
 
-.nutrientes-info {
-  margin-top: var(--space-md);
-  padding-top: var(--space-sm);
-  border-top: 1px dashed var(--neutral-300);
+.nutrientes-info { /* Não usado no JSX */
+  margin-top: var(--space-md); /* OK - Padrão */
+  padding-top: var(--space-sm); /* OK - Padrão */
+  border-top: 1px dashed var(--smartnutri-neutral-300); /* OK - Padrão */
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-md); /* OK - Padrão */
   flex-wrap: wrap;
 }
 
-.nutriente {
+.nutriente { /* Não usado no JSX */
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--neutral-50);
-  padding: var(--space-xs) var(--space-md);
-  border-radius: var(--radius-md);
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  padding: var(--space-xs) var(--space-md); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
   min-width: 80px;
 }
 
-.nutriente-valor {
+.nutriente-valor { /* Não usado no JSX */
   font-weight: 600;
-  color: var(--neutral-900);
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
 }
 
-.nutriente-nome {
-  font-size: var(--font-size-xs);
-  color: var(--neutral-500);
+.nutriente-nome { /* Não usado no JSX */
+  font-size: var(--font-size-xs); /* OK - Padrão */
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
 }
 
 /* Botões de ação */
-.acoes {
+.acoes { /* Não usado no JSX */
   display: flex;
   justify-content: space-between;
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-2xl); /* OK - Padrão */
 }
 
 .voltar {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  background-color: var(--neutral-100);
-  color: var(--neutral-700);
-  border: 1px solid var(--neutral-300);
-  border-radius: var(--radius-md);
+  gap: var(--space-xs); /* OK - Padrão */
+  padding: var(--space-sm) var(--space-md); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  border: 1px solid var(--smartnutri-neutral-300); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .voltar:hover {
-  background-color: var(--neutral-200);
+  background-color: var(--smartnutri-neutral-200); /* OK - Padrão */
   transform: translateY(-2px);
 }
 
-.acoes-secundarias {
+.acoes-secundarias { /* Não usado no JSX */
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-sm); /* OK - Padrão */
 }
 
 .btn-imprimir, 
-.btn-editar {
+.btn-editar { /* Não usado no JSX */
   display: inline-flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-md);
+  gap: var(--space-xs); /* OK - Padrão */
+  padding: var(--space-sm) var(--space-md); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
   cursor: pointer;
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .btn-imprimir {
-  background-color: white;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  color: var(--primary); /* OK - Alias */
+  border: 1px solid var(--primary); /* OK - Alias */
 }
 
 .btn-imprimir:hover {
-  background-color: rgba(76, 175, 80, 0.1);
+  background-color: var(--smartnutri-primary-50); /* Modificado */
   transform: translateY(-2px);
 }
 
 .btn-editar {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
   border: none;
 }
 
 .btn-editar:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-dark); /* OK - Alias */
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
 }
 
 /* Responsividade */
+/* Muitas dessas regras de responsividade já são herdadas de global.css ou shared.css */
 @media (max-width: 768px) {
   .paciente-perfil-container {
-    padding: var(--space-md);
-    margin: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
+    margin: var(--space-md); /* OK - Padrão */
   }
   
-  .paciente-header {
+  .paciente-header { /* Não usado no JSX */
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-md);
+    gap: var(--space-md); /* OK - Padrão */
     text-align: center;
   }
   
-  .paciente-avatar {
+  .paciente-avatar { /* Não usado no JSX */
     margin: 0 auto;
   }
   
@@ -353,44 +354,44 @@
   
   .dias-abas {
     overflow-x: auto;
-    padding-bottom: var(--space-xs);
-    gap: 2px;
+    padding-bottom: var(--space-xs); /* OK - Padrão */
+    gap: 2px; /* Pode ser pequeno, avaliar visualmente */
   }
   
   .aba {
-    padding: var(--space-xs) var(--space-sm);
+    padding: var(--space-xs) var(--space-sm); /* OK - Padrão */
     min-width: 80px;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm); /* OK - Padrão */
   }
   
-  .acoes {
+  .acoes { /* Não usado no JSX */
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-md); /* OK - Padrão */
   }
   
-  .acoes-secundarias {
+  .acoes-secundarias { /* Não usado no JSX */
     justify-content: space-between;
   }
 }
 
 @media (max-width: 480px) {
-  .paciente-avatar {
+  .paciente-avatar { /* Não usado no JSX */
     width: 70px;
     height: 70px;
     font-size: 2rem;
   }
   
-  .paciente-nome {
-    font-size: var(--font-size-xl);
+  .paciente-nome { /* Não usado no JSX */
+    font-size: var(--font-size-xl); /* OK - Padrão */
   }
   
-  .refeicao-header {
+  .refeicao-header { /* Não usado no JSX */
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-xs);
+    gap: var(--space-xs); /* OK - Padrão */
   }
   
-  .refeicao-horario {
+  .refeicao-horario { /* Não usado no JSX */
     margin-left: 0;
   }
 }

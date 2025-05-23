@@ -1,57 +1,84 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import NavBar from "./NavBar";
 import "../styles/pacienteperfil.css";
 
 export function PacientePerfil() {
+  const { pacienteId } = useParams();
   const navigate = useNavigate();
-  const [diaSelecionado, setDiaSelecionado] = useState("Segunda");
+  const [paciente, setPaciente] = useState(null);
+  const [planoAlimentar, setPlanoAlimentar] = useState(null);
+  const [diaSelecionado, setDiaSelecionado] = useState("segunda"); // Default
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const paciente = {
-    nome: "João Silva",
-    idade: 30,
-    peso: "75kg",
-    altura: "1.75m",
-    objetivo: "Ganhar massa muscular",
-    restricoes: "Lactose",
-  };
+  useEffect(() => {
+    // Lógica para buscar os dados do paciente e plano alimentar
+    // Exemplo:
+    // axios.get(`/api/pacientes/${pacienteId}`)
+    //   .then(response => {
+    //     setPaciente(response.data);
+    //     setPlanoAlimentar(response.data.planoAlimentar);
+    //     setLoading(false);
+    //   })
+    //   .catch(error => {
+    //     setError("Erro ao carregar os dados do paciente.");
+    //     setLoading(false);
+    //   });
+  }, [pacienteId]);
 
-  const planoAlimentar = {
-    Segunda: [
-      {
-        refeicao: "Café da manhã",
-        recomendado: "Ovos mexidos com pão integral",
-        substituicoes: "Vitamina com aveia, Panqueca de banana",
-      },
-      {
-        refeicao: "Jantar",
-        recomendado: "Frango grelhado com legumes",
-        substituicoes: "Tofu grelhado, Peixe assado",
-      },
-    ],
-    Terça: [
-      {
-        refeicao: "Café da manhã",
-        recomendado: "Vitamina de frutas com aveia",
-        substituicoes: "Iogurte vegano com granola",
-      },
-      {
-        refeicao: "Jantar",
-        recomendado: "Carne magra com arroz integral e brócolis",
-        substituicoes: "Quinoa com legumes",
-      },
-    ],
-  };
+  if (loading) {
+    return (
+      <>
+        <NavBar activePage="planosAlimentares" />
+        <div>Carregando perfil do paciente...</div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <NavBar activePage="planosAlimentares" />
+        <div>Erro: {error}</div>
+      </>
+    );
+  }
+
+  if (!paciente) {
+    return (
+      <>
+        <NavBar activePage="planosAlimentares" />
+        <div>Paciente não encontrado.</div>
+      </>
+    );
+  }
 
   return (
     <div className="paciente-perfil-container">
-      <h2>Perfil do Paciente: {paciente.nome}</h2>
+      <NavBar activePage="planosAlimentares" />
+
+      <header className="profile-header">
+        <h1>{paciente.nome}</h1>
+        <p>Plano Alimentar</p>
+      </header>
 
       <div className="info-pessoal">
-        <p><strong>Idade:</strong> {paciente.idade} anos</p>
-        <p><strong>Peso:</strong> {paciente.peso}</p>
-        <p><strong>Altura:</strong> {paciente.altura}</p>
-        <p><strong>Objetivo:</strong> {paciente.objetivo}</p>
-        <p><strong>Restrições:</strong> {paciente.restricoes}</p>
+        <p>
+          <strong>Idade:</strong> {paciente.idade} anos
+        </p>
+        <p>
+          <strong>Peso:</strong> {paciente.peso}
+        </p>
+        <p>
+          <strong>Altura:</strong> {paciente.altura}
+        </p>
+        <p>
+          <strong>Objetivo:</strong> {paciente.objetivo}
+        </p>
+        <p>
+          <strong>Restrições:</strong> {paciente.restricoes}
+        </p>
       </div>
 
       <div className="dias-abas">
@@ -70,13 +97,19 @@ export function PacientePerfil() {
         {planoAlimentar[diaSelecionado].map((item, index) => (
           <div className="card-refeicao" key={index}>
             <h4>{item.refeicao}</h4>
-            <p><strong>Recomendado:</strong> {item.recomendado}</p>
-            <p><strong>Substituições:</strong> {item.substituicoes}</p>
+            <p>
+              <strong>Recomendado:</strong> {item.recomendado}
+            </p>
+            <p>
+              <strong>Substituições:</strong> {item.substituicoes}
+            </p>
           </div>
         ))}
       </div>
 
-      <button className="voltar" onClick={() => navigate(-1)}>← Voltar</button>
+      <button className="voltar" onClick={() => navigate(-1)}>
+        ← Voltar
+      </button>
     </div>
   );
 }

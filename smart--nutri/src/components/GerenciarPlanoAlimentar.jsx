@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "../styles/gerenciar-plano-alimentar.css";
+import "../styles/add-button-styles.css"; // Importando estilos adicionais
 import NavBar from "./NavBar"; // Importando o componente NavBar
 
 export function GerenciarPlanoAlimentar() {
-  const navigate = useNavigate();
   const [clientes, setClientes] = useState([]);
   const [clienteSelecionado, setClienteSelecionado] = useState("");
   const [planos, setPlanos] = useState([]);
@@ -122,9 +121,7 @@ export function GerenciarPlanoAlimentar() {
   const carregarRefeicoes = useCallback(() => {
     if (planoSelecionado && diaSelecionado) {
       setCarregando(true);
-      resetMensagens();
-      
-      axios.get(`http://localhost:8000/api/planoalimentar/planos/${planoSelecionado}/por_dia_semana/`, getHeaders())
+      resetMensagens();      axios.get(`http://localhost:8000/api/planoalimentar/planos/${planoSelecionado}/por_dia_semana/`, getHeaders())
         .then(response => {
           const diaAtual = diasDaSemana.find(d => d.id === diaSelecionado)?.nome;
           if (diaAtual && response.data[diaAtual]) {
@@ -216,7 +213,6 @@ export function GerenciarPlanoAlimentar() {
         setCarregando(false);
       });
   };
-
   const adicionarRefeicao = () => {
     if (!planoSelecionado || !diaSelecionado || !novaRefeicao.nome || !novaRefeicao.recomendado) {
       setErro("Preencha todos os campos obrigatórios para adicionar uma refeição.");
@@ -235,16 +231,16 @@ export function GerenciarPlanoAlimentar() {
     }
     
     const refeicaoData = {
-      plano: parseInt(planoSelecionado, 10),
+      plano_alimentar: parseInt(planoSelecionado, 10),
       dia_semana: diaSelecionado,
-      tipo_refeicao: novaRefeicao.nome,
+      nome: novaRefeicao.nome,
       recomendado: novaRefeicao.recomendado,
       substituicoes: novaRefeicao.substituicoes || ""
     };
     
     console.log("Enviando dados para criação de refeição:", refeicaoData);
 
-    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/", refeicaoData, getHeaders())
+    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/criar_com_item/", refeicaoData, getHeaders())
       .then(response => {
         console.log("Resposta da criação de refeição:", response.data);
         
@@ -267,13 +263,20 @@ export function GerenciarPlanoAlimentar() {
         setErro(error.response?.data?.detail || "Falha ao adicionar a refeição.");
         setCarregando(false);
       });
-  };
-
-  // Iniciar edição de uma refeição
+  };  // Iniciar edição de uma refeição
   const iniciarEdicaoRefeicao = (refeicao) => {
+    console.log("Iniciando edição da refeição:", refeicao);
+    
+    // Verificar se a refeição tem todos os dados necessários
+    if (!refeicao.id || !refeicao.nome) {
+      console.error("Dados de refeição incompletos:", refeicao);
+      setErro("Não foi possível editar esta refeição. Tente recarregar a página.");
+      return;
+    }
+    
     setRefeicaoEmEdicao({
       id: refeicao.id,
-      nome: refeicao.tipo_refeicao,
+      nome: refeicao.nome,
       recomendado: refeicao.recomendado,
       substituicoes: refeicao.substituicoes || ""
     });
@@ -282,9 +285,7 @@ export function GerenciarPlanoAlimentar() {
   // Cancelar edição de refeição
   const cancelarEdicaoRefeicao = () => {
     setRefeicaoEmEdicao(null);
-  };
-
-  // Salvar edição de uma refeição
+  };  // Salvar edição de uma refeição
   const salvarEdicaoRefeicao = () => {
     if (!refeicaoEmEdicao || !refeicaoEmEdicao.recomendado) {
       setErro("Preencha todos os campos obrigatórios.");
@@ -294,30 +295,40 @@ export function GerenciarPlanoAlimentar() {
     setCarregando(true);
     resetMensagens();
     
+    // Estruturar os dados conforme esperado pela API
     const refeicaoData = {
-      plano: parseInt(planoSelecionado, 10),
-      dia_semana: diaSelecionado,
-      tipo_refeicao: refeicaoEmEdicao.nome,
-      recomendado: refeicaoEmEdicao.recomendado,
-      substituicoes: refeicaoEmEdicao.substituicoes || ""
+      dia_semana_id: diaSelecionado,
+      itens: [{
+        recomendado: refeicaoEmEdicao.recomendado,
+        substituicoes: refeicaoEmEdicao.substituicoes || ""
+      }]
     };
     
-    axios.put(`http://localhost:8000/api/planoalimentar/refeicoes/${refeicaoEmEdicao.id}/`, refeicaoData, getHeaders())
+    console.log("Enviando dados para atualização:", refeicaoData);
+    
+    // Fazer a requisição para a API
+    const url = `http://localhost:8000/api/planoalimentar/refeicoes/${refeicaoEmEdicao.id}/`;
+    console.log("URL da requisição:", url);
+    
+    axios.put(url, refeicaoData, getHeaders())
       .then(response => {
-        // Atualizar a refeição na lista
-        const novasRefeicoes = refeicoes.map(r => 
-          r.id === refeicaoEmEdicao.id ? response.data : r
-        );
-        setRefeicoes(novasRefeicoes);
-        
-        // Resetar o modo de edição
-        setRefeicaoEmEdicao(null);
+        console.log("Resposta da atualização:", response.data);
         mostrarMensagemSucesso("Refeição atualizada com sucesso!");
-        setCarregando(false);
+        
+        // Resetar o estado de edição
+        setRefeicaoEmEdicao(null);
+        
+        // Recarregar as refeições para atualizar a interface
+        carregarRefeicoes();
       })
       .catch(error => {
         console.error("Erro ao editar refeição:", error);
-        setErro(error.response?.data?.detail || "Falha ao atualizar a refeição.");
+        console.error("Detalhes do erro:", error.response?.data);
+        const mensagemErro = error.response?.data?.detail || 
+                            "Falha ao atualizar a refeição. Tente novamente.";
+        setErro(mensagemErro);
+      })
+      .finally(() => {
         setCarregando(false);
       });
   };
@@ -360,11 +371,10 @@ export function GerenciarPlanoAlimentar() {
       [name]: value
     });
   };
-
   // Função para filtrar as refeições
   const refeicoesFiltradas = refeicoes.filter(refeicao => {
     if (!filtroRefeicao) return true;
-    return refeicao.tipo_refeicao === filtroRefeicao;
+    return refeicao.nome === filtroRefeicao;
   });
 
   // Função para formatar o nome da refeição
@@ -421,89 +431,9 @@ export function GerenciarPlanoAlimentar() {
     
     mostrarMensagemSucesso("Plano preparado para compartilhar via WhatsApp!");
   };
-  
-  // Função para enviar plano por email
-  const enviarPorEmail = async () => {
-    if (!planoSelecionado || !clienteSelecionado || refeicoes.length === 0) {
-      setErro("Selecione um cliente, um plano e certifique-se de que há refeições para enviar");
-      return;
-    }
-    
-    setCarregando(true);
-    resetMensagens();
-    
-    try {
-      const clienteInfo = clientes.find(c => c.id === parseInt(clienteSelecionado));
-      const planoInfo = planos.find(p => p.id === parseInt(planoSelecionado));
-      const diaInfo = diasDaSemana.find(d => d.id === diaSelecionado);
-      
-      if (!clienteInfo || !clienteInfo.email) {
-        setErro("Cliente não encontrado ou sem e-mail cadastrado");
-        setCarregando(false);
-        return;
-      }
-      
-      // Chamar o backend para enviar o e-mail
-      const response = await axios.post(
-        "http://localhost:8000/api/planoalimentar/enviar-plano-email/", 
-        {
-          cliente_id: clienteSelecionado,
-          plano_id: planoSelecionado,
-          dia_id: diaSelecionado,
-          dia_nome: diaInfo.nome,
-          plano_nome: planoInfo.nome,
-          cliente_nome: clienteInfo.nome,
-          cliente_email: clienteInfo.email
-        },
-        getHeaders()
-      );
-      
-      mostrarMensagemSucesso("Plano alimentar enviado por e-mail com sucesso!");
-    } catch (error) {
-      console.error("Erro ao enviar e-mail:", error);
-      setErro("Falha ao enviar o plano por e-mail. Tente novamente mais tarde.");
-    } finally {
-      setCarregando(false);
-    }
-  };
-
-  // Função para exportar plano como PDF
-  const exportarComoPDF = () => {
-    if (!planoSelecionado || !clienteSelecionado || refeicoes.length === 0) {
-      setErro("Selecione um cliente, um plano e certifique-se de que há refeições para exportar");
-      return;
-    }
-
-    setCarregando(true);
-    resetMensagens();
-    
-    // Implementação básica simulando uma exportação para PDF
-    setTimeout(() => {
-      mostrarMensagemSucesso("Exportação para PDF em desenvolvimento. Em breve esta funcionalidade estará disponível!");
-      setCarregando(false);
-    }, 1000);
-    
-    // Aqui seria implementada a lógica real de exportação para PDF
-    // usando bibliotecas como jsPDF ou chamando uma API no backend
-  };
-
-  // Função para visualização prévia do plano completo
-  const visualizarPlanoCompleto = () => {
-    if (!planoSelecionado || !clienteSelecionado) {
-      setErro("Selecione um cliente e um plano para visualizar");
-      return;
-    }
-    
-    navigate(`/plano-alimentar-preview/${planoSelecionado}`);
-  };
-
-  // Melhorar apresentação de tipos de refeição
-  const getRefeicaoLabel = (refeicaoNome) => {
-    return tiposRefeicao.find(t => t.valor === refeicaoNome)?.label || refeicaoNome;
-  };
-  return (
+    return (
     <div className="page-wrapper">
-      <NavBar />
+      <NavBar activePage="planosAlimentares" />
       <div className="gerenciar-plano-container">
         <div className="gerenciar-plano-header">
           <h1>Gerenciar Plano Alimentar</h1>
@@ -701,9 +631,8 @@ export function GerenciarPlanoAlimentar() {
                               </button>
                             </div>
                           </div>
-                        ) : refeicaoEmEdicao && refeicaoEmEdicao.id === refeicao.id ? (
-                          <div className="edicao-refeicao">
-                            <h4>Editar {formatarNomeRefeicao(refeicao.tipo_refeicao)}</h4>
+                        ) : refeicaoEmEdicao && refeicaoEmEdicao.id === refeicao.id ? (                          <div className="edicao-refeicao">
+                            <h4>Editar {formatarNomeRefeicao(refeicao.nome)}</h4>
                             <div className="form-group compact">
                               <label htmlFor={`editarRecomendado-${refeicao.id}`}>Recomendado:</label>
                               <textarea
@@ -726,26 +655,26 @@ export function GerenciarPlanoAlimentar() {
                                 placeholder="Ex: Substituir ovos por 100g de frango..."
                               />
                             </div>
-                            <div className="btn-group compact">
-                              <button
+                            <div className="btn-group compact">                              <button
                                 type="button"
-                                className="btn btn-primary btn-sm"
+                                className={`btn btn-primary btn-sm ${carregando ? 'salvando' : ''}`}
                                 onClick={salvarEdicaoRefeicao}
+                                disabled={carregando}
                               >
-                                Salvar
+                                {carregando ? "Salvando..." : "Salvar"}
                               </button>
                               <button
                                 type="button"
                                 className="btn btn-outline btn-sm"
                                 onClick={cancelarEdicaoRefeicao}
+                                disabled={carregando}
                               >
                                 Cancelar
                               </button>
                             </div>
-                          </div>
-                        ) : (
+                          </div>                        ) : (
                           <>
-                            <h4>{formatarNomeRefeicao(refeicao.tipo_refeicao)}</h4>
+                            <h4>{formatarNomeRefeicao(refeicao.nome)}</h4>
                             <p>
                               <strong>Recomendado:</strong><br />
                               {refeicao.recomendado}

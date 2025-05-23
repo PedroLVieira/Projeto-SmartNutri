@@ -1,6 +1,6 @@
 .footer {
-  background-color: var(--primary-dark);
-  color: #f8fafc;
+  background-color: var(--primary-dark); /* OK - Alias */
+  color: var(--smartnutri-neutral-50); /* OK - Padrão */
   padding-top: 3rem;
   margin-top: auto;
   position: relative;
@@ -14,7 +14,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
+  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark)); /* OK - Aliases */
 }
 
 .footer-container {
@@ -36,7 +36,7 @@
 .footer-logo img {
   height: 48px;
   margin-right: 0.75rem;
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1); /* OK - Efeito para tornar branco */
   transition: transform 0.3s ease;
 }
 
@@ -44,17 +44,17 @@
   transform: rotate(-5deg);
 }
 
-.footer-logo h3 {
+.footer-logo h3 { /* Não usado no JSX fornecido */
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  color: #f8fafc;
+  color: var(--smartnutri-neutral-50); /* Modificado */
 }
 
 .footer-description {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #cbd5e1;
+  color: var(--smartnutri-neutral-300); /* Modificado */
   margin-bottom: 1.5rem;
 }
 
@@ -62,7 +62,7 @@
 .footer-section h4 {
   font-size: 1.1rem;
   margin-bottom: 1.2rem;
-  color: #f8fafc;
+  color: var(--smartnutri-neutral-50); /* Modificado */
   font-weight: 600;
   position: relative;
 }
@@ -74,7 +74,7 @@
   left: 0;
   width: 40px;
   height: 2px;
-  background-color: #16a34a;
+  background-color: var(--smartnutri-primary-600); /* Modificado */
 }
 
 .footer-links {
@@ -88,7 +88,7 @@
 }
 
 .footer-links a {
-  color: #cbd5e1;
+  color: var(--smartnutri-neutral-300); /* Modificado */
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.2s;
@@ -96,7 +96,7 @@
 }
 
 .footer-links a:hover {
-  color: #22c55e;
+  color: var(--smartnutri-primary-500); /* Modificado */
   padding-left: 4px;
 }
 
@@ -110,7 +110,7 @@
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
-  color: #cbd5e1;
+  color: var(--smartnutri-neutral-300); /* Modificado */
   font-size: 0.95rem;
 }
 
@@ -126,14 +126,14 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background-color: #1e293b;
-  color: #f8fafc;
+  background-color: var(--smartnutri-neutral-800); /* Modificado */
+  color: var(--smartnutri-neutral-50); /* Modificado */
   border-radius: 50%;
   transition: all 0.2s;
 }
 
 .social-icons a:hover {
-  background-color: #22c55e;
+  background-color: var(--smartnutri-primary-500); /* Modificado */
   transform: translateY(-3px);
 }
 
@@ -141,8 +141,8 @@
 .footer-bottom {
   text-align: center;
   padding: 1.5rem;
-  border-top: 1px solid #1e293b;
-  color: #94a3b8;
+  border-top: 1px solid var(--smartnutri-neutral-800); /* Modificado */
+  color: var(--smartnutri-neutral-400); /* Modificado */
   font-size: 0.9rem;
 }
 
@@ -184,7 +184,7 @@
 
 /* Responsividade e visual moderno */
 @media (max-width: 600px) {
-  footer, .footer-container {
+  footer, .footer-container { /* footer não é uma classe aqui */
     flex-direction: column !important;
     align-items: flex-start !important;
     font-size: 0.95rem !important;

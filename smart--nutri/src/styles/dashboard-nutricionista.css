@@ -1,30 +1,31 @@
 /* Container geral */
-.nutri-dashboard-container {
+.nutri-dashboard-container { /* Não usado diretamente, .dashboard-layout é o container principal */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--background);
+  background-color: var(--background); /* OK - Alias */
   position: relative;
   font-family: 'Nunito', sans-serif;
 }
 
+/* .dashboard-content está em global.css, esta é uma definição mais específica se usada */
 .dashboard-content {
   width: 100%;
-  max-width: 1280px;
-  margin: 1rem auto;
-  padding: 2rem;
+  max-width: 1280px; /* ou 1400px como definido mais abaixo */
+  margin: 1rem auto; /* ou 0 auto como definido mais abaixo */
+  padding: 2rem; /* OK - Padrão */
 }
 
 /* Botão de sair */
-.logout-button-top {
+.logout-button-top { /* Não presente no JSX do DashboardNutricionista */
   position: absolute;
   top: 1.5rem;
   right: 2rem;
-  background: transparent;
+  background: transparent; /* OK */
   border: none;
-  color: var(--text-light);
+  color: var(--text-light); /* OK - Alias */
   font-size: 1.25rem;
   cursor: pointer;
   transition: var(--transition);
@@ -35,7 +36,7 @@
 }
 
 .logout-button-top:hover {
-  color: var(--danger);
+  color: var(--danger); /* OK - Alias */
 }
 
 .logout-button-top::after {
@@ -43,10 +44,10 @@
   position: absolute;
   top: -30px;
   right: 0;
-  background-color: #475569;
-  color: white;
+  background-color: var(--smartnutri-neutral-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: var(--radius-md); /* OK - Padrão */
   font-size: 12px;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -58,15 +59,15 @@
 }
 
 /* Cabeçalho */
-.nutri-dashboard-header {
+.nutri-dashboard-header { /* Não usado diretamente, .dashboard-header é usado */
   text-align: left;
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); /* OK - Alias */
 }
 
 .nutri-dashboard-header h2 {
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
   font-size: 2rem;
   margin-bottom: 0.75rem;
   font-weight: 700;
@@ -74,11 +75,11 @@
 
 .nutri-dashboard-header p {
   font-size: 1.1rem;
-  color: var(--text-light);
+  color: var(--text-light); /* OK - Alias */
 }
 
 /* Conteúdo principal */
-.nutri-dashboard-main {
+.nutri-dashboard-main { /* Não usado diretamente */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
@@ -86,7 +87,7 @@
 }
 
 /* Cards de estatísticas */
-.stats-grid {
+.stats-grid { /* Não usado diretamente, .stats-container ou .stats-overview é usado */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
@@ -95,19 +96,20 @@
 }
 
 /* Cartões */
-.nutri-dashboard-card {  display: flex;
+.nutri-dashboard-card {  /* Não usado diretamente, .dashboard-card é usado */
+  display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 1.25rem;
-  background: var(--surface);
-  border-radius: var(--border-radius);
+  background: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
   padding: 1.25rem 1.5rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); /* OK - Padrão */
   cursor: pointer;
   transition: var(--transition);
   font-weight: 500;
-  color: var(--text);
-  border: 1px solid var(--border);
+  color: var(--text); /* OK - Alias */
+  border: 1px solid var(--border); /* OK - Alias */
   position: relative;
   overflow: hidden;
 }
@@ -119,20 +121,20 @@
   top: 0;
   height: 100%;
   width: 4px;
-  background: var(--primary);
+  background: var(--primary); /* OK - Alias */
   transition: var(--transition);
 }
 
 .nutri-dashboard-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  border-color: var(--primary-light); /* OK - Alias */
 }
 
 /* Ícones */
-.nutri-icon {
-  background-color: rgba(76, 175, 80, 0.15);
-  color: var(--primary-dark);
+.nutri-icon { /* Não usado diretamente, .stat-icon ou .card-icon é usado */
+  background-color: var(--smartnutri-primary-100); /* Modificado */
+  color: var(--primary-dark); /* OK - Alias */
   padding: 12px;
   border-radius: 50%;
   font-size: 1.25rem;
@@ -143,64 +145,64 @@
 }
 
 .nutri-dashboard-card:hover .nutri-icon {
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
   transform: scale(1.1);
 }
 
-/* Cartões de estatísticas */
-.stat-card {
+/* Cartões de estatísticas (redefinição) */
+.stat-card { /* Esta é uma das definições de .stat-card */
   padding: 1.5rem;
-  background: var(--surface);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  background: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
+  box-shadow: var(--shadow); /* OK - Padrão */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Diferente da definição posterior */
   transition: var(--transition);
-  border-top: 4px solid var(--primary);
+  border-top: 4px solid var(--primary); /* OK - Alias */
 }
 
-.stat-card:hover {
+.stat-card:hover { /* Aplicável a ambas definições de .stat-card */
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md); /* OK - Padrão */
 }
 
-/* Responsividade */
+/* Responsividade (para a primeira leva de definições) */
 @media (max-width: 480px) {
-  .nutri-dashboard-header h2 {
+  .nutri-dashboard-header h2 { /* Aplicar a .dashboard-header h1 */
     font-size: 1.75rem;
   }
 
-  .nutri-dashboard-card {
+  .nutri-dashboard-card { /* Aplicar a .dashboard-card */
     padding: 1rem 1.25rem;
   }
 
-  .nutri-icon {
-    font-size: 18px;
+  .nutri-icon { /* Aplicar a .card-icon ou .stat-icon */
+    font-size: 18px; /* Nota: JSX usa react-icons, o tamanho é controlado por props */
   }
 }
 
-/* Layout principal do dashboard */
+/* Layout principal do dashboard (redefinição) */
 .dashboard-layout {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--surface);
-  background-image: none; /* Removendo o background pattern herdado */
+  background-color: var(--surface); /* OK - Alias */
+  background-image: none; 
   position: relative;
   z-index: 1;
 }
 
-.dashboard-content {
+.dashboard-content { /* Redefinição de .dashboard-content */
   flex: 1;
-  max-width: 1400px;
+  max-width: 1400px; 
   width: 100%;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0 auto; 
+  padding: 2rem; /* OK - Padrão */
 }
 
-/* Cabeçalho do dashboard */
+/* Cabeçalho do dashboard (redefinição) */
 .dashboard-header {
   margin-bottom: 2rem;
   text-align: center;
@@ -208,50 +210,51 @@
 
 .dashboard-header h1 {
   font-size: 2rem;
-  color: #16a34a;
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
   margin-bottom: 0.5rem;
 }
 
 .dashboard-header p {
   font-size: 1.1rem;
-  color: #334155;
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   margin-bottom: 0.25rem;
 }
 
 .dashboard-header .subtitle {
-  color: #64748b;
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
   font-size: 1rem;
 }
 
-/* Estatísticas */
-.stats-container {
+/* Estatísticas (redefinição) - .stats-container é usado no JSX */
+.stats-container { 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
 
-.stat-card {
-  background: linear-gradient(to right, #ffffff, #f8fafc);
-  border-radius: 12px;
+.stat-card { /* Redefinição de .stat-card */
+  background: linear-gradient(to right, var(--smartnutri-neutral-50), var(--smartnutri-neutral-100)); /* OK - Padrão */
+  border-radius: 12px; /* Poderia usar var(--radius-lg) */
   padding: 1.5rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--smartnutri-neutral-t05); /* Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.05) */
   transition: transform 0.2s, box-shadow 0.2s;
+  /* border-left e border-top de definições anteriores podem entrar em conflito */
 }
 
-.stat-card:hover {
+.stat-card:hover { /* Já definido acima */
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px var(--smartnutri-neutral-t08); /* Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.08) */
 }
 
-.stat-icon {
-  font-size: 2rem;
-  color: #16a34a;
-  background-color: rgba(22, 163, 74, 0.1);
+.stat-icon { /* Redefinição de .stat-icon */
+  font-size: 2rem; /* JSX controla o tamanho do ícone */
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
+  background-color: var(--smartnutri-primary-100); /* OK - Padrão */
   padding: 1rem;
-  border-radius: 12px;
+  border-radius: 12px; /* Poderia usar var(--radius-lg) */
   margin-right: 1rem;
   display: flex;
   align-items: center;
@@ -260,89 +263,90 @@
 
 .stat-info h3 {
   font-size: 1rem;
-  color: #334155;
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   margin-bottom: 0.25rem;
 }
 
 .stat-number {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #16a34a;
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
 }
 
-/* Seções */
+/* Seções (redefinição) */
 .dashboard-section {
   margin-bottom: 2.5rem;
 }
 
 .dashboard-section h2 {
   font-size: 1.5rem;
-  color: #334155;
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--smartnutri-neutral-200); /* OK - Padrão */
 }
 
-/* Container de cards */
+/* Container de cards (redefinição) */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
-/* Cards principais */
-.dashboard-card {
-  background-color: #ffffff;
-  border-radius: 12px;
+/* Cards principais (redefinição) */
+.dashboard-card { /* Usado no JSX */
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  border-radius: 12px; /* Poderia usar var(--radius-lg) */
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px var(--smartnutri-neutral-t05); /* Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.05) */
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* diferente da definição em dashboard-cliente.css */
+  /* border-left, border-bottom de definições anteriores podem entrar em conflito */
 }
 
 .dashboard-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 16px var(--smartnutri-neutral-t08); /* Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.08) */
 }
 
-.card-icon {
-  font-size: 1.8rem;
-  color: #16a34a;
-  background-color: rgba(22, 163, 74, 0.1);
+.card-icon { /* Redefinição de .card-icon */
+  font-size: 1.8rem; /* JSX controla o tamanho do ícone */
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
+  background-color: var(--smartnutri-primary-100); /* OK - Padrão */
   width: 3.5rem;
   height: 3.5rem;
-  border-radius: 12px;
+  border-radius: 12px; /* Poderia usar var(--radius-lg) */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; /* Adicionado para layout de coluna */
 }
 
 .card-info h3 {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   margin-bottom: 0.5rem;
 }
 
 .card-info p {
-  color: #64748b;
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
   font-size: 0.95rem;
 }
 
-/* Cards de performance */
+/* Cards de performance (Não explicitamente usado no JSX DashboardNutricionista) */
 .dashboard-card.performance {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Sobrescreve flex-direction: column de .dashboard-card acima */
 }
 
 .dashboard-card.performance .card-info {
   flex: 1;
 }
 
-/* Gráfico de progresso */
+/* Gráfico de progresso (Não usado no JSX) */
 .progress-chart {
   display: flex;
   align-items: flex-end;
@@ -353,12 +357,12 @@
 
 .chart-bar {
   flex: 1;
-  background: linear-gradient(to top, #16a34a, #4ade80);
-  border-radius: 4px 4px 0 0;
+  background: var(--smartnutri-gradient-primary); /* OK - Padrão */
+  border-radius: 4px 4px 0 0; /* Poderia usar var(--radius-sm) */
   transition: height 0.3s ease;
 }
 
-/* Container de metas */
+/* Container de metas (Não usado no JSX) */
 .goals-container {
   margin-top: 1rem;
 }
@@ -366,8 +370,8 @@
 .goal-item {
   position: relative;
   height: 28px;
-  background-color: #f1f5f9;
-  border-radius: 14px;
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
+  border-radius: 14px; /* Poderia usar var(--radius-full) ou --radius-xl */
   margin-bottom: 10px;
   overflow: hidden;
 }
@@ -375,8 +379,8 @@
 .goal-progress {
   position: absolute;
   height: 100%;
-  background: linear-gradient(to right, #16a34a, #4ade80);
-  border-radius: 14px;
+  background: var(--smartnutri-gradient-primary); /* OK - Padrão */
+  border-radius: 14px; /* Poderia usar var(--radius-full) ou --radius-xl */
 }
 
 .goal-item span {
@@ -386,11 +390,11 @@
   text-align: center;
   padding: 4px;
   font-size: 0.9rem;
-  color: #334155;
+  color: var(--smartnutri-neutral-700); /* Modificado */
   font-weight: 500;
 }
 
-/* Responsividade */
+/* Responsividade (para a segunda leva de definições) */
 @media (max-width: 1200px) {
   .dashboard-content {
     padding: 1.5rem;
@@ -420,12 +424,12 @@
     font-size: 1rem;
   }
   
-  .stat-card {
+  .stat-card { /* Aplicável a ambas definições de .stat-card */
     padding: 1.2rem;
   }
   
-  .stat-icon {
-    font-size: 1.5rem;
+  .stat-icon { /* Aplicável a ambas definições de .stat-icon */
+    font-size: 1.5rem; /* JSX controla o tamanho do ícone */
     padding: 0.8rem;
   }
   
@@ -439,11 +443,11 @@
     text-align: center;
   }
   
-  .stats-container {
+  .stats-container { /* JSX usa esta classe */
     grid-template-columns: 1fr;
   }
   
-  .cards-container {
+  .cards-container { /* JSX usa esta classe */
     grid-template-columns: 1fr;
   }
 }
@@ -462,12 +466,12 @@
   .dashboard-header .subtitle {
     font-size: 0.95rem;
   }
-  .stat-card, .dashboard-card {
+  .stat-card, .dashboard-card { /* .stat-card não diretamente no JSX do DashNutri, mas .dashboard-card sim */
     padding: 0.8rem;
     font-size: 0.95rem;
   }
-  .stat-icon, .card-icon {
-    font-size: 1.2rem;
+  .stat-icon, .card-icon { /* .stat-icon não diretamente no JSX, .card-icon sim */
+    font-size: 1.2rem; /* JSX controla o tamanho */
     width: 2.2rem;
     height: 2.2rem;
     padding: 0.5rem;
@@ -479,30 +483,30 @@
 
 /* Ajuste para grid de estatísticas e cards em telas médias */
 @media (max-width: 900px) {
-  .stats-container, .cards-container {
+  .stats-container, .cards-container { /* JSX usa estas classes */
     grid-template-columns: 1fr;
   }
 }
 
 /* Melhore o contraste dos cards e botões */
-.dashboard-card, .stat-card {
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+.dashboard-card, .stat-card { /* .stat-card não diretamente no JSX do DashNutri */
+  border: 1px solid var(--smartnutri-neutral-200); /* Modificado */
+  box-shadow: 0 2px 8px var(--smartnutri-neutral-t04); /* Ex: rgba(var(--smartnutri-neutral-900-rgb),0.04) */
 }
 .dashboard-card:hover, .stat-card:hover {
-  background-color: #e7f9ef;
-  border-color: #16a34a;
+  background-color: var(--smartnutri-primary-50); /* Modificado */
+  border-color: var(--smartnutri-primary-600); /* OK - Padrão */
 }
 
 /* Ajuste para evitar overflow lateral */
 .dashboard-content, .dashboard-header, .stats-container, .cards-container {
   box-sizing: border-box;
   width: 100%;
-  overflow-x: auto;
+  /* overflow-x: auto;  -- Removido pois pode causar barras de rolagem indesejadas, gerenciar com flexbox/grid */
 }
 
-/* Responsividade e visual moderno */
-@media (max-width: 600px) {
+/* Responsividade e visual moderno (genérico, pode ser redundante) */
+/* @media (max-width: 600px) {
   .dashboard-container, .card, .section {
     padding: 0.5rem !important;
     font-size: 0.95rem !important;
@@ -510,358 +514,28 @@
   h1, h2 {
     font-size: 1.2rem !important;
   }
-}
+} */
 
-/* Stats overview */
-.stats-overview {
+/* Stats overview (redefinição - usado no JSX) */
+.stats-overview { /* Esta classe não é usada no JSX do DashboardNutricionista */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2.5rem;
 }
 
-.stat-card {
-  background: var(--surface);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-  border-left: 3px solid var(--primary);
-}
+/* .stat-card, .stat-icon, .stat-info, .stat-number já foram definidos e padronizados acima */
 
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.stat-icon {
-  font-size: 1.8rem;
-  color: var(--primary);
-  background-color: rgba(76, 175, 80, 0.1);
-  width: 60px;
-  height: 60px;
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-}
-
-.stat-info h3 {
-  font-size: 0.95rem;
-  color: var(--text-light);
-  margin-bottom: 0.25rem;
-}
-
-.stat-number {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--primary-dark);
-}
-
-/* Dashboard cards */
-.dashboard-card {
-  background: var(--surface);
-  border-radius: var(--border-radius);
-  padding: 1.75rem;
-  box-shadow: var(--shadow);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  border-bottom: 3px solid transparent;
-  position: relative;
-  overflow: hidden;
-}
-
+/* Dashboard cards (redefinição - usado no JSX .dashboard-card) */
+/* A maioria dos estilos de .dashboard-card, .card-icon, .card-info, .card-link, .arrow-icon já foram abordados */
+/* Garantir que as cores de .active-card usem variáveis padronizadas se houver */
 .dashboard-card.active-card,
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  border-bottom: 3px solid var(--primary);
-  box-shadow: var(--shadow-lg);
+.dashboard-card:hover { /* Já definido acima, apenas garantindo que as cores estejam corretas */
+  border-bottom: 3px solid var(--primary); /* OK - Alias */
 }
 
-.dashboard-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-}
+/* Welcome banner (Não usado no JSX do DashboardNutricionista) */
+/* Quick access (Não usado no JSX do DashboardNutricionista) */
 
-.dashboard-card.active-card::after,
-.dashboard-card:hover::after {
-  opacity: 1;
-}
-
-.card-icon {
-  font-size: 1.8rem;
-  color: var(--primary);
-  background-color: rgba(76, 175, 80, 0.1);
-  width: 60px;
-  height: 60px;
-  border-radius: var(--border-radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-}
-
-.dashboard-card:hover .card-icon {
-  transform: scale(1.1);
-  background-color: rgba(76, 175, 80, 0.2);
-  color: var(--primary-dark);
-}
-
-.card-info h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.card-info p {
-  color: var(--text-light);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-
-.card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--primary);
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  padding: 0.25rem 0;
-  position: relative;
-}
-
-.card-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary);
-  transition: width 0.3s ease;
-}
-
-.dashboard-card:hover .card-link {
-  gap: 0.75rem;
-  color: var(--primary-dark);
-}
-
-.dashboard-card:hover .card-link::after {
-  width: 100%;
-}
-
-.arrow-icon {
-  transition: transform 0.3s ease;
-  font-size: 0.8rem;
-}
-
-.dashboard-card:hover .arrow-icon {
-  transform: translateX(4px);
-}
-
-/* Welcome banner */
-.welcome-banner {
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(76, 175, 80, 0.15));
-  border-radius: var(--border-radius-lg);
-  padding: 1.8rem 2rem;
-  margin-bottom: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-left: 4px solid var(--primary);
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-}
-
-.banner-content {
-  flex: 1;
-}
-
-.banner-content h2 {
-  font-size: 1.4rem;
-  color: var(--text);
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.tips-list {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.tip-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  color: var(--text-light);
-  line-height: 1.5;
-}
-
-.tip-item::before {
-  content: "•";
-  color: var(--primary);
-  font-weight: bold;
-}
-
-.banner-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.food-icon {
-  font-size: 2rem;
-  color: var(--primary);
-  opacity: 0.8;
-}
-
-.food-icon.apple {
-  animation: float 3s ease-in-out infinite;
-}
-
-.food-icon.carrot {
-  animation: float 4s ease-in-out infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-
-/* Quick access */
-.quick-access {
-  background-color: var(--surface);
-  border-radius: var(--border-radius);
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
-  margin-top: 2rem;
-}
-
-.quick-access h3 {
-  font-size: 1.2rem;
-  color: var(--text);
-  margin-bottom: 1rem;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.quick-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.quick-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--border-radius);
-  padding: 0.75rem 1.25rem;
-  color: var(--text);
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.quick-button:hover {
-  background-color: var(--primary);
-  color: white;
-  border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
-}
-
-.button-icon {
-  color: var(--primary);
-  transition: all 0.2s ease;
-  font-size: 1rem;
-}
-
-.quick-button:hover .button-icon {
-  color: white;
-  transform: scale(1.1);
-}
-
-/* Responsive improvements */
-@media (max-width: 768px) {
-  .dashboard-content {
-    padding: 1.5rem;
-  }
-  
-  .welcome-banner {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-  
-  .banner-icons {
-    flex-direction: row;
-  }
-  
-  .cards-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .stats-overview {
-    grid-template-columns: 1fr;
-  }
-  
-  .quick-buttons {
-    flex-direction: column;
-  }
-  
-  .quick-button {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .dashboard-card {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.5rem 1rem;
-  }
-  
-  .card-icon {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-  
-  .stat-card {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .stat-icon {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
+/* Responsive improvements (redefinição) */
+/* A maioria das regras de responsividade já foram cobertas acima */

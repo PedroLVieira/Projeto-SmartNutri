@@ -1,0 +1,183 @@
+/* 
+ * SmartNutri - Sistema de Cores Padronizado
+ * 
+ * Este arquivo define a paleta de cores oficial do SmartNutri
+ * Todas as cores devem ser usadas através destas variáveis CSS
+ */
+
+:root {
+  /* ===== CORES PRIMÁRIAS ===== */
+  /* Verde principal - cor da marca SmartNutri */
+  --smartnutri-primary: #16a34a;           /* Verde principal */
+  --smartnutri-primary-50: #f0fdf4;        /* Verde muito claro */
+  --smartnutri-primary-100: #dcfce7;       /* Verde claro */
+  --smartnutri-primary-200: #bbf7d0;       /* Verde suave */
+  --smartnutri-primary-300: #86efac;       /* Verde médio claro */
+  --smartnutri-primary-400: #4ade80;       /* Verde médio */
+  --smartnutri-primary-500: #22c55e;       /* Verde padrão */
+  --smartnutri-primary-600: #16a34a;       /* Verde principal (repetido para clareza) */
+  --smartnutri-primary-700: #15803d;       /* Verde escuro */
+  --smartnutri-primary-800: #166534;       /* Verde muito escuro */
+  --smartnutri-primary-900: #14532d;       /* Verde mais escuro */
+
+  /* ===== CORES SECUNDÁRIAS ===== */
+  /* Azul para elementos secundários */
+  --smartnutri-secondary: #3b82f6;         /* Azul principal */
+  --smartnutri-secondary-50: #eff6ff;      /* Azul muito claro */
+  --smartnutri-secondary-100: #dbeafe;     /* Azul claro */
+  --smartnutri-secondary-200: #bfdbfe;     /* Azul suave */
+  --smartnutri-secondary-300: #93c5fd;     /* Azul médio claro */
+  --smartnutri-secondary-400: #60a5fa;     /* Azul médio */
+  --smartnutri-secondary-500: #3b82f6;     /* Azul padrão */
+  --smartnutri-secondary-600: #2563eb;     /* Azul principal */
+  --smartnutri-secondary-700: #1d4ed8;     /* Azul escuro */
+  --smartnutri-secondary-800: #1e40af;     /* Azul muito escuro */
+  --smartnutri-secondary-900: #1e3a8a;     /* Azul mais escuro */
+
+  /* ===== CORES NEUTRAS ===== */
+  /* Escala de cinzas para textos e backgrounds */
+  --smartnutri-neutral-white: #ffffff;     /* Branco puro */
+  --smartnutri-neutral-50: #f9fafb;        /* Cinza muito claro */
+  --smartnutri-neutral-100: #f3f4f6;       /* Cinza claro */
+  --smartnutri-neutral-200: #e5e7eb;       /* Cinza suave */
+  --smartnutri-neutral-300: #d1d5db;       /* Cinza médio claro */
+  --smartnutri-neutral-400: #9ca3af;       /* Cinza médio */
+  --smartnutri-neutral-500: #6b7280;       /* Cinza padrão */
+  --smartnutri-neutral-600: #4b5563;       /* Cinza escuro */
+  --smartnutri-neutral-700: #374151;       /* Cinza muito escuro */
+  --smartnutri-neutral-800: #1f2937;       /* Cinza quase preto */
+  --smartnutri-neutral-900: #111827;       /* Cinza mais escuro */
+  --smartnutri-neutral-black: #000000;     /* Preto puro */
+
+  /* ===== CORES DE ESTADO ===== */
+  /* Sucesso - Verde */
+  --smartnutri-success: #16a34a;           /* Mesmo que primary para consistência */
+  --smartnutri-success-50: #f0fdf4;
+  --smartnutri-success-100: #dcfce7;
+  --smartnutri-success-600: #16a34a;
+  --smartnutri-success-700: #15803d;
+
+  /* Erro/Perigo - Vermelho */
+  --smartnutri-error: #dc2626;
+  --smartnutri-error-50: #fef2f2;
+  --smartnutri-error-100: #fee2e2;
+  --smartnutri-error-600: #dc2626;
+  --smartnutri-error-700: #b91c1c;
+
+  /* Aviso - Amarelo/Laranja */
+  --smartnutri-warning: #f59e0b;
+  --smartnutri-warning-50: #fffbeb;
+  --smartnutri-warning-100: #fef3c7;
+  --smartnutri-warning-600: #f59e0b;
+  --smartnutri-warning-700: #d97706;
+
+  /* Informação - Azul claro */
+  --smartnutri-info: #0ea5e9;
+  --smartnutri-info-50: #f0f9ff;
+  --smartnutri-info-100: #e0f2fe;
+  --smartnutri-info-600: #0ea5e9;
+  --smartnutri-info-700: #0284c7;
+
+  /* ===== ALIASES SEMÂNTICOS ===== */
+  /* Para facilitar o uso em componentes específicos */
+  
+  /* Textos */
+  --text-primary: var(--smartnutri-neutral-900);       /* Texto principal */
+  --text-secondary: var(--smartnutri-neutral-600);     /* Texto secundário */
+  --text-muted: var(--smartnutri-neutral-500);         /* Texto discreto */
+  --text-inverse: var(--smartnutri-neutral-white);     /* Texto invertido (sobre fundo escuro) */
+
+  /* Backgrounds */
+  --bg-page: var(--smartnutri-neutral-50);             /* Background da página */
+  --bg-card: var(--smartnutri-neutral-white);          /* Background de cards */
+  --bg-muted: var(--smartnutri-neutral-100);           /* Background discreto */
+  --bg-primary: var(--smartnutri-primary-600);         /* Background primário */
+  --bg-secondary: var(--smartnutri-secondary-600);     /* Background secundário */
+
+  /* Bordas */
+  --border-light: var(--smartnutri-neutral-200);       /* Borda clara */
+  --border-medium: var(--smartnutri-neutral-300);      /* Borda média */
+  --border-dark: var(--smartnutri-neutral-400);        /* Borda escura */
+
+  /* Estados interativos */
+  --interactive-hover: var(--smartnutri-primary-700);  /* Hover em elementos primários */
+  --interactive-focus: var(--smartnutri-primary-500);  /* Focus em elementos */
+  --interactive-disabled: var(--smartnutri-neutral-300); /* Elementos desabilitados */
+
+  /* ===== SOMBRAS COM CORES ===== */
+  --shadow-primary: 0 4px 6px -1px rgba(22, 163, 74, 0.1), 0 2px 4px -1px rgba(22, 163, 74, 0.06);
+  --shadow-secondary: 0 4px 6px -1px rgba(59, 130, 246, 0.1), 0 2px 4px -1px rgba(59, 130, 246, 0.06);
+  --shadow-neutral: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* ===== GRADIENTES ===== */
+  --gradient-primary: linear-gradient(135deg, var(--smartnutri-primary-600) 0%, var(--smartnutri-primary-500) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--smartnutri-secondary-600) 0%, var(--smartnutri-secondary-500) 100%);
+  --gradient-success: linear-gradient(135deg, var(--smartnutri-success-600) 0%, var(--smartnutri-success-700) 100%);
+
+  /* ===== COMPATIBILIDADE COM SISTEMA ATUAL ===== */
+  /* Mantendo variáveis existentes para não quebrar o código atual */
+  --primary: var(--smartnutri-primary-600);
+  --primary-light: var(--smartnutri-primary-400);
+  --primary-dark: var(--smartnutri-primary-700);
+  --secondary: var(--smartnutri-secondary-600);
+  --secondary-light: var(--smartnutri-secondary-400);
+  --secondary-dark: var(--smartnutri-secondary-700);
+  --accent: var(--smartnutri-primary-600);
+  --accent-light: var(--smartnutri-primary-400);
+  --accent-dark: var(--smartnutri-primary-700);
+  --background: var(--bg-page);
+  --surface: var(--bg-card);
+  --text: var(--text-primary);
+  --text-light: var(--text-secondary);
+  --text-lightest: var(--text-muted);
+  --border: var(--border-light);
+  --danger: var(--smartnutri-error-600);
+  --danger-light: var(--smartnutri-error-100);
+  --success: var(--smartnutri-success-600);
+  --success-light: var(--smartnutri-success-100);
+  --warning: var(--smartnutri-warning-600);
+  --warning-light: var(--smartnutri-warning-100);
+  --info: var(--smartnutri-info-600);
+  --info-light: var(--smartnutri-info-100);
+}
+
+/* ===== DOCUMENTAÇÃO DE USO ===== */
+/*
+  GUIA DE USO DAS CORES:
+
+  1. CORES PRIMÁRIAS:
+     - Use --smartnutri-primary-600 para botões principais, links importantes
+     - Use --smartnutri-primary-100 para backgrounds suaves
+     - Use --smartnutri-primary-50 para highlights muito suaves
+
+  2. CORES SECUNDÁRIAS:
+     - Use para botões secundários, elementos de apoio
+     - Evite usar junto com a cor primária na mesma área
+
+  3. CORES NEUTRAS:
+     - 50-200: Backgrounds
+     - 300-500: Bordas e elementos decorativos  
+     - 600-900: Textos (600 para secundário, 900 para principal)
+
+  4. CORES DE ESTADO:
+     - Sucesso: Mensagens de confirmação, indicadores positivos
+     - Erro: Alertas, validações com falha
+     - Aviso: Informações importantes que precisam de atenção
+     - Info: Dicas, informações gerais
+
+  5. ALIASES SEMÂNTICOS:
+     - Prefira usar --text-primary ao invés de --smartnutri-neutral-900
+     - Use --bg-page para background principal
+     - Use --border-light para bordas padrão
+
+  EXEMPLO DE USO:
+  .botao-principal {
+    background-color: var(--smartnutri-primary-600);
+    color: var(--text-inverse);
+    border: 1px solid var(--smartnutri-primary-700);
+  }
+
+  .botao-principal:hover {
+    background-color: var(--interactive-hover);
+  }
+*/

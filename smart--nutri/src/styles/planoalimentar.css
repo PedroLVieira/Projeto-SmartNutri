@@ -1,11 +1,11 @@
 /* Layout principal - corrigindo o background */
-.layout-wrapper {
+.layout-wrapper { /* Já definido em global.css, verificar necessidade de redefinição */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--background);
-  background-image: none; /* Removendo o background pattern herdado */
+  background-color: var(--background); /* OK - Alias */
+  background-image: none; 
   position: relative;
   z-index: 1;
 }
@@ -17,7 +17,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--surface);
+  background-color: var(--surface); /* OK - Alias */
   z-index: -1;
 }
 
@@ -28,10 +28,10 @@
   width: 100%;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: var(--surface);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  background-color: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
+  box-shadow: var(--shadow); /* OK - Padrão */
+  border: 1px solid var(--border); /* OK - Alias */
 }
 
 /* Cabeçalho do plano */
@@ -39,14 +39,14 @@
   text-align: left;
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); /* OK - Alias */
   animation: fadeIn 0.8s ease-out;
   position: relative;
 }
 
 .plano-header h1 {
   font-size: 2rem;
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
   margin-bottom: 0.75rem;
   font-weight: 700;
   position: relative;
@@ -58,28 +58,28 @@
   position: absolute;
   width: 50px;
   height: 4px;
-  background: var(--primary);
+  background: var(--primary); /* OK - Alias */
   bottom: -10px;
   left: 0;
-  border-radius: 4px;
+  border-radius: 4px; /* var(--radius-sm) */
 }
 
 .plano-header p {
-  color: var(--text-light);
+  color: var(--text-light); /* OK - Alias */
   font-size: 1.1rem;
   margin-top: 1.25rem;
 }
 
 /* Seleção de plano */
 .plano-overview {
-  background: white;
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-md);
-  margin-bottom: var(--space-xl);
+  background: var(--smartnutri-neutral-white); /* Modificado */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg); /* OK - Padrão */
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  margin-bottom: var(--space-xl); /* OK - Padrão */
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-lg);
+  gap: var(--space-lg); /* OK - Padrão */
   align-items: center;
   justify-content: space-between;
 }
@@ -87,25 +87,25 @@
 .selector-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* OK - Padrão */
   min-width: 200px;
 }
 
 .selector-container label {
   font-weight: 500;
-  color: var(--neutral-700);
-  font-size: var(--font-size-sm);
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  font-size: var(--font-size-sm); /* OK - Padrão */
 }
 
 .plano-selector {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-md);
-  color: var(--neutral-800);
-  background-color: white;
+  padding: var(--space-sm) var(--space-md); /* OK - Padrão */
+  border: 1px solid var(--smartnutri-neutral-300); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
+  font-size: var(--font-size-md); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); /* %236b7280 é --smartnutri-neutral-500. Idealmente, usar uma variável SVG ou cor que combine. */
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 40px;
@@ -114,8 +114,8 @@
 
 .plano-selector:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  border-color: var(--primary); /* OK - Alias */
+  box-shadow: 0 0 0 3px var(--smartnutri-primary-100); /* Modificado - Ex: rgba(var(--smartnutri-primary-600-rgb), 0.1) */
 }
 
 .plano-info {
@@ -124,92 +124,92 @@
 }
 
 .plano-badge {
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs); /* OK - Padrão */
 }
 
 .badge {
   display: inline-block;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
+  padding: var(--space-xs) var(--space-sm); /* OK - Padrão */
+  border-radius: var(--radius-full); /* OK - Padrão */
+  font-size: var(--font-size-xs); /* OK - Padrão */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .badge.active {
-  background-color: rgba(22, 163, 74, 0.1);
-  color: var(--success-color);
+  background-color: var(--smartnutri-success-50); /* Modificado - Ex: rgba(var(--smartnutri-success-600-rgb), 0.1) */
+  color: var(--success); /* OK - Alias */
 }
 
 .badge.inactive {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: var(--error-color);
+  background-color: var(--smartnutri-error-50); /* Modificado - Ex: rgba(var(--smartnutri-error-600-rgb), 0.1) */
+  color: var(--danger); /* OK - Alias (danger maps to error) */
 }
 
 .plano-nome {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-xl); /* OK - Padrão */
   font-weight: 600;
-  color: var(--neutral-800);
-  margin-bottom: var(--space-xs);
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin-bottom: var(--space-xs); /* OK - Padrão */
 }
 
 .plano-descricao {
-  color: var(--neutral-600);
-  font-size: var(--font-size-md);
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
+  font-size: var(--font-size-md); /* OK - Padrão */
   line-height: 1.5;
 }
 
 /* Dias da semana */
 .dias-semana-section {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-xl); /* OK - Padrão */
 }
 
 .dias-semana-section h2 {
-  font-size: var(--font-size-lg);
-  color: var(--neutral-700);
-  margin-bottom: var(--space-md);
+  font-size: var(--font-size-lg); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
   font-weight: 500;
 }
 
 .dias-semana-nav {
   display: flex;
-  gap: var(--space-sm);
+  gap: var(--space-sm); /* OK - Padrão */
   flex-wrap: wrap;
-  background-color: var(--neutral-50);
-  padding: var(--space-sm);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  padding: var(--space-sm); /* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
 }
 
 .dia-btn {
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--space-md); /* OK - Padrão */
   border: none;
-  border-radius: var(--radius-md);
-  background-color: white;
-  color: var(--neutral-600);
+  border-radius: var(--radius-md); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  box-shadow: var(--shadow-sm);
+  gap: var(--space-xs); /* OK - Padrão */
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
   flex-grow: 1;
-  min-width: 0;
-  max-width: calc(100% / 7 - var(--space-sm));
+  min-width: 0; /* Para flex-grow funcionar corretamente */
+  max-width: calc(100% / 7 - var(--space-sm)); /* Distribuir igualmente */
   justify-content: center;
 }
 
 .dia-btn:not(.vazio):hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  background-color: var(--neutral-100);
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
 }
 
 .dia-btn.ativo {
-  background-color: var(--primary-color);
-  color: white;
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
 }
 
 .dia-btn.vazio {
@@ -223,12 +223,12 @@
 
 /* Conteúdo do dia */
 .dia-conteudo {
-  background-color: var(--surface);
-  border-radius: var(--border-radius);
+  background-color: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
   padding: 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); /* OK - Padrão */
   margin-top: 2rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); /* OK - Alias */
 }
 
 .dia-titulo {
@@ -236,15 +236,15 @@
   align-items: center;
   gap: 0.75rem;
   font-size: 1.5rem;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); /* OK - Alias */
   font-weight: 600;
 }
 
 .section-icon {
-  color: var(--primary);
+  color: var(--primary); /* OK - Alias */
 }
 
 /* Refeições */
@@ -263,15 +263,16 @@
 }
 
 .refeicao-card {
-  background-color: var(--surface);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  background-color: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
+  box-shadow: var(--shadow); /* OK - Padrão */
   overflow: hidden;
   transition: var(--transition);
-  border: 1px solid var(--border);  position: relative;
+  border: 1px solid var(--border);  /* OK - Alias */
+  position: relative;
   opacity: 0;
   transform: translateY(10px);
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.5s ease forwards; /* fadeIn definido em global.css/shared.css */
 }
 
 .refeicao-card::before {
@@ -281,21 +282,21 @@
   top: 0;
   height: 100%;
   width: 4px;
-  background: var(--primary);
+  background: var(--primary); /* OK - Alias */
   transition: var(--transition);
 }
 
 .refeicao-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  border-color: var(--primary-light); /* OK - Alias */
 }
 
 .refeicao-header {
   display: flex;
   padding: 1rem 1.5rem;
-  background-color: rgba(76, 175, 80, 0.05);
-  border-bottom: 1px solid var(--border);
+  background-color: var(--smartnutri-primary-50); /* Modificado - Ex: rgba(var(--smartnutri-primary-600-rgb), 0.05) */
+  border-bottom: 1px solid var(--border); /* OK - Alias */
 }
 
 .refeicao-icon-container {
@@ -305,9 +306,9 @@
 .refeicao-icon {
   width: 48px;
   height: 48px;
-  background-color: rgba(76, 175, 80, 0.15);
+  background-color: var(--smartnutri-primary-100); /* Modificado - Ex: rgba(var(--smartnutri-primary-600-rgb), 0.15) */
   border-radius: 50%;
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,8 +317,6 @@
 }
 
 .refeicao-card:hover .refeicao-icon {
-  background-color: var(--primary);
-  color: white;
   transform: scale(1.1);
 }
 
@@ -327,22 +326,23 @@
 
 .refeicao-title h3 {
   font-size: 1.25rem;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
   margin-bottom: 0.35rem;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
 }
 
 .refeicao-horario {
-  color: var(--text-light);
-  font-size: 0.9rem;  display: flex;
+  color: var(--text-light); /* OK - Alias */
+  font-size: 0.9rem;  
+  display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .icon-small {
   font-size: 0.9rem;
-  color: var(--primary);
+  color: var(--primary); /* OK - Alias */
 }
 
 .refeicao-detalhes {
@@ -352,16 +352,16 @@
 .recomendado-section,
 .substituicoes-section {
   margin-bottom: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--smartnutri-neutral-white-t50); /* Modificado - Ex: rgba(var(--smartnutri-neutral-white-rgb), 0.5) ou var(--smartnutri-neutral-50) se sólido */
   padding: 1rem;
-  border-radius: var(--border-radius-sm);
-  border: 1px solid var(--border);
+  border-radius: var(--border-radius-sm); /* OK - Padrão */
+  border: 1px solid var(--border); /* OK - Alias */
 }
 
 .recomendado-section h4,
 .substituicoes-section h4 {
   font-size: 1rem;
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
   margin-bottom: 0.75rem;
   font-weight: 600;
   display: flex;
@@ -372,35 +372,34 @@
 
 .refeicao-descricao,
 .refeicao-substituicoes {
-  color: var(--neutral-800);
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
   line-height: 1.6;
   white-space: pre-line;
 }
 
 .refeicao-alimentos {
-  margin-top: var(--space-lg);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--neutral-200);
+  margin-top: var(--space-lg); /* OK - Padrão */
+  padding-top: var(--space-md); /* OK - Padrão */
+  border-top: 1px solid var(--smartnutri-neutral-200); /* OK - Padrão */
 }
 
 .alimentos-list {
   list-style-type: none;
   padding: 0;
-  margin: var(--space-md) 0 0;
+  margin: var(--space-md) 0 0; /* OK - Padrão */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-sm) var(--space-lg);
+  gap: var(--space-sm) var(--space-lg); /* OK - Padrão */
 }
 
 .alimentos-list li {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* OK - Padrão */
 }
 
 .leaf-icon {
-  color: var(--primary-color);
-  font-size: 0.9rem;
+  color: var(--primary); /* OK - Alias (se primary-color era o verde) */
 }
 
 .alimento-nome {
@@ -408,35 +407,35 @@
 }
 
 .alimento-quantidade {
-  color: var(--neutral-600);
-  font-size: var(--font-size-sm);
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
+  font-size: var(--font-size-sm); /* OK - Padrão */
 }
 
 /* Estado sem refeições */
 .sem-refeicoes {
   text-align: center;
-  padding: var(--space-xl);
-  background-color: var(--neutral-50);
-  border-radius: var(--radius-lg);
-  border: 1px dashed var(--neutral-300);
+  padding: var(--space-xl); /* OK - Padrão */
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  border: 1px dashed var(--smartnutri-neutral-300); /* OK - Padrão */
 }
 
 .sem-refeicoes-icon {
   font-size: 3rem;
-  color: var(--neutral-400);
-  margin-bottom: var(--space-md);
+  color: var(--smartnutri-neutral-400); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
 }
 
 .sem-refeicoes h3 {
-  color: var(--neutral-700);
-  margin-bottom: var(--space-sm);
-  font-size: var(--font-size-lg);
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  margin-bottom: var(--space-sm); /* OK - Padrão */
+  font-size: var(--font-size-lg); /* OK - Padrão */
 }
 
 .sem-refeicoes p {
-  color: var(--neutral-600);
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
   max-width: 400px;
-  margin: 0 auto var(--space-sm);
+  margin: 0 auto var(--space-sm); /* OK - Padrão */
 }
 
 /* Estado de carregamento */
@@ -445,75 +444,71 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--space-xl);
-  gap: var(--space-md);
+  padding: var(--space-xl); /* OK - Padrão */
+  gap: var(--space-md); /* OK - Padrão */
 }
 
-.spinner {
+.spinner { /* Já definido em global.css. Pode ser unificado. */
   animation: spin 1s linear infinite;
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--primary); /* OK - Alias (se primary-color era o verde) */
 }
 
 /* Mensagens de erro */
-.erro-message {
-  background-color: rgba(239, 68, 68, 0.1);
-  border-left: 4px solid var(--error-color);
-  padding: var(--space-lg);
-  border-radius: var(--radius-md);
-  color: var(--neutral-800);
-  margin: var(--space-lg) 0;
-  box-shadow: var(--shadow-sm);
+.erro-message { /* Conflita com .error-message de global.css. Unificar. */
+  background-color: var(--smartnutri-error-50); /* Modificado - Ex: rgba(var(--smartnutri-error-600-rgb), 0.1) */
+  border-left: 4px solid var(--danger); /* OK - Alias (danger maps to error) */
+  padding: var(--space-lg); /* OK - Padrão */
+  border-radius: var(--radius-md); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin: var(--space-lg) 0; /* OK - Padrão */
+  box-shadow: var(--shadow-sm); /* OK - Padrão */
   text-align: center;
 }
 
-/* Responsividade */
+/* Responsividade (Muitas regras já em global.css ou shared.css, revisar necessidade) */
 @media (max-width: 992px) {
   .plano-container {
-    padding: var(--space-lg);
-  }
-  
-  .refeicoes {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: var(--space-lg); /* OK - Padrão */
   }
 }
 
 @media (max-width: 768px) {
   .plano-container {
-    padding: var(--space-md);
-    margin-top: var(--space-md);
-    margin-bottom: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
+    margin-top: var(--space-md); /* OK - Padrão */
+    margin-bottom: var(--space-md); /* OK - Padrão */
   }
   
   .dias-semana-nav {
     overflow-x: auto;
-    padding-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm); /* OK - Padrão */
   }
   
   .dia-btn {
     min-width: 80px;
-    padding: var(--space-sm);
-    font-size: var(--font-size-sm);
+    padding: var(--space-sm); /* OK - Padrão */
+    font-size: var(--font-size-sm); /* OK - Padrão */
   }
   
-  .refeicoes {
+  .refeicoes { /* Se refere ao grid de cards */
     grid-template-columns: 1fr;
   }
 
   .plano-header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-2xl); /* OK - Padrão */
   }
   
   .plano-overview {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-lg);
+    gap: var(--space-lg); /* OK - Padrão */
   }
   
   .dias-semana-nav {
     overflow-x: auto;
-    scrollbar-width: thin;
-    padding-bottom: var(--space-xs);
+    scrollbar-width: thin; /* OK */
+    padding-bottom: var(--space-xs); /* OK - Padrão */
   }
   
   .dia-btn {
@@ -521,17 +516,17 @@
   }
   
   .dia-conteudo {
-    padding: var(--space-lg);
+    padding: var(--space-lg); /* OK - Padrão */
   }
   
   .refeicao-header {
     flex-direction: column;
-    gap: var(--space-xs);
+    gap: var(--space-xs); /* OK - Padrão */
   }
   
   .refeicao-icon-container {
     margin-right: 0;
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-xs); /* OK - Padrão */
   }
   
   .alimentos-list {
@@ -541,49 +536,49 @@
 
 @media (max-width: 576px) {
   .plano-container {
-    padding: var(--space-sm);
+    padding: var(--space-sm); /* OK - Padrão */
   }
   
   .plano-header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-2xl); /* OK - Padrão */
   }
   
   .dia-titulo {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-lg); /* OK - Padrão */
   }
   
   .refeicao-header {
-    padding: var(--space-sm);
+    padding: var(--space-sm); /* OK - Padrão */
   }
   
-  .refeicao-icon-container {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+  .refeicao-icon-container { /* .refeicao-icon no JSX */
+    width: 32px; /* Controlado por JSX? */
+    height: 32px; /* Controlado por JSX? */
+    /* font-size do ícone interno é 1rem */
   }
   
   .refeicao-title h3 {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-md); /* OK - Padrão */
   }
 }
 
 @media (max-width: 480px) {
   .plano-header h1 {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-xl); /* OK - Padrão */
   }
   
   .plano-container {
-    padding: var(--space-sm);
+    padding: var(--space-sm); /* OK - Padrão */
   }
   
   .plano-overview,
   .dia-conteudo {
-    padding: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
   }
   
   .dia-btn {
-    padding: var(--space-xs);
-    font-size: var(--font-size-sm);
+    padding: var(--space-xs); /* OK - Padrão */
+    font-size: var(--font-size-sm); /* OK - Padrão */
     min-width: 80px;
   }
   
@@ -591,15 +586,15 @@
     font-size: 0.9rem;
   }
   
-  .dia-btn span {
+  .dia-btn span { /* Esconde o texto do botão do dia, mostrando só o ícone */
     display: none;
   }
   
   .dia-titulo {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-lg); /* OK - Padrão */
   }
   
   .refeicao-detalhes {
-    padding: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
   }
 }

@@ -1,30 +1,31 @@
 /* Container geral */
-.cliente-dashboard-container {
+.cliente-dashboard-container { /* Não usado diretamente, .dashboard-layout é o container principal */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--background);
+  background-color: var(--background); /* OK - Alias */
   position: relative;
   font-family: 'Nunito', sans-serif;
 }
 
+/* .dashboard-content já está em global.css, mas com especificidade maior aqui */
 .dashboard-content {
   width: 100%;
   max-width: 1280px;
-  margin: 1rem auto;
-  padding: 2rem;
+  margin: 1rem auto; /* Mantido do original do arquivo */
+  padding: 2rem; /* Mantido do original do arquivo */
 }
 
 /* Botão de sair */
-.logout-button-top {
+.logout-button-top { /* Não presente no JSX do DashboardCliente */
   position: absolute;
   top: 1.5rem;
   right: 2rem;
-  background: transparent;
+  background: transparent; /* OK */
   border: none;
-  color: var(--text-light);
+  color: var(--text-light); /* OK - Alias */
   font-size: 1.25rem;
   cursor: pointer;
   transition: var(--transition);
@@ -35,7 +36,7 @@
 }
 
 .logout-button-top:hover {
-  color: var(--error-color);
+  color: var(--smartnutri-error-600); /* Modificado */
   transform: translateY(-2px);
 }
 
@@ -44,10 +45,10 @@
   position: absolute;
   top: -30px;
   right: 0;
-  background-color: var(--neutral-600);
-  color: white;
+  background-color: var(--smartnutri-neutral-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
   padding: 4px 8px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-md); /* OK - Padrão */
   font-size: 12px;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -61,18 +62,18 @@
 }
 
 /* Cabeçalho */
-.cliente-dashboard-header {
+.cliente-dashboard-header { /* Não usado diretamente, .dashboard-header é usado */
   text-align: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-xl); /* OK - Padrão */
   max-width: 800px;
-  padding: var(--space-md);
+  padding: var(--space-md); /* OK - Padrão */
   position: relative;
 }
 
 .cliente-dashboard-header h2 {
-  color: var(--secondary-color);
+  color: var(--secondary); /* OK - Alias */
   font-size: 1.75rem;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs); /* OK - Padrão */
   position: relative;
   display: inline-block;
 }
@@ -82,44 +83,44 @@
   position: absolute;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--secondary-color), var(--secondary-light));
+  background: linear-gradient(90deg, var(--secondary), var(--secondary-light)); /* OK - Aliases */
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full); /* OK - Padrão */
 }
 
 .cliente-dashboard-header p {
-  font-size: var(--font-size-md);
-  color: var(--neutral-700);
-  margin-top: var(--space-md);
+  font-size: var(--font-size-md); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  margin-top: var(--space-md); /* OK - Padrão */
 }
 
 /* Conteúdo principal */
-.cliente-dashboard-main {
+.cliente-dashboard-main { /* Não usado diretamente */
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-md); /* OK - Padrão */
   width: 100%;
   max-width: 750px;
-  padding: 0 var(--space-md);
+  padding: 0 var(--space-md); /* OK - Padrão */
 }
 
 /* Cartões */
-.cliente-dashboard-card {
+.cliente-dashboard-card { /* Não usado diretamente, .dashboard-card é usado */
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--space-md);
-  background: linear-gradient(135deg, #ffffff, var(--neutral-50));
-  border-left: 4px solid var(--secondary-color);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg) var(--space-xl);
-  box-shadow: var(--shadow-md);
+  gap: var(--space-md); /* OK - Padrão */
+  background: linear-gradient(135deg, var(--smartnutri-neutral-50), var(--smartnutri-neutral-50)); /* OK - Padrão */
+  border-left: 4px solid var(--secondary); /* OK - Alias */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg) var(--space-xl); /* OK - Padrão */
+  box-shadow: var(--shadow-md); /* OK - Padrão */
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
   font-weight: 500;
-  color: var(--neutral-900);
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
   position: relative;
   overflow: hidden;
 }
@@ -131,15 +132,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, transparent, rgba(37, 99, 235, 0.1));
+  background: linear-gradient(135deg, transparent, var(--smartnutri-secondary-t10)); /* Ex: rgba(var(--smartnutri-secondary-600-rgb), 0.1) */
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .cliente-dashboard-card:hover {
-  background-color: white;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
   transform: translateY(-5px) scale(1.01);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* OK - Padrão */
   border-left-width: 6px;
 }
 
@@ -148,10 +149,10 @@
 }
 
 /* Ícones */
-.cliente-icon {
-  background-color: var(--secondary-light);
-  color: var(--secondary-color);
-  padding: var(--space-md);
+.cliente-icon { /* Não usado diretamente, .card-icon é usado */
+  background-color: var(--secondary-light); /* OK - Alias */
+  color: var(--secondary); /* OK - Alias */
+  padding: var(--space-md); /* OK - Padrão */
   border-radius: 50%;
   font-size: 1.4rem;
   display: flex;
@@ -166,16 +167,16 @@
 
 /* Responsividade */
 @media (max-width: 480px) {
-  .cliente-dashboard-header h2 {
+  .cliente-dashboard-header h2 { /* Aplicar a .dashboard-header h1 */
     font-size: 1.5rem;
   }
 
-  .cliente-dashboard-card {
-    padding: var(--space-md);
+  .cliente-dashboard-card { /* Aplicar a .dashboard-card */
+    padding: var(--space-md); /* OK - Padrão */
   }
 
-  .cliente-icon {
-    padding: var(--space-sm);
+  .cliente-icon { /* Aplicar a .card-icon */
+    padding: var(--space-sm); /* OK - Padrão */
     font-size: 1.2rem;
   }
 }
@@ -186,23 +187,23 @@
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--surface);
-  background-image: none; /* Removendo o background pattern herdado */
+  background-color: var(--surface); /* OK - Alias */
+  background-image: none; 
   position: relative;
   z-index: 1;
 }
 
-.dashboard-content {
+.dashboard-content { /* Redefinição, manter a de cima ou esta */
   flex: 1;
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: var(--space-xl);
+  padding: var(--space-xl); /* OK - Padrão */
 }
 
 /* Cabeçalho do dashboard */
 .dashboard-header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-xl); /* OK - Padrão */
   text-align: center;
   opacity: 0;
   transform: translateY(20px);
@@ -215,9 +216,9 @@
 }
 
 .dashboard-header h1 {
-  font-size: var(--font-size-3xl);
-  color: var(--secondary-color);
-  margin-bottom: var(--space-xs);
+  font-size: var(--font-size-3xl); /* OK - Padrão */
+  color: var(--secondary); /* OK - Alias */
+  margin-bottom: var(--space-xs); /* OK - Padrão */
   font-weight: 600;
   position: relative;
   display: inline-block;
@@ -228,89 +229,89 @@
   position: absolute;
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, var(--secondary-color), var(--secondary-light));
+  background: linear-gradient(90deg, var(--secondary), var(--secondary-light)); /* OK - Aliases */
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full); /* OK - Padrão */
 }
 
 .dashboard-header p {
-  font-size: var(--font-size-lg);
-  color: var(--neutral-700);
-  margin-bottom: var(--space-xs);
-  margin-top: var(--space-md);
+  font-size: var(--font-size-lg); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  margin-bottom: var(--space-xs); /* OK - Padrão */
+  margin-top: var(--space-md); /* OK - Padrão */
 }
 
 .dashboard-header .subtitle {
-  color: var(--neutral-500);
-  font-size: var(--font-size-md);
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
+  font-size: var(--font-size-md); /* OK - Padrão */
 }
 
-/* Cards de estatísticas */
+/* Cards de estatísticas (não usados no DashboardCliente.jsx) */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: var(--space-lg);
-  margin-bottom: var(--space-2xl);
+  gap: var(--space-lg); /* OK - Padrão */
+  margin-bottom: var(--space-2xl); /* OK - Padrão */
 }
 
-.stat-card {
-  background: linear-gradient(to right, #ffffff, var(--neutral-50));
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+.stat-card { /* Não usado no DashboardCliente.jsx */
+  background: linear-gradient(to right, var(--smartnutri-neutral-50), var(--smartnutri-neutral-50));/* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg); /* OK - Padrão */
   display: flex;
   align-items: center;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md); /* OK - Padrão */
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* OK - Padrão */
 }
 
-.stat-icon {
+.stat-icon { /* Não usado no DashboardCliente.jsx */
   font-size: 2rem;
-  color: var(--secondary-color);
-  background-color: rgba(37, 99, 235, 0.1);
-  padding: var(--space-md);
-  border-radius: var(--radius-lg);
-  margin-right: var(--space-md);
+  color: var(--secondary); /* OK - Alias */
+  background-color: var(--smartnutri-secondary-100); /* Modificado */
+  padding: var(--space-md); /* OK - Padrão */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  margin-right: var(--space-md); /* OK - Padrão */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.stat-info h3 {
-  font-size: var(--font-size-md);
-  color: var(--neutral-700);
-  margin-bottom: var(--space-xs);
+.stat-info h3 { /* Não usado no DashboardCliente.jsx */
+  font-size: var(--font-size-md); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  margin-bottom: var(--space-xs); /* OK - Padrão */
 }
 
-.stat-number {
+.stat-number { /* Não usado no DashboardCliente.jsx */
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--secondary-color);
+  color: var(--secondary); /* OK - Alias */
 }
 
-.stat-detail {
+.stat-detail { /* Não usado no DashboardCliente.jsx */
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--success-color);
+  color: var(--success); /* OK - Alias */
 }
 
 /* Seções */
 .dashboard-section {
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-2xl); /* OK - Padrão */
 }
 
 .dashboard-section h2 {
-  font-size: var(--font-size-xl);
-  color: var(--neutral-800);
-  margin-bottom: var(--space-lg);
-  padding-bottom: var(--space-xs);
-  border-bottom: 2px solid var(--neutral-200);
+  font-size: var(--font-size-xl); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin-bottom: var(--space-lg); /* OK - Padrão */
+  padding-bottom: var(--space-xs); /* OK - Padrão */
+  border-bottom: 2px solid var(--smartnutri-neutral-200); /* OK - Padrão */
   position: relative;
 }
 
@@ -321,27 +322,27 @@
   left: 0;
   width: 60px;
   height: 2px;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary); /* OK - Alias */
 }
 
 /* Container de cards */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-lg); /* OK - Padrão */
 }
 
 /* Cards principais */
 .dashboard-card {
-  background: var(--surface);
-  border-radius: var(--border-radius);
+  background: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
   padding: 1.75rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); /* OK - Padrão */
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-bottom: 3px solid transparent;
+  border-bottom: 3px solid transparent; /* OK */
   position: relative;
   overflow: hidden;
 }
@@ -349,8 +350,8 @@
 .dashboard-card.active-card,
 .dashboard-card:hover {
   transform: translateY(-5px);
-  border-bottom: 3px solid var(--primary);
-  box-shadow: var(--shadow-lg);
+  border-bottom: 3px solid var(--primary); /* OK - Alias */
+  box-shadow: var(--shadow-lg); /* OK - Padrão */
 }
 
 .dashboard-card::after {
@@ -360,7 +361,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(76, 175, 80, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, var(--smartnutri-primary-t08), var(--smartnutri-neutral-white-t0)); /* Ex: rgba(var(--smartnutri-primary-500-rgb), 0.08), rgba(var(--smartnutri-neutral-white-rgb), 0) */
   opacity: 0;
   transition: opacity 0.3s ease-out;
 }
@@ -372,11 +373,11 @@
 
 .card-icon {
   font-size: 1.8rem;
-  color: var(--primary);
-  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--primary); /* OK - Alias */
+  background-color: var(--smartnutri-primary-100); /* Modificado */
   width: 60px;
   height: 60px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius); /* OK - Padrão */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,8 +388,8 @@
 
 .dashboard-card:hover .card-icon {
   transform: scale(1.1);
-  background-color: rgba(76, 175, 80, 0.2);
-  color: var(--primary-dark);
+  background-color: var(--smartnutri-primary-200); /* Modificado */
+  color: var(--primary-dark); /* OK - Alias */
 }
 
 .card-info {
@@ -398,13 +399,13 @@
 .card-info h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
   margin-bottom: 0.5rem;
   font-family: 'Montserrat', sans-serif;
 }
 
 .card-info p {
-  color: var(--text-light);
+  color: var(--text-light); /* OK - Alias */
   font-size: 0.95rem;
   margin-bottom: 1rem;
   line-height: 1.5;
@@ -414,7 +415,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--primary);
+  color: var(--primary); /* OK - Alias */
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
@@ -429,13 +430,13 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--primary);
+  background-color: var(--primary); /* OK - Alias */
   transition: width 0.3s ease;
 }
 
 .dashboard-card:hover .card-link {
   gap: 0.75rem;
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
 }
 
 .dashboard-card:hover .card-link::after {
@@ -453,15 +454,15 @@
 
 /* Banner de boas-vindas */
 .welcome-banner {
-  background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(76, 175, 80, 0.15));
-  border-radius: var(--border-radius-lg);
+  background: linear-gradient(135deg, var(--smartnutri-primary-50), var(--smartnutri-primary-100)); /* Modificado */
+  border-radius: var(--border-radius-lg); /* OK - Padrão */
   padding: 1.8rem 2rem;
   margin-bottom: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-left: 4px solid var(--primary);
-  box-shadow: var(--shadow);
+  border-left: 4px solid var(--primary); /* OK - Alias */
+  box-shadow: var(--shadow); /* OK - Padrão */
   position: relative;
   overflow: hidden;
 }
@@ -471,9 +472,9 @@
 }
 
 .banner-content h2 {
-  font-size: var(--font-size-xl);
-  color: var(--neutral-800);
-  margin-bottom: var(--space-md);
+  font-size: var(--font-size-xl); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
   border-bottom: none;
   padding-bottom: 0;
 }
@@ -487,20 +488,20 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-sm); /* OK - Padrão */
 }
 
 .tip-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-sm);
-  color: var(--neutral-700);
+  gap: var(--space-sm); /* OK - Padrão */
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
   line-height: 1.5;
 }
 
 .tip-item::before {
   content: "•";
-  color: var(--secondary-color);
+  color: var(--secondary); /* OK - Alias */
   font-weight: bold;
 }
 
@@ -508,12 +509,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-md); /* OK - Padrão */
 }
 
 .food-icon {
   font-size: 2rem;
-  color: var(--primary-color);
+  color: var(--primary); /* OK - Alias */
   opacity: 0.8;
 }
 
@@ -528,22 +529,22 @@
 
 /* Acesso rápido */
 .quick-access {
-  background-color: white;
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-md);
-  margin-top: var(--space-xl);
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  border-radius: var(--radius-lg); /* OK - Padrão */
+  padding: var(--space-lg); /* OK - Padrão */
+  box-shadow: var(--shadow-md); /* OK - Padrão */
+  margin-top: var(--space-xl); /* OK - Padrão */
 }
 
 .quick-access h3 {
-  font-size: var(--font-size-lg);
-  color: var(--neutral-800);
-  margin-bottom: var(--space-md);
+  font-size: var(--font-size-lg); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  margin-bottom: var(--space-md); /* OK - Padrão */
 }
 
 .quick-buttons {
   display: flex;
-  gap: var(--space-md);
+  gap: var(--space-md); /* OK - Padrão */
   flex-wrap: wrap;
 }
 
@@ -551,11 +552,11 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--border-radius);
+  background-color: var(--surface); /* OK - Alias */
+  border: 1px solid var(--border); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
   padding: 0.75rem 1.25rem;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
@@ -563,38 +564,38 @@
 }
 
 .quick-button:hover {
-  background-color: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  background-color: var(--primary); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
+  border-color: var(--primary); /* OK - Alias */
   transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow); /* OK - Padrão */
 }
 
 .button-icon {
-  color: var(--primary);
+  color: var(--primary); /* OK - Alias */
   transition: all 0.2s ease;
   font-size: 1rem;
 }
 
 .quick-button:hover .button-icon {
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   transform: scale(1.1);
 }
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
   .dashboard-content {
-    padding: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
   }
   
   .dashboard-header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-2xl); /* OK - Padrão */
   }
   
   .welcome-banner {
     flex-direction: column;
     text-align: center;
-    gap: var(--space-lg);
+    gap: var(--space-lg); /* OK - Padrão */
   }
   
   .banner-icons {
@@ -605,7 +606,7 @@
     grid-template-columns: 1fr;
   }
   
-  .stats-container {
+  .stats-container { /* Não usado no DashboardCliente.jsx */
     grid-template-columns: 1fr;
   }
   
@@ -620,37 +621,33 @@
 }
 
 @media (max-width: 480px) {
-  .cliente-dashboard-header h2 {
-    font-size: 1.5rem;
-  }
+  /* Herda de .cliente-dashboard-header h2 (se aplicável) */
+  /* .dashboard-header h1 { font-size: 1.5rem; }  -- já coberto pelo uso de font-size-2xl e media query acima */
+
+  /* Herda de .cliente-dashboard-card (se aplicável) */
+  /* .dashboard-card { padding: var(--space-md); } */
   
-  .cliente-dashboard-card {
-    padding: var(--space-md);
-  }
-  
-  .cliente-icon {
-    padding: var(--space-sm);
-    font-size: 1.2rem;
-  }
+  /* Herda de .cliente-icon (se aplicável) */
+  /* .card-icon { padding: var(--space-sm); font-size: 1.2rem; } */
   
   .dashboard-card {
     flex-direction: column;
     text-align: center;
-    padding: var(--space-lg) var(--space-md);
+    padding: var(--space-lg) var(--space-md); /* OK - Padrão */
   }
   
   .card-icon {
     margin-right: 0;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-md); /* OK - Padrão */
   }
   
-  .stat-card {
+  .stat-card { /* Não usado no DashboardCliente.jsx */
     flex-direction: column;
     text-align: center;
   }
   
-  .stat-icon {
+  .stat-icon { /* Não usado no DashboardCliente.jsx */
     margin-right: 0;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-md); /* OK - Padrão */
   }
 }

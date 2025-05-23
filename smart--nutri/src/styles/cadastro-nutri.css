@@ -2,7 +2,7 @@
   max-width: 500px;
   margin: 40px auto;
   padding: 40px 20px;
-  background-color: #ffffff;
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   font-family: 'Poppins', sans-serif;
@@ -14,7 +14,7 @@
   left: 20px;
   background: none;
   border: none;
-  color: #2563eb;
+  color: var(--smartnutri-secondary-600); /* Modificado */
   cursor: pointer;
   transition: transform 0.2s, color 0.2s;
   z-index: 10;
@@ -22,7 +22,7 @@
 
 .back-button-inside:hover {
   transform: scale(1.1);
-  color: #1d4ed8;
+  color: var(--smartnutri-secondary-700); /* Modificado */
 }
 
 .form-box {
@@ -41,7 +41,7 @@
 
 .form-title {
   font-size: 24px;
-  color: #16a34a;
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
 }
 
 .form-content {
@@ -53,36 +53,36 @@
 .form-group label {
   font-weight: 500;
   margin-bottom: 8px;
-  color: #0f172a;
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
   display: block;
 }
 
 .form-input-wrapper {
   display: flex;
   align-items: center;
-  background-color: #f1f5f9;
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
   border-radius: 8px;
   padding: 10px 14px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--smartnutri-neutral-300); /* OK - Padrão */
 }
 
 .form-icon {
   margin-right: 10px;
-  color: #475569;
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
 }
 
 .form-input-wrapper input {
-  border: none;
-  background: transparent;
+  border: none;  
+  background: transparent; /* OK */
   outline: none;
   flex: 1;
   font-size: 16px;
-  color: #0f172a;
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
 }
 
 .form-button {
-  background-color: #16a34a;
-  color: white;
+  background-color: var(--smartnutri-primary-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
   padding: 12px;
   border: none;
   border-radius: 8px;
@@ -92,12 +92,12 @@
 }
 
 .form-button:hover {
-  background-color: #15803d;
+  background-color: var(--smartnutri-primary-700); /* OK - Padrão */
 }
 
 /* Responsividade e visual moderno */
 @media (max-width: 600px) {
-  .cadastro-container, .form {
+  .cadastro-container, .form { /* .cadastro-container não existe, .form não existe neste arquivo */
     padding: 0.5rem !important;
     font-size: 0.95rem !important;
   }

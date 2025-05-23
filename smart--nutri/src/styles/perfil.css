@@ -1,12 +1,12 @@
-.perfil-container {
+.perfil-container { /* Classe antiga, .profile-layout é o principal */
   max-width: 700px;
   margin: 2.5rem auto;
   padding: 2rem;
-  background-color: var(--surface);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  background-color: var(--surface); /* OK - Alias */
+  border-radius: var(--border-radius); /* OK - Padrão */
+  box-shadow: var(--shadow); /* OK - Padrão */
   animation: fadeIn 0.6s ease-out;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border); /* OK - Alias */
   position: relative;
   overflow: hidden;
 }
@@ -18,36 +18,36 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark));
+  background: linear-gradient(to right, var(--primary-light), var(--primary), var(--primary-dark)); /* OK - Aliases */
 }
 
-.perfil-container h2 {
+.perfil-container h2 { /* Não usado diretamente, .profile-avatar h2 e .details-section h3 são usados */
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
-  color: var(--primary-dark);
+  color: var(--primary-dark); /* OK - Alias */
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
 }
 
-.perfil-container p {
+.perfil-container p { /* Não usado diretamente, .profile-header p e .detail-value são usados */
   font-size: 1rem;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
   margin: 0.75rem 0;
   line-height: 1.6;
 }
 
-.perfil-container strong {
+.perfil-container strong { /* Não usado diretamente */
   font-weight: 600;
-  color: var(--text);
+  color: var(--text); /* OK - Alias */
 }
 
-.perfil-dados {
+.perfil-dados { /* Não usado diretamente, .profile-details e .details-grid são usados */
   margin-top: 1.5rem;
   padding: 1.5rem;
-  border-radius: var(--border-radius);
-  animation: slideInUp 0.5s ease-out;
-  background-color: rgba(76, 175, 80, 0.05);
-  border: 1px solid rgba(76, 175, 80, 0.15);
+  border-radius: var(--border-radius); /* OK - Padrão */
+  animation: slideInUp 0.5s ease-out; /* slideInUp não definido, usar fadeIn ou definir */
+  background-color: var(--smartnutri-primary-50); /* Modificado */
+  border: 1px solid var(--smartnutri-primary-100); /* Modificado */
 }
 
 .perfil-dados p {
@@ -57,59 +57,24 @@
 }
 
 .perfil-dados p svg {
-  color: var(--primary);
+  color: var(--primary); /* OK - Alias */
   font-size: 1.15rem;
 }
 
-.perfil-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2rem;
-  gap: 1rem;
-}
+/* .perfil-actions já está ok no JSX (usa .profile-actions) */
+/* .btn-outline já está ok no JSX (usa .btn .btn-outline) */
 
-.btn-outline {
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  border: 2px solid var(--primary);
-  background-color: transparent;
-  color: var(--primary);
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.btn-outline:hover {
-  background-color: var(--primary);
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: var(--shadow);
-}
 
 /* Layout de perfil melhorado */
 .profile-layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8fafc;
+  background-color: var(--smartnutri-neutral-100); /* OK - Padrão */
 }
 
-/* Correção para o fundo da página */
-.profile-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  width: 100%;
-  background-color: var(--surface);
-  background-image: none; /* Removendo o background pattern herdado */
-  position: relative;
-  z-index: 1;
-}
+/* Correção para o fundo da página (já coberto em global.css) */
+/* .profile-layout { ... } */
 
 .profile-content {
   flex: 1;
@@ -127,24 +92,24 @@
 
 .profile-header h1 {
   font-size: 2rem;
-  color: #16a34a;
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
   margin-bottom: 0.5rem;
 }
 
 .profile-header p {
   font-size: 1.1rem;
-  color: #4b5563;
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
 }
 
 /* Novo layout de perfil com cards */
 .profile-card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background: var(--smartnutri-neutral-50); /* OK - Padrão */
+  border-radius: 16px; /* Poderia ser var(--radius-2xl) ou var(--radius-lg) */
+  box-shadow: 0 4px 20px var(--smartnutri-neutral-black-t08); /* Modificado - Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.08) */
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  animation: slideUp 0.5s ease-out;
+  animation: slideUp 0.5s ease-out; /* slideUp não definido, usar fadeIn ou definir */
 }
 
 @media (min-width: 768px) {
@@ -154,7 +119,7 @@
 }
 
 .profile-avatar {
-  background: linear-gradient(to bottom, #dcfce7, #bbf7d0);
+  background: linear-gradient(to bottom, var(--smartnutri-primary-100), var(--smartnutri-primary-200)); /* OK - Padrão */
   padding: 2.5rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -171,32 +136,32 @@
 .avatar-placeholder {
   width: 120px;
   height: 120px;
-  background-color: #16a34a;
+  background-color: var(--smartnutri-primary-600); /* OK - Padrão */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+  box-shadow: 0 4px 12px var(--smartnutri-primary-t30); /* Ex: rgba(var(--smartnutri-primary-600-rgb), 0.3) */
 }
 
 .avatar-placeholder svg {
   font-size: 3rem;
-  color: white;
+  color: var(--text-inverse); /* Modificado */
 }
 
 .profile-avatar h2 {
   font-size: 1.5rem;
-  color: #111827;
+  color: var(--smartnutri-neutral-900); /* OK - Padrão */
   margin-bottom: 0.5rem;
 }
 
 .profile-type {
   display: inline-block;
-  background-color: #16a34a;
-  color: white;
+  background-color: var(--smartnutri-primary-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
   padding: 0.4rem 1rem;
-  border-radius: 999px;
+  border-radius: var(--radius-full); /* OK - Padrão */
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -212,10 +177,10 @@
 
 .details-section h3 {
   font-size: 1.25rem;
-  color: #16a34a;
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid var(--smartnutri-neutral-200); /* OK - Padrão */
 }
 
 .details-grid {
@@ -240,10 +205,10 @@
 }
 
 .detail-icon {
-  background-color: #dcfce7;
-  color: #16a34a;
+  background-color: var(--smartnutri-primary-100); /* OK - Padrão */
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
   padding: 0.75rem;
-  border-radius: 12px;
+  border-radius: 12px; /* Poderia ser var(--radius-xl) */
   margin-right: 1rem;
   display: flex;
   align-items: center;
@@ -256,13 +221,13 @@
 
 .detail-label {
   display: block;
-  color: #6b7280;
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
   font-size: 0.875rem;
   margin-bottom: 0.25rem;
 }
 
 .detail-value {
-  color: #1f2937;
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
   font-weight: 500;
 }
 
@@ -273,9 +238,9 @@
   margin-top: 1.5rem;
 }
 
-.btn {
+.btn { /* Definido em global.css, esta é uma redefinição. Consolidar se possível. */
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; /* var(--radius-lg) */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -284,37 +249,37 @@
   text-align: center;
 }
 
-.btn-outline {
-  background-color: transparent;
-  border: 2px solid #16a34a;
-  color: #16a34a;
+.btn-outline { /* Definido em global.css, esta é uma redefinição. */
+  background-color: transparent; /* OK */
+  border: 2px solid var(--smartnutri-primary-600); /* OK - Padrão */
+  color: var(--smartnutri-primary-600); /* OK - Padrão */
 }
 
 .btn-outline:hover {
-  background-color: #16a34a;
-  color: white;
+  background-color: var(--smartnutri-primary-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
 }
 
 .loading-indicator {
   text-align: center;
   padding: 2rem;
-  color: #4b5563;
+  color: var(--smartnutri-neutral-600); /* OK - Padrão */
 }
 
-.error-message {
-  background-color: #fee2e2;
-  color: #b91c1c;
+.error-message { /* Redefinido de global.css. Consolidar. */
+  background-color: var(--smartnutri-error-100); /* OK - Padrão */
+  color: var(--smartnutri-error-700); /* Modificado - cor mais escura para contraste */
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem; /* var(--radius-lg) */
   margin-bottom: 1rem;
 }
 
-@keyframes fadeIn {
+@keyframes fadeIn { /* Já definido em global.css */
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes slideUp {
+@keyframes slideUp { /* Definir em global.css se for usado em mais lugares */
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
@@ -322,40 +287,43 @@
 /* Responsividade */
 @media (max-width: 768px) {
   .profile-content {
-    padding: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
   }
   
   .details-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: var(--space-md); /* OK - Padrão */
   }
   
   .profile-actions {
     flex-direction: column;
   }
   
-  .btn {
+  .btn { /* Afeta todos os botões dentro de .profile-actions */
     width: 100%;
   }
 }
 
 @media (max-width: 480px) {
-  .perfil-container {
-    padding: var(--space-md);
-    margin: var(--space-md);
+  .perfil-container { /* Classe antiga */
+    padding: var(--space-md); /* OK - Padrão */
+    margin: var(--space-md); /* OK - Padrão */
   }
   
   .profile-header h1 {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-2xl); /* OK - Padrão */
   }
   
   .profile-avatar, .profile-details {
-    padding: var(--space-md);
+    padding: var(--space-md); /* OK - Padrão */
   }
   
   .avatar-placeholder {
     width: 90px;
     height: 90px;
+    /* font-size não se aplica a svg container, mas ao ícone dentro */
+  }
+  .avatar-placeholder svg { /* Adicionado para controlar tamanho do ícone */
     font-size: 2rem;
   }
 }

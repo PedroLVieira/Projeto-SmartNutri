@@ -20,10 +20,10 @@
 }
 
 .gerenciar-plano-header h1 {
-  color: #2c7a51;
+  color: var(--smartnutri-primary-700);
   margin-bottom: 0.5rem;
   font-size: clamp(1.3rem, 3.5vw, 1.8rem);
-  background: linear-gradient(90deg, #2e7d32, #66bb6a);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -44,7 +44,7 @@
   display: block;
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, #2e7d32, #66bb6a);
+  background: var(--gradient-primary);
   margin: 1rem auto 0;
   border-radius: 2px;
 }
@@ -67,10 +67,9 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
-  width: 4px;
+  left: 0;  width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, #2e7d32, #66bb6a);
+  background: var(--gradient-primary);
   border-radius: 4px 0 0 4px;
 }
 
@@ -86,7 +85,7 @@
 .gerenciar-card h3 {
   display: flex;
   align-items: center;
-  color: #2c7a51;
+  color: var(--smartnutri-primary-700);
   margin-bottom: 1.2rem;
   font-weight: 600;
   font-size: 1.2rem;
@@ -138,13 +137,12 @@
 }
 
 .refeicao-card::after {
-  content: '';
-  position: absolute;
+  content: '';  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, #2e7d32, transparent);
+  background: linear-gradient(to right, var(--smartnutri-primary-700), transparent);
   border-radius: 0 0 4px 4px;
 }
 
@@ -156,11 +154,10 @@
 
 .refeicao-card h4 {
   color: var(--success-color);
-  margin-top: 0;
-  margin-bottom: 0.8rem;
+  margin-top: 0;  margin-bottom: 0.8rem;
   font-size: 1.1rem;
   padding-bottom: 0.6rem;
-  border-bottom: 1px dashed #d0e0d0;
+  border-bottom: 1px dashed var(--smartnutri-primary-200);
 }
 
 .refeicao-card p {
@@ -214,7 +211,7 @@
 }
 
 .form-control:hover {
-  border-color: #b0bec5;
+  border-color: var(--smartnutri-neutral-400);
 }
 
 .form-control:focus {
@@ -286,9 +283,9 @@
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: #236642;
+  background-color: var(--interactive-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  box-shadow: var(--shadow-primary);
 }
 
 .btn-primary:active:not(:disabled) {
@@ -297,7 +294,7 @@
 }
 
 .btn-primary:disabled {
-  background-color: #a8d1bd;
+  background-color: var(--interactive-disabled);
   cursor: not-allowed;
 }
 
@@ -322,7 +319,7 @@
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: #c0392b;
+  background-color: var(--smartnutri-error-700);
 }
 
 .btn:disabled {
@@ -430,15 +427,14 @@
 
 .alert-error {
   background-color: var(--danger-bg);
-  color: var(--danger-color);
-  border: 1px solid #ef9a9a;
+  color: var(--danger-color);  border: 1px solid var(--smartnutri-error-100);
   border-left: 4px solid var(--danger-color);
 }
 
 .alert-success {
   background-color: var(--success-bg);
   color: var (--success-color);
-  border: 1px solid #a5d6a7;
+  border: 1px solid var(--smartnutri-success-100);
   border-left: 4px solid var(--success-color);
 }
 
@@ -515,7 +511,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: var(--smartnutri-neutral-100);
   border-radius: 10px;
 }
 
@@ -530,7 +526,7 @@
 
 /* Confirmação de Exclusão */
 .confirmacao-exclusao {
-  background-color: #fff3f3;
+  background-color: var(--smartnutri-error-50);
   padding: 0.75rem;
   border-radius: var(--border-radius);
   text-align: center;
@@ -621,8 +617,7 @@
 }
 
 .empty-state svg {
-  margin-bottom: 1rem;
-  color: #a8d1bd;
+  margin-bottom: 1rem;  color: var(--smartnutri-primary-300);
 }
 
 /* Estilos para o dropdown de compartilhamento */

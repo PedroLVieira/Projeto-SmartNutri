@@ -1,12 +1,12 @@
-.header {
+.header { /* Esta classe .header não parece ser usada para a NavBar, mas para cabeçalhos de página em outros CSS */
   position: sticky;
   top: 0;
   z-index: 100;
   width: 100%;
   transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--smartnutri-neutral-white-t95); /* Ex: rgba(var(--smartnutri-neutral-white-rgb), 0.95) */
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--smartnutri-neutral-t08); /* Ex: rgba(var(--smartnutri-neutral-900-rgb), 0.08) */
 }
 
 .navbar {
@@ -14,8 +14,8 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  background: var(--primary-dark);
-  box-shadow: var(--shadow);
+  background: var(--primary-dark); /* OK - Alias */
+  box-shadow: var(--shadow); /* OK - Padrão */
   transition: var(--transition);
 }
 
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   gap: 0.75rem;
   font-weight: 700;
   font-size: 1.3rem;
@@ -45,16 +45,16 @@
   height: 42px;
   width: auto;
   transition: all 0.3s ease;
-  filter: brightness(0) invert(1); /* Torna o logo branco */
+  filter: brightness(0) invert(1); /* OK - Para logo branco */
   padding: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius);
+  background: var(--smartnutri-neutral-white-t10); /* Modificado */
+  border-radius: var(--border-radius); /* OK - Padrão */
 }
 
 .navbar-logo:hover img {
   transform: rotate(-5deg) scale(1.08);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  background: var(--smartnutri-neutral-white-t20); /* Modificado */
+  box-shadow: 0 0 15px var(--smartnutri-neutral-white-t20); /* Modificado */
 }
 
 .navbar-menu {
@@ -69,23 +69,23 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--smartnutri-neutral-white-t85); /* Modificado */
   font-weight: 500;
   padding: 0.65rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius); /* OK - Padrão */
   transition: var(--transition);
   position: relative;
   font-size: 0.95rem;
 }
 
 .navbar-item:hover {
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-inverse); /* Modificado */
+  background-color: var(--smartnutri-neutral-white-t10); /* Modificado */
 }
 
 .navbar-item.active {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
+  background-color: var(--smartnutri-neutral-white-t15); /* Modificado */
+  color: var(--text-inverse); /* Modificado */
   font-weight: 600;
 }
 
@@ -97,9 +97,9 @@
   transform: translateX(-50%);
   width: 20px;
   height: 3px;
-  background-color: white;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
   border-radius: 10px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 8px var(--smartnutri-neutral-white-t50); /* Modificado */
 }
 
 .navbar-right {
@@ -111,26 +111,26 @@
 .user-dropdown {
   position: relative;
   cursor: pointer;
-  z-index: 101;
+  z-index: 101; /* Aumentado para sobrepor menu mobile */
 }
 
 .user-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--primary-light);
-  color: white;
+  background-color: var(--primary-light); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
   padding: 0.5rem 1rem;
-  border-radius: 50px;
+  border-radius: 50px; /* Usar var(--radius-full) */
   transition: all 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px var(--smartnutri-neutral-black-t10); /* Modificado */
   cursor: pointer;
 }
 
 .user-info:hover {
-  background-color: var(--primary);
+  background-color: var(--primary); /* OK - Alias */
   transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 8px var(--smartnutri-neutral-black-t15); /* Modificado */
 }
 
 .user-info:hover::after {
@@ -141,14 +141,14 @@
   transform: translateX(-50%);
   width: 6px;
   height: 6px;
-  background-color: white;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
   border-radius: 50%;
   opacity: 0.8;
 }
 
 .user-info.active {
-  background-color: var(--primary-dark);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--primary-dark); /* OK - Alias */
+  box-shadow: 0 3px 8px var(--smartnutri-neutral-black-t20); /* Modificado */
 }
 
 .user-avatar {
@@ -157,21 +157,21 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--smartnutri-neutral-white-t30); /* Modificado */
   border-radius: 50%;
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   font-size: 0.9rem;
   transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--smartnutri-neutral-white-t60); /* Modificado */
 }
 
 .user-info:hover .user-avatar {
   transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--smartnutri-neutral-white-t40); /* Modificado */
 }
 
 .user-name {
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   font-weight: 600;
   max-width: 120px;
   white-space: nowrap;
@@ -200,485 +200,238 @@
   opacity: 1;
 }
 
-.user-info::before {
+.user-info::before { /* Técnica para manter dropdown aberto */
   content: '';
   position: absolute;
-  bottom: -20px; /* Cria espaço para evitar que o menu feche ao mover o mouse para ele */
+  bottom: -20px; 
   left: 0;
   right: 0;
   height: 20px;
-  background: transparent;
-  z-index: 1100;
+  background: transparent; /* OK */
+  z-index: 1100; /* Deve ser menor que o z-index do dropdown-menu se este for maior */
 }
 
-.user-dropdown .dropdown-menu {
-  position: absolute !important;
-  top: calc(100% + 5px) !important;
-  right: 0 !important;
-  background-color: white !important;
-  border-radius: var(--border-radius) !important;
-  box-shadow: var(--shadow-lg) !important;
-  min-width: 220px !important;
-  padding: 0.5rem !important;
-  z-index: 1100 !important;
-  animation: dropdownFade 0.2s ease forwards !important;
-  border: 1px solid var(--border) !important;
-  overflow: hidden !important;
-  transform-origin: top right !important;
+/* Dropdown Menu Styling (inline styles from JSX converted to CSS) */
+.dropdown-menu-wrapper { /* Novo wrapper para o estilo do JSX */
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  border-radius: var(--border-radius); /* OK - Padrão */
+  box-shadow: 0 8px 16px var(--smartnutri-neutral-black-t15); /* Modificado */
+  min-width: 220px;
+  padding: 0.5rem;
+  z-index: 1100; 
+  border: 1px solid var(--smartnutri-neutral-200); /* Modificado */
+  /* Outros estilos do JSX como animation, transform-origin podem ser adicionados se necessário */
 }
 
-/* Indicador visual de seta no dropdown */
-.user-dropdown .dropdown-menu::before {
-  content: '' !important;
-  position: absolute !important;
-  top: -8px !important;
-  right: 25px !important;
-  width: 16px !important;
-  height: 16px !important;
-  background-color: white !important;
-  transform: rotate(45deg) !important;
-  border-left: 1px solid var(--border) !important;
-  border-top: 1px solid var(--border) !important;
-  z-index: -1 !important;
+.dropdown-menu-arrow { /* Novo para a seta do JSX */
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 22px; /* Ajustar conforme o JSX */
+  width: 16px;
+  height: 16px;
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  transform: rotate(45deg);
+  border-left: 1px solid var(--smartnutri-neutral-200); /* Modificado */
+  border-top: 1px solid var(--smartnutri-neutral-200); /* Modificado */
+  z-index: -1; /* Para ficar atrás do wrapper */
 }
 
-/* Classes para mostrar e ocultar o dropdown */
-.user-dropdown .dropdown-menu.show {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(0) !important;
-  pointer-events: all !important;
-  position: absolute !important;
+.dropdown-item-link, .dropdown-item-button { /* Novo para os itens do JSX */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm); /* OK - Padrão */
+  color: var(--smartnutri-neutral-800); /* Modificado */
+  text-decoration: none;
+  font-weight: 500;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.user-dropdown .dropdown-menu.hide {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transform: translateY(-10px) !important;
-  pointer-events: none !important;
+.dropdown-item-link:hover, .dropdown-item-button:hover {
+  background-color: var(--smartnutri-primary-50); /* OK - Padrão */
+  color: var(--primary); /* OK - Alias */
 }
 
-@keyframes dropdownFade {
-  0% { opacity: 0; transform: translateY(-10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Adicionar um delay pequeno no desaparecimento do dropdown para torná-lo mais suave */
-@keyframes fadeOutDropdown {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-10px); }
-}
-
-.user-dropdown .dropdown-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-  padding: 0.75rem 1rem !important;
-  border-radius: var(--border-radius-sm) !important;
-  color: var(--text) !important;
-  text-decoration: none !important;
-  font-weight: 500 !important;
-  transition: all 0.2s ease !important;
-  width: 100% !important;
-  border: none !important;
-  background: none !important;
-  text-align: left !important;
-  cursor: pointer !important;
-  font-family: 'Nunito', sans-serif !important;
-  margin-bottom: 2px !important;
-  position: relative !important;
-  outline: none !important;
-  animation: slideIn 0.3s ease forwards !important;
-  animation-delay: calc(0.05s * var(--item-index, 0)) !important;
-  opacity: 0 !important;
-  transform: translateX(-10px) !important;
-}
-
-@keyframes slideIn {
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.dropdown-item:focus {
-  background-color: rgba(76, 175, 80, 0.05);
-  outline: none;
-}
-
-.dropdown-item:hover {
-  background-color: rgba(76, 175, 80, 0.1);
-  color: var(--primary);
-  transform: translateX(3px);
-}
-
-.dropdown-item svg {
-  color: var(--primary);
-}
-
-.dropdown-item.logout-btn {
-  border-top: 1px solid var(--border);
+.dropdown-item-button.logout-style { /* Para o botão de logout */
   margin-top: 4px;
-  padding-top: 8px;
+  border-top: 1px solid var(--smartnutri-neutral-200); /* Modificado */
+  padding-top: 8px; /* Ajustado do JSX */
 }
 
-.dropdown-item.logout-btn:hover {
-  color: var(--danger);
+.dropdown-item-button.logout-style:hover {
+  color: var(--danger); /* OK - Alias */
+  background-color: var(--smartnutri-error-50); /* Modificado */
+}
+.dropdown-item-button.logout-style:hover svg {
+    color: var(--danger);
 }
 
-.dropdown-item.logout-btn:hover svg {
-  color: var(--danger);
+
+/* Fallback for .user-dropdown .dropdown-menu if inline styles are not fully replaced */
+.user-dropdown .dropdown-menu {
+  /* ... (manter estilos originais de posicionamento e animação se não cobertos por -wrapper) */
+  background-color: var(--smartnutri-neutral-white) !important; /* Modificado */
+  border: 1px solid var(--border) !important; /* OK - Alias */
+}
+.user-dropdown .dropdown-menu::before {
+  background-color: var(--smartnutri-neutral-white) !important; /* Modificado */
+  border-left: 1px solid var(--border) !important; /* OK - Alias */
+  border-top: 1px solid var(--border) !important; /* OK - Alias */
+}
+.user-dropdown .dropdown-item {
+  color: var(--text) !important; /* OK - Alias */
+}
+.user-dropdown .dropdown-item:hover {
+  background-color: var(--smartnutri-primary-100) !important; /* Modificado */
+  color: var(--primary) !important; /* OK - Alias */
+}
+.dropdown-item svg { /* Cor padrão para ícones no dropdown */
+  color: var(--primary); /* OK - Alias */
 }
 
 .menu-toggle {
-  display: none;
+  display: none; /* Controlado por media query */
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: white;
+  color: var(--text-inverse); /* Modificado */
   cursor: pointer;
   padding: 0.5rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius); /* OK - Padrão */
   transition: all 0.2s ease;
 }
 
 .menu-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--smartnutri-neutral-white-t10); /* Modificado */
   transform: scale(1.05);
 }
 
-.logo {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+/* .logo e .nav-links são genéricos, .navbar-logo e .navbar-menu são usados */
+
+/* Hamburger (não usado no JSX da NavBar) */
+
+/* Menu Móvel (a lógica do menu mobile no JSX é diferente) */
+.navbar-menu.active { /* Estilo para quando o menu mobile estiver ativo */
+    left: 0; /* Exibe o menu */
 }
 
-.logo img {
-  height: 40px;
-  width: auto;
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #1F2937;
-  font-weight: 500;
-  position: relative;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
-  color: #10B981;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #10B981;
-  transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.login-register {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.login-btn, .register-btn {
-  padding: 0.5rem 1.25rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.login-btn {
-  background-color: transparent;
-  color: #1F2937;
-  border: 1px solid #E5E7EB;
-}
-
-.login-btn:hover {
-  background-color: #F9FAFB;
-  border-color: #D1D5DB;
-}
-
-.register-btn {
-  background-color: #10B981;
-  color: white;
-  border: none;
-}
-
-.register-btn:hover {
-  background-color: #059669;
-}
-
-/* Menu de hambúrguer para dispositivos móveis */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  cursor: pointer;
-  z-index: 200;
-}
-
-.hamburger span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  background-color: #1F2937;
-  transition: all 0.3s ease;
-}
-
-/* Estilos para o menu móvel */
-.mobile-menu {
-  display: none;
+.menu-backdrop { /* Para o fundo escurecido quando o menu mobile está aberto */
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: white;
-  padding: 6rem 2rem 2rem;
-  flex-direction: column;
-  z-index: 100;
+  right: 0;
+  bottom: 0;
+  background-color: var(--smartnutri-neutral-black-t50); /* Modificado */
+  backdrop-filter: blur(2px);
+  z-index: 4; /* Abaixo do menu mobile, acima do conteúdo */
+  animation: fadeIn 0.3s ease; /* Reutilizar animação global */
 }
 
-.mobile-menu .nav-links {
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-.mobile-menu .login-register {
-  flex-direction: column;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.mobile-menu .login-btn,
-.mobile-menu .register-btn {
-  width: 100%;
-  text-align: center;
-}
-
-/* Melhorias de responsividade */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem;
-  }
-  
-  .nav-links,
-  .login-register {
-    display: none;
-  }
-  
-  .hamburger {
-    display: flex;
-  }
-  
-  .mobile-menu.active {
-    display: flex;
-  }
-  
-  /* Animação do hamburger quando o menu está ativo */
-  .hamburger.active span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .hamburger.active span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
-}
-
-@media (max-width: 480px) {
-  .logo img {
-    height: 32px;
-  }
-  
-  .navbar {
-    padding: 0.75rem;
-  }
-}
 
 /* Responsividade e visual moderno */
-@media (max-width: 768px) {
-  .navbar-container {
-    padding: 0.75rem 1rem;
-  }
-  
-  .user-name {
-    max-width: 80px;
-  }
-  
-  .navbar-logo img {
-    height: 36px;
-  }
-}
-
-@media (max-width: 600px) {
-  .navbar-logo {
-    margin-right: auto;
-  }
-  
-  .user-name {
-    display: none;
-  }
-  
-  .user-info {
-    padding: 0.5rem;
-  }
-}
-
-@media (max-width: 900px) {  .navbar-menu {
+@media (max-width: 900px) {  
+  .navbar-menu {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -100%; /* Escondido por padrão */
     width: 80%;
+    max-width: 300px; /* Limite para não ficar muito largo */
     height: 100vh;
     flex-direction: column;
-    background-color: var(--primary-dark);
+    background-color: var(--primary-dark); /* OK - Alias */
     padding: 6rem 2rem;
     gap: 1.5rem;
     align-items: flex-start;
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0 20px var(--smartnutri-neutral-black-t20); /* Modificado */
     transition: all 0.3s ease;
-    z-index: 5;
+    z-index: 999; /* Alto para sobrepor conteúdo */
   }
 
   .navbar-menu.active {
     left: 0;
   }
 
-  .navbar-item {
-    color: rgba(255, 255, 255, 0.85);
+  .navbar-item { /* Estilo dos itens no menu mobile */
+    color: var(--smartnutri-neutral-white-t85); /* Modificado */
     width: 100%;
     padding: 0.85rem;
     font-weight: 500;
-    border-radius: var(--border-radius);
-    border-left: 3px solid transparent;
+    border-radius: var(--border-radius); /* OK - Padrão */
+    border-left: 3px solid transparent; /* OK */
   }
 
   .navbar-item:hover,
   .navbar-item.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-left: 3px solid white;
+    background-color: var(--smartnutri-neutral-white-t10); /* Modificado */
+    color: var(--text-inverse); /* Modificado */
+    border-left: 3px solid var(--smartnutri-neutral-white); /* Modificado */
   }
   .menu-toggle {
-    display: flex;
-    z-index: 10;
+    display: flex; /* Mostra o botão hamburguer */
+    z-index: 1000; /* Acima do menu para poder fechar */
   }
   
-  .menu-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-    z-index: 4;
-    animation: fadeIn 0.3s ease;
+  /* As definições abaixo de @media (max-width: 900px) podem ser simplificadas ou removidas se a lógica acima cobrir */
+}
+
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.75rem 1rem;
   }
+  .user-name { max-width: 80px; }
+  .navbar-logo img { height: 36px; }
 }
 
 @media (max-width: 600px) {
-  .navbar-container {
-    padding: 0.8rem 1rem;
-  }
+  .navbar-logo { margin-right: auto; }
+  .user-name { display: none; }
+  .user-info { padding: 0.5rem; }
 
-  .navbar-logo a span {
-    font-size: 1rem;
-  }
+  .navbar-container { padding: 0.8rem 1rem; }
+  .navbar-logo a span { font-size: 1rem; } /* span não existe no JSX do logo */
+  .navbar-logo img { height: 30px; }
+  /* .user-name { display: none; } -- já acima */
+  /* .user-info { padding: 0.4rem; } -- Conflita com 0.5rem acima */
 
-  .navbar-logo img {
-    height: 30px;
-  }
-
-  .user-name {
-    display: none;
-  }
-
-  .user-info {
-    padding: 0.4rem;
-  }
-
-  .navbar-menu {
+  .navbar-menu { /* Para menu mobile */
     width: 85%;
     padding: 5rem 1.5rem;
   }
-}
-
-/* Removo os estilos para a barra de pesquisa e notificações que não serão mais utilizados */
-
-/* Responsividade para os novos elementos */
-@media (max-width: 900px) {
-  .navbar-container {
-    flex-wrap: wrap;
-  }
   
-  .navbar-logo {
-    flex: 1;
-  }
-}
-
-@media (max-width: 600px) {
-  .notification-dropdown {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    border-radius: 0;
-    max-height: calc(100vh - 60px);
-  }
-    .dropdown-menu {
-    position: fixed;
-    top: 60px;
+  /* Redefinição de .dropdown-menu-wrapper para telas pequenas */
+  .dropdown-menu-wrapper {
+    position: fixed; /* Ou ajustar para não cobrir a navbar */
+    top: 60px; /* Altura aproximada da navbar */
     right: 0;
     width: 80%;
     max-width: 300px;
-    box-shadow: var(--shadow-lg);
-    border-radius: var(--border-radius) 0 0 var(--border-radius);
-    max-height: 80vh;
+    border-radius: var(--border-radius) 0 0 var(--border-radius); /* OK - Padrão */
+    max-height: calc(100vh - 70px); /* Ajustar para não cobrir footer */
     overflow-y: auto;
-    animation: slideIn 0.3s ease forwards;
   }
-  
-  .dropdown-menu::before {
-    /* Remove o indicador de seta em dispositivos móveis */
-    display: none;
-  }
+  .dropdown-menu-arrow { display: none; } /* Remover seta em mobile */
 }
 
-/* Backdrop para o dropdown */
+/* Backdrop para o dropdown (pode ser simplificado se o do menu mobile for usado) */
 .navbar .dropdown-backdrop {
   position: fixed !important;
   top: 0 !important;
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background-color: transparent !important;
-  z-index: 90 !important;
+  background-color: transparent !important; /* OK */
+  z-index: 100; /* Abaixo do dropdown, acima do conteúdo */
   cursor: default !important;
-  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: transparent !important; /* OK */
 }

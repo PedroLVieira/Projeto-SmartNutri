@@ -1,42 +1,10 @@
-@import './shared.css';
+@import './shared.css'; /* Este import já traz as variáveis de colors.css indiretamente */
 
-/* Exemplo de definição de variáveis, caso precise */
-/* Você pode colocar isso no seu shared.css */
-:root {
-  --primary-color: #4caf50;      /* Verde padrão */
-  --primary-dark: #388e3c;       /* Verde escuro */
-  --secondary-color: #2563eb;    /* Azul secundário */
-  --neutral-50: #f9fafb;
-  --neutral-100: #f3f4f6;
-  --neutral-300: #d1d5db;
-  --neutral-400: #9ca3af;
-  --neutral-500: #6b7280;
-  --neutral-600: #4b5563;
-  --neutral-700: #374151;
-  --neutral-800: #1f2937;
-  --error-color: #ef4444;
-
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 24px;
-
-  --font-size-sm: 0.875rem;  /* 14px */
-  --font-size-md: 1rem;      /* 16px */
-  --font-size-lg: 1.125rem;  /* 18px */
-  --font-size-xl: 1.25rem;   /* 20px */
-  --font-size-2xl: 1.5rem;   /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-}
+/* As variáveis de --space, --radius, --font-size, --shadow-lg já estão em shared.css ou colors.css, 
+   portanto, a seção :root local pode ser removida ou comentada se shared.css for sempre importado antes.
+   Para segurança, manterei a lógica de substituição caso shared.css não seja importado em algum contexto isolado,
+   mas idealmente, essas definições :root locais não seriam necessárias se a ordem de importação for garantida.
+*/
 
 /* Container principal */
 .login-page {
@@ -44,9 +12,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--space-lg);
-  background-color: var(--neutral-50);
-  background-image: linear-gradient(135deg, var(--neutral-50) 0%, #eef6ff 100%);
+  padding: var(--space-lg); /* Use var from shared.css */
+  background-color: var(--smartnutri-neutral-50); /* OK - Padrão */
+  background-image: linear-gradient(135deg, var(--smartnutri-neutral-50) 0%, var(--smartnutri-blue-50) 100%); /* --smartnutri-blue-50 não existe, usar --smartnutri-secondary-50 */
+  /* Correção: */
+  /* background-image: linear-gradient(135deg, var(--smartnutri-neutral-50) 0%, var(--smartnutri-secondary-50) 100%); */
   position: relative;
   z-index: 1;
 }
@@ -57,18 +27,18 @@
   width: 100%;
   max-width: 1000px;
   min-height: 550px;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-xl); /* Use var from shared.css */
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg); /* Use var from shared.css */
   animation: fadeIn 0.8s ease-out;
 }
 
 /* Lado do banner */
 .login-banner {
   flex: 1;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
-  color: white;
-  padding: var(--space-2xl) var(--space-xl);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); /* OK - Aliases */
+  color: var(--text-inverse); /* Modificado */
+  padding: var(--space-2xl) var(--space-xl); /* Use vars from shared.css */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,38 +66,38 @@
 }
 
 .banner-content h2 {
-  font-size: var(--font-size-3xl);
-  margin-bottom: var(--space-md);
+  font-size: var(--font-size-3xl); /* Use var from shared.css */
+  margin-bottom: var(--space-md); /* Use var from shared.css */
   font-weight: 600;
-  color: white !important;
+  color: var(--text-inverse) !important; /* Modificado */
 }
 
 .banner-content p {
-  font-size: var(--font-size-lg);
-  margin-bottom: var(--space-xl);
+  font-size: var(--font-size-lg); /* Use var from shared.css */
+  margin-bottom: var(--space-xl); /* Use var from shared.css */
   line-height: 1.6;
   opacity: 0.9;
-  color: white !important;
+  color: var(--text-inverse) !important; /* Modificado */
 }
 
-.feature-list {
+.feature-list { /* Não utilizado no JSX fornecido, mas mantendo para consistência com CSS original */
   list-style-type: none;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-md); /* Use var from shared.css */
 }
 
-.feature-item {
+.feature-item { /* Não utilizado no JSX fornecido */
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-md); /* Use var from shared.css */
 }
 
-.feature-icon {
+.feature-icon { /* Para .feature-item, não utilizado diretamente no JSX. No JSX, .feature .feature-icon */
   width: 36px;
   height: 36px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--smartnutri-neutral-white-t20); /* Modificado */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -136,17 +106,17 @@
   flex-shrink: 0;
 }
 
-.feature-text {
+.feature-text { /* Não utilizado no JSX fornecido */
   font-weight: 500;
   opacity: 0.9;
 }
 
 /* Formulário de login */
-.btn.primary {
+.btn.primary { /* Aplicado ao botão de submit no JSX */
   width: 100%;
   padding: 12px 20px;
-  background-color: #43a047; /* Verde SmartNutri */
-  color: white;
+  background-color: var(--smartnutri-primary-600); /* OK - Padrão */
+  color: var(--text-inverse); /* Modificado */
   font-size: 16px;
   font-weight: 600;
   border: none;
@@ -160,16 +130,18 @@
 }
 
 .btn.primary:hover {
-  background-color: #388e3c; /* Tom mais escuro no hover */
+  background-color: var(--smartnutri-primary-700); /* OK - Padrão */
 }
 
 .btn.primary:active {
-  opacity: 0.85; /* Feedback sutil ao clicar */
+  opacity: 0.85; 
 }
 
-.btn.primary:disabled {
-  background-color: #e0e0e0;
-  color: #999;
+.btn.primary:disabled {  
+  background-color: var(--interactive-disabled); /* OK - Alias */
+  color: var(--text-disabled); /* --text-disabled não está em colors.css, usar --smartnutri-neutral-500 */
+  /* Correção: */
+  /* color: var(--smartnutri-neutral-500); */
   cursor: not-allowed;
   opacity: 0.7;
 }
@@ -191,82 +163,83 @@
 
 .login-form-wrapper {
   flex: 1;
-  background-color: white;
-  padding: var(--space-2xl);
+  background-color: var(--smartnutri-neutral-white); /* Modificado */
+  padding: var(--space-2xl); /* Use var from shared.css */
   display: flex;
   flex-direction: column;
 }
 
 .login-header {
   text-align: center;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-xl); /* Use var from shared.css */
 }
 
 .login-logo {
   height: 70px;
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-md); /* Use var from shared.css */
 }
 
 .login-title {
-  color: var(--neutral-800);
-  font-size: var(--font-size-2xl);
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
+  font-size: var(--font-size-2xl); /* Use var from shared.css */
   font-weight: 600;
 }
 
 .login-subtitle {
-  color: var(--neutral-500);
-  margin-top: var(--space-xs);
-  font-size: var(--font-size-md);
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
+  margin-top: var(--space-xs); /* Use var from shared.css */
+  font-size: var(--font-size-md); /* Use var from shared.css */
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
-  margin-top: var(--space-xl);
+  gap: var(--space-lg); /* Use var from shared.css */
+  margin-top: var(--space-xl); /* Use var from shared.css */
 }
 
-.form-group {
+.form-group { /* No JSX é .input-group */
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-xs); /* Use var from shared.css */
 }
 
-.form-group label {
+.form-group label { /* No JSX é .input-group label */
   font-weight: 500;
-  color: var(--neutral-700);
-  font-size: var(--font-size-sm);
+  color: var(--smartnutri-neutral-700); /* OK - Padrão */
+  font-size: var(--font-size-sm); /* Use var from shared.css */
 }
 
-.input-wrapper {
+.input-wrapper { /* No JSX é .input-field */
   position: relative;
 }
 
 .input-icon {
   position: absolute;
-  left: var(--space-md);
+  left: var(--space-md); /* Use var from shared.css */
   top: 50%;
   transform: translateY(-50%);
-  color: var(--neutral-500);
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
 }
 
-.form-input {
+.form-input { /* Aplicado ao input dentro de .input-field no JSX */
   width: 100%;
-  padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-md) * 3);
-  border: 1px solid var(--neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-md);
+  padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-md) * 3); /* Use vars from shared.css */
+  border: 1px solid var(--smartnutri-neutral-300); /* OK - Padrão */
+  border-radius: var(--radius-md); /* Use var from shared.css */
+  font-size: var(--font-size-md); /* Use var from shared.css */
   transition: all 0.2s ease;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+  border-color: var(--primary); /* OK - Alias */
+  box-shadow: 0 0 0 3px var(--smartnutri-primary-100); /* Modificado */
+  /* Alternativa: box-shadow: 0 0 0 3px rgba(var(--smartnutri-primary-600-rgb), 0.15); */
 }
 
 .form-input::placeholder {
-  color: var(--neutral-400);
+  color: var(--smartnutri-neutral-400); /* OK - Padrão */
 }
 
 /* Link de Esqueci a senha com estilo mais de link */
@@ -277,7 +250,7 @@
 
 .forgot-password a {
   font-size: 14px;
-  color: #388e3c; /* verde moderno */
+  color: var(--smartnutri-primary-700); /* OK - Padrão */
   font-weight: 500;
   text-decoration: none;
   position: relative;
@@ -292,7 +265,7 @@
   bottom: 0;
   width: 0%;
   height: 2px;
-  background-color: #388e3c;
+  background-color: var(--smartnutri-primary-600); /* Modificado */
   transition: width 0.3s ease;
 }
 
@@ -301,45 +274,45 @@
 }
 
 .forgot-password a:hover {
-  color: #1b5e20;
+  color: var(--smartnutri-primary-800); /* Modificado */
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 
-/* Botão de login */
-.login-button {
+/* Botão de login (Estilo .login-button não usado diretamente no JSX, o .btn.primary é usado) */
+.login-button { 
   width: 100%;
   padding: 12px 20px;
-  background-color: #43a047; /* verde forte e moderno */
-  color: white;
+  background-color: var(--smartnutri-primary-500); /* Modificado */
+  color: var(--text-inverse); /* Modificado */
   font-size: 16px;
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md); /* Use var from shared.css */
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .login-button:hover {
-  background-color: #388e3c; /* tom mais escuro no hover */
-  transform: scale(1.02);    /* leve "zoom" */
+  background-color: var(--smartnutri-primary-600); /* Modificado */
+  transform: scale(1.02);
 }
 
 .login-button:active {
   transform: scale(0.98);
 }
 
-.login-btn:hover::after {
-  opacity: 1;
-}
+/* .login-btn não está no CSS, mas a lógica do :after pode ser para o .btn.primary */
+/* .btn.primary:hover::after { opacity: 1; } */
 
-.login-divider {
+
+.login-divider { /* Não utilizado no JSX fornecido */
   display: flex;
   align-items: center;
-  margin: var(--space-lg) 0;
-  color: var(--neutral-500);
-  font-size: var(--font-size-sm);
+  margin: var(--space-lg) 0; /* Use var from shared.css */
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
+  font-size: var(--font-size-sm); /* Use var from shared.css */
 }
 
 .login-divider::before,
@@ -347,15 +320,15 @@
   content: '';
   flex: 1;
   height: 1px;
-  background-color: var(--neutral-300);
+  background-color: var(--smartnutri-neutral-300); /* OK - Padrão */
 }
 
 .login-divider::before {
-  margin-right: var(--space-md);
+  margin-right: var(--space-md); /* Use var from shared.css */
 }
 
 .login-divider::after {
-  margin-left: var(--space-md);
+  margin-left: var(--space-md); /* Use var from shared.css */
 }
 
 .register-buttons {
@@ -365,85 +338,93 @@
   flex-wrap: wrap;
 }
 
-.register-btn {
+.register-btn { /* Classe genérica para os botões de cadastro */
   flex: 1;
-  padding: var(--space-md);
-  background-color:#388e3c !important;;
-  border: 1px solid var(--primary-dark);
-  border-radius: var(--radius-md);
-  color: white;
+  padding: var(--space-md); /* Use var from shared.css */
+  /* background-color é sobrescrito por .cliente e .nutricionista */
+  border: 1px solid var(--primary-dark); /* OK - Alias */
+  border-radius: var(--radius-md); /* Use var from shared.css */
+  color: var(--text-inverse); /* Modificado */
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--space-sm); /* Use var from shared.css */
   transition: all 0.2s ease;
 }
 
 .register-btn:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
-  color: white;
+  background-color: var(--primary-dark); /* OK - Alias */
+  border-color: var(--primary-dark); /* OK - Alias */
+  color: var(--text-inverse); /* Modificado */
 }
 
-.register-btn.cliente {
-  background:  #388e3c; ;
+.register-btn.client { /* no JSX é .client */
+  background: var(--smartnutri-primary-500); /* Modificado */
   border: none;
-  color: #2e7d32;;
-  box-shadow: 0 2px 8px rgba(67, 160, 71, 0.10);
+  color: var(--smartnutri-primary-700); /* Modificado (para contraste no fundo claro) ou --text-inverse se fundo primário */
+  /* Se for para ter cor de texto primário no fundo claro: */
+  /* color: var(--primary); */ 
+  /* Se for para ter texto branco no fundo primário: */
+  color: var(--text-inverse); 
+  box-shadow: 0 2px 8px var(--smartnutri-primary-t10); /* Usar shadow com cor primária e transparência */
+  /* Ex: box-shadow: 0 2px 8px rgba(var(--smartnutri-primary-600-rgb), 0.1); */
   transition: background 0.3s, box-shadow 0.2s, color 0.2s, transform 0.2s;
 }
 
-.register-btn.cliente:hover {
-  background: #2e7d32;;
-  box-shadow: 0 4px 16px rgba(67, 160, 71, 0.18);
+.register-btn.client:hover {
+  background: var(--smartnutri-primary-600); /* Modificado */
+  box-shadow: 0 4px 16px var(--smartnutri-primary-t18);
+  /* Ex: box-shadow: 0 4px 16px rgba(var(--smartnutri-primary-600-rgb), 0.18); */
   transform: translateY(-2px) scale(1.03);
-  color:#2e7d32;;
+  color: var(--text-inverse); /* Modificado */
   border: none;
 }
 
-.register-btn.nutricionista {
-  background: linear-gradient(90deg, #2563eb 0%, #60a5fa 100%);
+.register-btn.nutritionist { /* no JSX é .nutritionist */
+  background: linear-gradient(90deg, var(--smartnutri-secondary-600) 0%, var(--smartnutri-secondary-400) 100%); /* Modificado */
   border: none;
-  color: white;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+  color: var(--text-inverse); /* Modificado */
+  box-shadow: 0 2px 8px var(--smartnutri-secondary-t10);
+  /* Ex: box-shadow: 0 2px 8px rgba(var(--smartnutri-secondary-600-rgb), 0.1); */
   transition: background 0.3s, box-shadow 0.2s, color 0.2s, transform 0.2s;
 }
 
-.register-btn.nutricionista:hover {
-  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+.register-btn.nutritionist:hover {
+  background: linear-gradient(90deg, var(--smartnutri-secondary-800) 0%, var(--smartnutri-secondary-600) 100%); /* Modificado */
+  box-shadow: 0 4px 16px var(--smartnutri-secondary-t18);
+  /* Ex: box-shadow: 0 4px 16px rgba(var(--smartnutri-secondary-600-rgb), 0.18); */
   transform: translateY(-2px) scale(1.03);
-  color: #fff;
+  color: var(--text-inverse); /* Modificado */
   border: none;
 }
 
-.login-footer {
-  margin-top: var(--space-xl);
+.login-footer { /* Não utilizado no JSX fornecido */
+  margin-top: var(--space-xl); /* Use var from shared.css */
   text-align: center;
-  font-size: var(--font-size-sm);
-  color: var(--neutral-500);
+  font-size: var(--font-size-sm); /* Use var from shared.css */
+  color: var(--smartnutri-neutral-500); /* OK - Padrão */
 }
 
-/* Estilos específicos para o formulário */
-.login-container .container {
+/* Estilos específicos para o formulário (redundante com o global, mas mantendo a estrutura do original) */
+.login-container .container { /* .container dentro de .login-container */
   width: 100%;
-  background: transparent;
+  background: transparent; /* OK */
   box-shadow: none;
   margin: 0;
   padding: 0;
   animation: none;
 }
 
-.login-container .header {
-  margin-bottom: var(--space-lg);
+.login-container .header { /* .header dentro de .login-container */
+  margin-bottom: var(--space-lg); /* Use var from shared.css */
 }
 
-.login-container .header h1 {
-  color: var(--neutral-800);
+.login-container .header h1 { /* h1 dentro de .header dentro de .login-container */
+  color: var(--smartnutri-neutral-800); /* OK - Padrão */
   font-weight: 700;
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-2xl); /* Use var from shared.css */
 }
 
 /* Animação simples para fade in */
