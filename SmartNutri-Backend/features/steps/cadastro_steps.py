@@ -1,8 +1,17 @@
+import os
+import django
+from django.conf import settings
+
+# Configurar Django antes de qualquer coisa
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Smartnutri.settings')
+django.setup()
+
 import logging
 from behave import given, when, then
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from user.models import CustomUser
 
 # Configurar logging
 logger = logging.getLogger(__name__)

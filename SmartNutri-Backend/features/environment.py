@@ -1,5 +1,13 @@
+import os
+import django
+from django.conf import settings
+
 def before_all(context):
     """Configuração que é executada antes de todos os testes"""
+    # Configurar Django
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Smartnutri.settings')
+    django.setup()
+    
     # Definir uma URL base padrão para testes de API
     context.base_url = "http://localhost:8000"
 

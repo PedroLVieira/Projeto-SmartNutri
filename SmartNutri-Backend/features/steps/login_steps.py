@@ -1,3 +1,11 @@
+import os
+import django
+from django.conf import settings
+
+# Configurar Django antes de importar models
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Smartnutri.settings')
+django.setup()
+
 from behave import given, then
 import requests
 import logging
