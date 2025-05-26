@@ -31,6 +31,10 @@ class PlanoAlimentarViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         
+        # Handle schema generation when user is AnonymousUser
+        if getattr(self, 'swagger_fake_view', False) or not user.is_authenticated:
+            return PlanoAlimentar.objects.none()
+        
         if user.tipo == 'nutricionista':
             return PlanoAlimentar.objects.filter(nutricionista=user)
         elif user.tipo == 'cliente':
@@ -170,6 +174,10 @@ class RefeicaoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
+        # Handle schema generation when user is AnonymousUser
+        if getattr(self, 'swagger_fake_view', False) or not self.request.user.is_authenticated:
+            return Refeicao.objects.none()
+            
         return Refeicao.objects.filter(
             plano_alimentar__in=PlanoAlimentar.objects.filter(
                 nutricionista=self.request.user

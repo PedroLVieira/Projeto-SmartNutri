@@ -1,0 +1,69 @@
+# =============================================
+# DEPENDÊNCIAS ESSENCIAIS - SmartNutri Backend
+# =============================================
+
+# Core Django Framework
+Django==5.0.6
+
+# Django REST Framework for API
+djangorestframework==3.15.1
+
+# JWT Authentication
+djangorestframework-simplejwt==5.3.1
+
+# CORS handling for frontend integration
+django-cors-headers==4.3.1
+
+# API filtering capabilities
+django-filter==24.3
+
+# DATABASE CONNECTORS (escolha um)
+# MySQL (recomendado - mais rápido)
+mysqlclient==2.2.4
+
+# MySQL alternativo (comentado - descomente se preferir)
+# mysql-connector-python==8.2.0
+
+# PostgreSQL (comentado - descomente se necessário)
+# psycopg2-binary==2.9.9
+
+# API DOCUMENTATION
+# Swagger/OpenAPI documentation
+drf-yasg==1.21.10
+
+# UTILITIES
+# Environment variables management
+python-dotenv==1.0.1
+
+# Image handling (para uploads de imagens)
+Pillow==10.4.0
+
+# Timezone support
+pytz==2025.2
+
+# Additional timezone data (Windows)
+tzdata==2025.2
+
+# TESTING FRAMEWORK
+# BDD Testing with Behave
+behave-django==1.5.0
+
+# HTML parsing for tests
+beautifulsoup4==4.13.4
+
+# REQUIRED DEPENDENCIES (necessárias para as principais)
+# YAML support (usado por DRF e Swagger)
+PyYAML==6.0.2
+
+# Inflection for API naming conventions
+inflection==0.5.1
+
+# URI template handling for API schemas
+uritemplate==4.1.1
+
+# Packaging utilities
+packaging==25.0
+
+# Parse library for BDD tests
+parse==1.20.2
+parse_type==0.6.4
