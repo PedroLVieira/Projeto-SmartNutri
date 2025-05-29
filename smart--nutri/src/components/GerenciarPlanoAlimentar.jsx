@@ -116,12 +116,13 @@ export function GerenciarPlanoAlimentar() {
         });
     }
   }, [clienteSelecionado]);
-
   // Função para carregar refeições
   const carregarRefeicoes = useCallback(() => {
     if (planoSelecionado && diaSelecionado) {
       setCarregando(true);
-      resetMensagens();      axios.get(`http://localhost:8000/api/planoalimentar/planos/${planoSelecionado}/por_dia_semana/`, getHeaders())
+      resetMensagens();
+      
+      axios.get(`http://localhost:8000/api/planoalimentar/planos/${planoSelecionado}/por_dia_semana/`, getHeaders())
         .then(response => {
           const diaAtual = diasDaSemana.find(d => d.id === diaSelecionado)?.nome;
           if (diaAtual && response.data[diaAtual]) {
@@ -238,14 +239,9 @@ export function GerenciarPlanoAlimentar() {
       substituicoes: novaRefeicao.substituicoes || ""
     };
     
-    console.log("Enviando dados para criação de refeição:", refeicaoData);
-
-    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/criar_com_item/", refeicaoData, getHeaders())
+    console.log("Enviando dados para criação de refeição:", refeicaoData);    axios.post("http://localhost:8000/api/planoalimentar/refeicoes/criar_com_item/", refeicaoData, getHeaders())
       .then(response => {
         console.log("Resposta da criação de refeição:", response.data);
-        
-        // Atualizar a lista de refeições
-        setRefeicoes([...refeicoes, response.data]);
         
         // Resetar o formulário
         setNovaRefeicao({
@@ -255,7 +251,9 @@ export function GerenciarPlanoAlimentar() {
         });
         
         mostrarMensagemSucesso("Refeição adicionada com sucesso!");
-        setCarregando(false);
+        
+        // Recarregar as refeições do servidor para atualizar a lista
+        carregarRefeicoes();
       })
       .catch(error => {
         console.error("Erro ao adicionar refeição:", error);

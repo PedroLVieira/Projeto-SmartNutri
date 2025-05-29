@@ -83,16 +83,23 @@ WSGI_APPLICATION = 'Smartnutri.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'smartnutri',
+        'USER': 'root',
+        'PASSWORD': 'pedro12510',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -112,10 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "http://localhost:5173",  # Porta padrão do Vite
+    "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "http://localhost:5174",  # Porta alternativa do Vite quando 5173 está ocupada
-    "http://127.0.0.1:5174",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
